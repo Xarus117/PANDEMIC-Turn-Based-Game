@@ -32,7 +32,7 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 	
 
 	PanelPrincipal() {
-		int partidas = 0;
+		int partidas = 1;
 		setLayout(null);
 		Image im = Toolkit.getDefaultToolkit().createImage("imagenes//cursorDefecto.png");
 		Image im2 = Toolkit.getDefaultToolkit().createImage("imagenes//cursorHover.png");
@@ -56,7 +56,7 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 
 				public void mouseExited(MouseEvent e) {
 					boton1.setBackground(Color.green);
-			        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+			        setCursor(cur);
 			        
 				}
 			});
@@ -68,10 +68,12 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			boton2.addMouseListener(new MouseAdapter() {
 				public void mouseEntered(MouseEvent e) {
 					boton2.setBackground(Color.GRAY);
+			        setCursor(cur2);
 				}
 
 				public void mouseExited(MouseEvent e) {
 					boton2.setBackground(Color.green);
+			        setCursor(cur);
 				}
 			});
 			boton3 = new JButton("Cargar Partida");
@@ -82,10 +84,12 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			boton3.addMouseListener(new MouseAdapter() {
 				public void mouseEntered(MouseEvent e) {
 					boton3.setBackground(Color.GRAY);
+			        setCursor(cur2);
 				}
 
 				public void mouseExited(MouseEvent e) {
 					boton3.setBackground(Color.green);
+			        setCursor(cur);
 				}
 			});
 			boton4 = new JButton("Información");
@@ -96,10 +100,12 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			boton4.addMouseListener(new MouseAdapter() {
 				public void mouseEntered(MouseEvent e) {
 					boton4.setBackground(Color.GRAY);
+			        setCursor(cur2);
 				}
 
 				public void mouseExited(MouseEvent e) {
 					boton4.setBackground(Color.green);
+			        setCursor(cur);
 				}
 			});
 			boton5 = new JButton("Ranking");
@@ -110,10 +116,12 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			boton5.addMouseListener(new MouseAdapter() {
 				public void mouseEntered(MouseEvent e) {
 					boton5.setBackground(Color.GRAY);
+			        setCursor(cur2);
 				}
 
 				public void mouseExited(MouseEvent e) {
 					boton5.setBackground(Color.green);
+			        setCursor(cur);
 				}
 			});
 			boton6 = new JButton("Autores");
@@ -124,10 +132,12 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			boton6.addMouseListener(new MouseAdapter() {
 				public void mouseEntered(MouseEvent e) {
 					boton6.setBackground(Color.GRAY);
+			        setCursor(cur2);
 				}
 
 				public void mouseExited(MouseEvent e) {
 					boton6.setBackground(Color.green);
+			        setCursor(cur);
 				}
 			});
 			boton7 = new JButton("Versión");
@@ -138,10 +148,12 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			boton7.addMouseListener(new MouseAdapter() {
 				public void mouseEntered(MouseEvent e) {
 					boton7.setBackground(Color.GRAY);
+			        setCursor(cur2);
 				}
 
 				public void mouseExited(MouseEvent e) {
 					boton7.setBackground(Color.green);
+			        setCursor(cur);
 				}
 			});
 			boton8 = new JButton("Salir");
@@ -152,10 +164,12 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			boton8.addMouseListener(new MouseAdapter() {
 				public void mouseEntered(MouseEvent e) {
 					boton8.setBackground(Color.GRAY);
+			        setCursor(cur2);
 				}
 
 				public void mouseExited(MouseEvent e) {
 					boton8.setBackground(Color.green);
+			        setCursor(cur);
 				}
 			});
 
@@ -177,10 +191,12 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			boton1.addMouseListener(new MouseAdapter() {
 				public void mouseEntered(MouseEvent e) {
 					boton1.setBackground(Color.GRAY);
+			        setCursor(cur2);
 				}
 
 				public void mouseExited(MouseEvent e) {
 					boton1.setBackground(Color.green);
+			        setCursor(cur);
 				}
 			});
 			boton3 = new JButton("Cargar Partida");
@@ -191,10 +207,12 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			boton3.addMouseListener(new MouseAdapter() {
 				public void mouseEntered(MouseEvent e) {
 					boton3.setBackground(Color.GRAY);
+			        setCursor(cur2);
 				}
 
 				public void mouseExited(MouseEvent e) {
 					boton3.setBackground(Color.green);
+			        setCursor(cur);
 				}
 			});
 			boton4 = new JButton("Información");
@@ -205,10 +223,12 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			boton4.addMouseListener(new MouseAdapter() {
 				public void mouseEntered(MouseEvent e) {
 					boton4.setBackground(Color.GRAY);
+			        setCursor(cur2);
 				}
 
 				public void mouseExited(MouseEvent e) {
 					boton4.setBackground(Color.green);
+			        setCursor(cur);
 				}
 			});
 			boton5 = new JButton("Ranking");
@@ -219,10 +239,12 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			boton5.addMouseListener(new MouseAdapter() {
 				public void mouseEntered(MouseEvent e) {
 					boton5.setBackground(Color.GRAY);
+			        setCursor(cur2);
 				}
 
 				public void mouseExited(MouseEvent e) {
 					boton5.setBackground(Color.green);
+			        setCursor(cur);
 				}
 			});
 			boton6 = new JButton("Autores");
@@ -233,10 +255,12 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			boton6.addMouseListener(new MouseAdapter() {
 				public void mouseEntered(MouseEvent e) {
 					boton6.setBackground(Color.GRAY);
+			        setCursor(cur2);
 				}
 
 				public void mouseExited(MouseEvent e) {
 					boton6.setBackground(Color.green);
+			        setCursor(cur);
 				}
 			});
 			boton7 = new JButton("Versión");
@@ -247,10 +271,12 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			boton7.addMouseListener(new MouseAdapter() {
 				public void mouseEntered(MouseEvent e) {
 					boton7.setBackground(Color.GRAY);
+			        setCursor(cur2);
 				}
 
 				public void mouseExited(MouseEvent e) {
 					boton7.setBackground(Color.green);
+			        setCursor(cur);
 				}
 			});
 			boton8 = new JButton("Salir");
@@ -261,10 +287,12 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			boton8.addMouseListener(new MouseAdapter() {
 				public void mouseEntered(MouseEvent e) {
 					boton8.setBackground(Color.GRAY);
+			        setCursor(cur2);
 				}
 
 				public void mouseExited(MouseEvent e) {
 					boton8.setBackground(Color.green);
+			        setCursor(cur);
 				}
 			});
 

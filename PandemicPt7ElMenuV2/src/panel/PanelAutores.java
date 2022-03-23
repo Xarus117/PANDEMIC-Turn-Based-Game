@@ -1,9 +1,11 @@
 package panel;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,6 +26,11 @@ public class PanelAutores extends JPanel implements ActionListener {
 
 	PanelAutores() {
 		setLayout(null);
+		Image im = Toolkit.getDefaultToolkit().createImage("imagenes//cursorDefecto.png");
+		Image im2 = Toolkit.getDefaultToolkit().createImage("imagenes//cursorHover.png");
+		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10,10),"WILL");
+		Cursor cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10,10),"WILL");
+		setCursor(cur);
 
 		volver = new JButton("Volver");
 		volver.setSize(200, 50);
@@ -34,10 +41,12 @@ public class PanelAutores extends JPanel implements ActionListener {
 		volver.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
 				volver.setBackground(Color.GRAY);
+				setCursor(cur2);
 			}
 
 			public void mouseExited(MouseEvent e) {
 				volver.setBackground(Color.green);
+				setCursor(cur);
 			}
 		});
 		volver.addActionListener(this);

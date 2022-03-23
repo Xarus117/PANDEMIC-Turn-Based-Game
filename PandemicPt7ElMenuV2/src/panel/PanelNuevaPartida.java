@@ -1,9 +1,12 @@
 package panel;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -26,11 +29,17 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	Image vacunaAmarilla;
 	Image vacunaRoja;
 	Image vacunaVerde;
+	Image vacunaGris;
 
 	PanelNuevaPartida() {
 		setLayout(null);
+		Image im = Toolkit.getDefaultToolkit().createImage("imagenes//cursorDefecto.png");
+		Image im2 = Toolkit.getDefaultToolkit().createImage("imagenes//cursorHover.png");
+		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10, 10), "WILL");
+		Cursor cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10, 10), "WILL");
+		setCursor(cur);
 
-		boton1 = new JButton("Buscar cura");
+		boton1 = new JButton("Buscar vacuna");
 		boton1.setSize(200, 50);
 		boton1.setLocation(400, 740);
 		boton1.setFont(new Font("Calibri", Font.BOLD, 20));
@@ -39,10 +48,12 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		boton1.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
 				boton1.setBackground(Color.GRAY);
+				setCursor(cur2);
 			}
 
 			public void mouseExited(MouseEvent e) {
 				boton1.setBackground(Color.green);
+				setCursor(cur);
 			}
 		});
 		boton2 = new JButton("Curar ciudad");
@@ -54,10 +65,12 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		boton2.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
 				boton2.setBackground(Color.GRAY);
+				setCursor(cur2);
 			}
 
 			public void mouseExited(MouseEvent e) {
 				boton2.setBackground(Color.green);
+				setCursor(cur);
 			}
 		});
 		boton3 = new JButton("Aplicar Vacuna");
@@ -69,10 +82,12 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		boton3.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
 				boton3.setBackground(Color.GRAY);
+				setCursor(cur2);
 			}
 
 			public void mouseExited(MouseEvent e) {
 				boton3.setBackground(Color.green);
+				setCursor(cur);
 			}
 		});
 
@@ -89,6 +104,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			vacunaAmarilla = ImageIO.read(new File("Imagenes//vacunaAmarilla.png"));
 			vacunaRoja = ImageIO.read(new File("Imagenes//vacunaRoja.png"));
 			vacunaVerde = ImageIO.read(new File("Imagenes//vacunaVerde.png"));
+			vacunaGris = ImageIO.read(new File("Imagenes//vacunaGris.png"));
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -99,11 +115,11 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
-		g.drawImage(image, 0, 0, this);
-		g.drawImage(vacunaVerde, 930, 750, this);
-		g.drawImage(vacunaRoja, 1000, 750, this);
 		g.drawImage(vacunaAzul, 1070, 750, this);
 		g.drawImage(vacunaAmarilla, 1140, 750, this);
+		g.drawImage(vacunaVerde, 930, 750, this);
+		g.drawImage(vacunaRoja, 1000, 750, this);
+		g.drawImage(image, 0, 0, this);
 	}
 
 	@Override
