@@ -104,7 +104,6 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			vacunaAmarilla = ImageIO.read(new File("Imagenes//vacunaAmarilla.png"));
 			vacunaRoja = ImageIO.read(new File("Imagenes//vacunaRoja.png"));
 			vacunaVerde = ImageIO.read(new File("Imagenes//vacunaVerde.png"));
-			vacunaGris = ImageIO.read(new File("Imagenes//vacunaGris.png"));
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -115,11 +114,11 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
+		g.drawImage(image, 0, 0, this);
 		g.drawImage(vacunaAzul, 1070, 750, this);
 		g.drawImage(vacunaAmarilla, 1140, 750, this);
 		g.drawImage(vacunaVerde, 930, 750, this);
 		g.drawImage(vacunaRoja, 1000, 750, this);
-		g.drawImage(image, 0, 0, this);
 	}
 
 	@Override

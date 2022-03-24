@@ -26,18 +26,14 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 	JButton boton7;
 	JButton boton8;
 	JButton discord;
-	JButton volumen;
 	ImageIcon buttonIcon;
 	Image image;
 	Image Logo;
 	Image discordI;
-	Image volumenI;
-	int reproduciendo = 0;
 
 	PanelPrincipal() {
 		int partidas = 1;
 		setLayout(null);
-		crearPista();
 		Image im = Toolkit.getDefaultToolkit().createImage("imagenes//cursorDefecto.png");
 		Image im2 = Toolkit.getDefaultToolkit().createImage("imagenes//cursorHover.png");
 		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10, 10), "WILL");
@@ -333,7 +329,6 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 
 		try {
 			discordI = ImageIO.read(new File("Imagenes//DiscordLogo.png"));
-			volumenI = ImageIO.read(new File("Imagenes//volumen.png"));
 			image = ImageIO.read(new File("Imagenes//Fondo.jpg"));
 			Logo = ImageIO.read(new File("Imagenes//LOGO.png"));
 		} catch (IOException e) {
@@ -341,7 +336,6 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 		}
 
 		discord = new JButton();
-		volumen = new JButton();
 
 		discord.setIcon(new ImageIcon(discordI));
 		discord.setSize(100, 100);
@@ -352,17 +346,7 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 
 		discord.addActionListener(this);
 
-		volumen.setIcon(new ImageIcon(volumenI));
-		volumen.setSize(100, 100);
-		volumen.setLocation(30, 770);
-		volumen.setFont(new Font("Arial", Font.BOLD, 20));
-		volumen.setContentAreaFilled(false);
-		volumen.setBorder(null);
-
-		volumen.addActionListener(this);
-
 		add(discord);
-		add(volumen);
 
 		// ----
 	}
@@ -412,39 +396,10 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 				e1.printStackTrace();
 			}
 
-		}  else if (e.getSource() == volumen) {
-			if (contadorVolumen % 2 == 0) {
-				try {
-					volumenI = ImageIO.read(new File("Imagenes//volumenNo.png"));
-					volumen.setIcon(new ImageIcon(volumenI));
-					add(volumen);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-			} else {
-				try {
-					volumenI = ImageIO.read(new File("Imagenes//volumen.png"));
-					volumen.setIcon(new ImageIcon(volumenI));
-					add(volumen);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-			}
-			contadorVolumen++;
 		} else {
 			System.exit(0); // Cuando se pulse salir, se cerrará el juego
 		}
 	}
-	private void crearPista() {
-		try {
-			AudioInputStream audioInputStream = AudioSystem
-					.getAudioInputStream(new File("Audios\\musica.wav").getAbsoluteFile());
-			Clip clip = AudioSystem.getClip();
-			clip.open(audioInputStream);
-			clip.start();
-		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
-			System.out.println("Error al reproducir el sonido.");
-		}
-	}
+	
 
 }
