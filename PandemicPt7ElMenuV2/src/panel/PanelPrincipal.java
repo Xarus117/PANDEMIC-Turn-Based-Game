@@ -16,6 +16,7 @@ import javax.swing.border.LineBorder;
 
 public class PanelPrincipal extends JPanel implements ActionListener {
 
+	int contadorVolumen = 0;
 	JButton boton1;
 	JButton boton2;
 	JButton boton3;
@@ -25,21 +26,23 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 	JButton boton7;
 	JButton boton8;
 	JButton discord;
+	JButton volumen;
 	ImageIcon buttonIcon;
 	Image image;
 	Image Logo;
 	Image discordI;
-	
+	Image volumenI;
+	int reproduciendo = 0;
 
 	PanelPrincipal() {
 		int partidas = 1;
 		setLayout(null);
+		crearPista();
 		Image im = Toolkit.getDefaultToolkit().createImage("imagenes//cursorDefecto.png");
 		Image im2 = Toolkit.getDefaultToolkit().createImage("imagenes//cursorHover.png");
-		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10,10),"WILL");
-		Cursor cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10,10),"WILL");
+		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10, 10), "WILL");
+		Cursor cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10, 10), "WILL");
 		setCursor(cur);
-
 
 		if (partidas > 0) {
 			boton1 = new JButton("Nueva Partida");
@@ -50,14 +53,14 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			boton1.addMouseListener(new MouseAdapter() {
 				public void mouseEntered(MouseEvent e) {
 					boton1.setBackground(Color.GRAY);
-			        setCursor(cur2);
-			        
+					setCursor(cur2);
+
 				}
 
 				public void mouseExited(MouseEvent e) {
 					boton1.setBackground(Color.green);
-			        setCursor(cur);
-			        
+					setCursor(cur);
+
 				}
 			});
 			boton2 = new JButton("Nueva Partida +");
@@ -68,12 +71,12 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			boton2.addMouseListener(new MouseAdapter() {
 				public void mouseEntered(MouseEvent e) {
 					boton2.setBackground(Color.GRAY);
-			        setCursor(cur2);
+					setCursor(cur2);
 				}
 
 				public void mouseExited(MouseEvent e) {
 					boton2.setBackground(Color.green);
-			        setCursor(cur);
+					setCursor(cur);
 				}
 			});
 			boton3 = new JButton("Cargar Partida");
@@ -84,12 +87,12 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			boton3.addMouseListener(new MouseAdapter() {
 				public void mouseEntered(MouseEvent e) {
 					boton3.setBackground(Color.GRAY);
-			        setCursor(cur2);
+					setCursor(cur2);
 				}
 
 				public void mouseExited(MouseEvent e) {
 					boton3.setBackground(Color.green);
-			        setCursor(cur);
+					setCursor(cur);
 				}
 			});
 			boton4 = new JButton("Información");
@@ -100,12 +103,12 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			boton4.addMouseListener(new MouseAdapter() {
 				public void mouseEntered(MouseEvent e) {
 					boton4.setBackground(Color.GRAY);
-			        setCursor(cur2);
+					setCursor(cur2);
 				}
 
 				public void mouseExited(MouseEvent e) {
 					boton4.setBackground(Color.green);
-			        setCursor(cur);
+					setCursor(cur);
 				}
 			});
 			boton5 = new JButton("Ranking");
@@ -116,12 +119,12 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			boton5.addMouseListener(new MouseAdapter() {
 				public void mouseEntered(MouseEvent e) {
 					boton5.setBackground(Color.GRAY);
-			        setCursor(cur2);
+					setCursor(cur2);
 				}
 
 				public void mouseExited(MouseEvent e) {
 					boton5.setBackground(Color.green);
-			        setCursor(cur);
+					setCursor(cur);
 				}
 			});
 			boton6 = new JButton("Autores");
@@ -132,12 +135,12 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			boton6.addMouseListener(new MouseAdapter() {
 				public void mouseEntered(MouseEvent e) {
 					boton6.setBackground(Color.GRAY);
-			        setCursor(cur2);
+					setCursor(cur2);
 				}
 
 				public void mouseExited(MouseEvent e) {
 					boton6.setBackground(Color.green);
-			        setCursor(cur);
+					setCursor(cur);
 				}
 			});
 			boton7 = new JButton("Versión");
@@ -148,12 +151,12 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			boton7.addMouseListener(new MouseAdapter() {
 				public void mouseEntered(MouseEvent e) {
 					boton7.setBackground(Color.GRAY);
-			        setCursor(cur2);
+					setCursor(cur2);
 				}
 
 				public void mouseExited(MouseEvent e) {
 					boton7.setBackground(Color.green);
-			        setCursor(cur);
+					setCursor(cur);
 				}
 			});
 			boton8 = new JButton("Salir");
@@ -164,12 +167,12 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			boton8.addMouseListener(new MouseAdapter() {
 				public void mouseEntered(MouseEvent e) {
 					boton8.setBackground(Color.GRAY);
-			        setCursor(cur2);
+					setCursor(cur2);
 				}
 
 				public void mouseExited(MouseEvent e) {
 					boton8.setBackground(Color.green);
-			        setCursor(cur);
+					setCursor(cur);
 				}
 			});
 
@@ -189,14 +192,15 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			boton1.setFont(new Font("Arial", Font.BOLD, 18));
 			boton1.setBackground(Color.green);
 			boton1.addMouseListener(new MouseAdapter() {
+
 				public void mouseEntered(MouseEvent e) {
 					boton1.setBackground(Color.GRAY);
-			        setCursor(cur2);
+					setCursor(cur2);
 				}
 
 				public void mouseExited(MouseEvent e) {
 					boton1.setBackground(Color.green);
-			        setCursor(cur);
+					setCursor(cur);
 				}
 			});
 			boton3 = new JButton("Cargar Partida");
@@ -207,12 +211,12 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			boton3.addMouseListener(new MouseAdapter() {
 				public void mouseEntered(MouseEvent e) {
 					boton3.setBackground(Color.GRAY);
-			        setCursor(cur2);
+					setCursor(cur2);
 				}
 
 				public void mouseExited(MouseEvent e) {
 					boton3.setBackground(Color.green);
-			        setCursor(cur);
+					setCursor(cur);
 				}
 			});
 			boton4 = new JButton("Información");
@@ -223,12 +227,12 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			boton4.addMouseListener(new MouseAdapter() {
 				public void mouseEntered(MouseEvent e) {
 					boton4.setBackground(Color.GRAY);
-			        setCursor(cur2);
+					setCursor(cur2);
 				}
 
 				public void mouseExited(MouseEvent e) {
 					boton4.setBackground(Color.green);
-			        setCursor(cur);
+					setCursor(cur);
 				}
 			});
 			boton5 = new JButton("Ranking");
@@ -239,12 +243,12 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			boton5.addMouseListener(new MouseAdapter() {
 				public void mouseEntered(MouseEvent e) {
 					boton5.setBackground(Color.GRAY);
-			        setCursor(cur2);
+					setCursor(cur2);
 				}
 
 				public void mouseExited(MouseEvent e) {
 					boton5.setBackground(Color.green);
-			        setCursor(cur);
+					setCursor(cur);
 				}
 			});
 			boton6 = new JButton("Autores");
@@ -255,12 +259,12 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			boton6.addMouseListener(new MouseAdapter() {
 				public void mouseEntered(MouseEvent e) {
 					boton6.setBackground(Color.GRAY);
-			        setCursor(cur2);
+					setCursor(cur2);
 				}
 
 				public void mouseExited(MouseEvent e) {
 					boton6.setBackground(Color.green);
-			        setCursor(cur);
+					setCursor(cur);
 				}
 			});
 			boton7 = new JButton("Versión");
@@ -271,12 +275,12 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			boton7.addMouseListener(new MouseAdapter() {
 				public void mouseEntered(MouseEvent e) {
 					boton7.setBackground(Color.GRAY);
-			        setCursor(cur2);
+					setCursor(cur2);
 				}
 
 				public void mouseExited(MouseEvent e) {
 					boton7.setBackground(Color.green);
-			        setCursor(cur);
+					setCursor(cur);
 				}
 			});
 			boton8 = new JButton("Salir");
@@ -287,12 +291,12 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			boton8.addMouseListener(new MouseAdapter() {
 				public void mouseEntered(MouseEvent e) {
 					boton8.setBackground(Color.GRAY);
-			        setCursor(cur2);
+					setCursor(cur2);
 				}
 
 				public void mouseExited(MouseEvent e) {
 					boton8.setBackground(Color.green);
-			        setCursor(cur);
+					setCursor(cur);
 				}
 			});
 
@@ -327,13 +331,17 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 
 		// DISCORD
 
-		discord = new JButton();
-
 		try {
 			discordI = ImageIO.read(new File("Imagenes//DiscordLogo.png"));
-		} catch (IOException e1) {
-			e1.printStackTrace();
+			volumenI = ImageIO.read(new File("Imagenes//volumen.png"));
+			image = ImageIO.read(new File("Imagenes//Fondo.jpg"));
+			Logo = ImageIO.read(new File("Imagenes//LOGO.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+
+		discord = new JButton();
+		volumen = new JButton();
 
 		discord.setIcon(new ImageIcon(discordI));
 		discord.setSize(100, 100);
@@ -344,14 +352,17 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 
 		discord.addActionListener(this);
 
-		add(discord);
+		volumen.setIcon(new ImageIcon(volumenI));
+		volumen.setSize(100, 100);
+		volumen.setLocation(30, 770);
+		volumen.setFont(new Font("Arial", Font.BOLD, 20));
+		volumen.setContentAreaFilled(false);
+		volumen.setBorder(null);
 
-		try {
-			image = ImageIO.read(new File("Imagenes//Fondo.jpg"));
-			Logo = ImageIO.read(new File("Imagenes//LOGO.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		volumen.addActionListener(this);
+
+		add(discord);
+		add(volumen);
 
 		// ----
 	}
@@ -401,8 +412,38 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 				e1.printStackTrace();
 			}
 
+		}  else if (e.getSource() == volumen) {
+			if (contadorVolumen % 2 == 0) {
+				try {
+					volumenI = ImageIO.read(new File("Imagenes//volumenNo.png"));
+					volumen.setIcon(new ImageIcon(volumenI));
+					add(volumen);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			} else {
+				try {
+					volumenI = ImageIO.read(new File("Imagenes//volumen.png"));
+					volumen.setIcon(new ImageIcon(volumenI));
+					add(volumen);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+			contadorVolumen++;
 		} else {
 			System.exit(0); // Cuando se pulse salir, se cerrará el juego
+		}
+	}
+	private void crearPista() {
+		try {
+			AudioInputStream audioInputStream = AudioSystem
+					.getAudioInputStream(new File("Audios\\musica.wav").getAbsoluteFile());
+			Clip clip = AudioSystem.getClip();
+			clip.open(audioInputStream);
+			clip.start();
+		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+			System.out.println("Error al reproducir el sonido.");
 		}
 	}
 

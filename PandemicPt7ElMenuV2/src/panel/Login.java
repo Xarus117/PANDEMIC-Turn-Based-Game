@@ -42,6 +42,7 @@ public class Login extends JPanel implements ActionListener {
 		enviar.setBounds(200, 70, 100, 30);
 		enviar.setLocation(600, 650);
 		enviar.setFont(new Font("Comforta", Font.BOLD, 18));
+		enviar.setBackground(Color.WHITE);
 		enviar.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
 				enviar.setBackground(Color.GRAY);
@@ -49,6 +50,7 @@ public class Login extends JPanel implements ActionListener {
 			}
 
 			public void mouseExited(MouseEvent e) {
+				enviar.setBackground(Color.WHITE);
 				setCursor(cur);
 			}
 		});
