@@ -24,12 +24,21 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	JButton boton1;
 	JButton boton2;
 	JButton boton3;
+
+	JButton vacunaAzul;
+	JButton vacunaAmarilla;
+	JButton vacunaRoja;
+	JButton vacunaVerde;
+	JButton vacunaGris;
+
+	// BOOLEAN PARA ACTIVAR O DESACTIVAR LAS VACUNAS
+	boolean azulb = false;
+	boolean amarillab = false;
+	boolean rojab = false;
+	boolean verdeb = false;
+	boolean grisb = false;
+
 	Image image;
-	Image vacunaAzul;
-	Image vacunaAmarilla;
-	Image vacunaRoja;
-	Image vacunaVerde;
-	Image vacunaGris;
 
 	PanelNuevaPartida() {
 		setLayout(null);
@@ -100,32 +109,149 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 
 		try {
 			image = ImageIO.read(new File("Imagenes//Mapa.jpg"));
-			vacunaAzul = ImageIO.read(new File("Imagenes//vacunaAzul.png"));
-			vacunaAmarilla = ImageIO.read(new File("Imagenes//vacunaAmarilla.png"));
-			vacunaRoja = ImageIO.read(new File("Imagenes//vacunaRoja.png"));
-			vacunaVerde = ImageIO.read(new File("Imagenes//vacunaVerde.png"));
-
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException e1) {
+			System.out.println("Ha ocurrido un error al mostrar el mapa");
 		}
 
+		// LAS PUTAS VACUNAS
+		
+		vacunaVerde = new JButton();
+		vacunaAzul = new JButton();
+		vacunaAmarilla = new JButton();
+		vacunaRoja = new JButton();
+
+		vacunaAzul.setIcon(null);
+		vacunaRoja.setIcon(null);
+		vacunaAmarilla.setIcon(null);
+		vacunaRoja.setIcon(null);
+
+		try {
+
+			if (azulb) {
+
+				vacunaAzul.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaAzul.png"))));
+			} else {
+				vacunaAzul.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaGris.png"))));
+			}
+			vacunaAzul.setSize(100, 100);
+			vacunaAzul.setLocation(1070, 750);
+			vacunaAzul.setContentAreaFilled(false);
+			vacunaAzul.setBorder(null);
+
+			if (amarillab) {
+				vacunaAmarilla.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaAmarilla.png"))));
+			} else {
+				vacunaAmarilla.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaGris.png"))));
+			}
+			vacunaAmarilla.setSize(100, 100);
+			vacunaAmarilla.setLocation(1140, 750);
+			vacunaAmarilla.setContentAreaFilled(false);
+			vacunaAmarilla.setBorder(null);
+
+			if (rojab) {
+				vacunaRoja.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaRoja.png"))));
+			} else {
+				vacunaRoja.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaGris.png"))));
+			}
+			vacunaRoja.setSize(100, 100);
+			vacunaRoja.setLocation(1000, 750);
+			vacunaRoja.setContentAreaFilled(false);
+			vacunaRoja.setBorder(null);
+
+			if (verdeb) {
+				vacunaVerde.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaVerde.png"))));
+			} else {
+				vacunaVerde.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaGris.png"))));
+			}
+			vacunaVerde.setSize(100, 100);
+			vacunaVerde.setLocation(930, 750);
+			vacunaVerde.setContentAreaFilled(false);
+			vacunaVerde.setBorder(null);
+
+		} catch (Exception e) {
+			System.out.println("Ha ocurrido un error al mostrar las vacunas");
+		}
+
+		vacunaAzul.addActionListener(this);
+		vacunaAmarilla.addActionListener(this);
+		vacunaRoja.addActionListener(this);
+		vacunaVerde.addActionListener(this);
+
+		add(vacunaAzul);
+		add(vacunaAmarilla);
+		add(vacunaRoja);
+		add(vacunaVerde);
 	}
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
 		g.drawImage(image, 0, 0, this);
-		g.drawImage(vacunaAzul, 1070, 750, this);
-		g.drawImage(vacunaAmarilla, 1140, 750, this);
-		g.drawImage(vacunaVerde, 930, 750, this);
-		g.drawImage(vacunaRoja, 1000, 750, this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		if (e.getSource() == boton1) {
+		if (e.getSource() == boton1) { 
+		System.out.println("Toni maricon");
 		} else if (e.getSource() == boton2) {
+		
+			// PRUEBAS CAMBIO DE COLOR | VACUNAS
+		
+		} else if (e.getSource() == vacunaAzul) {
+			azulb = true;
+			try {
+				if (azulb) {
+
+					vacunaAzul.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaAzul.png"))));
+				} else {
+					vacunaAzul.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaGris.png"))));
+				}
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+
+			add(vacunaAzul);
+
+		} else if (e.getSource() == vacunaAmarilla) {
+			amarillab = true;
+			try {
+				if (amarillab) {
+					vacunaAmarilla.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaAmarilla.png"))));
+				} else {
+					vacunaAmarilla.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaGris.png"))));
+				}
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			add(vacunaAmarilla);
+
+		} else if (e.getSource() == vacunaRoja) {
+			rojab = true;
+			try {
+				if (rojab) {
+					vacunaRoja.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaRoja.png"))));
+				} else {
+					vacunaRoja.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaGris.png"))));
+				}
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			add(vacunaRoja);
+
+		} else if (e.getSource() == vacunaVerde) {
+			verdeb = true;
+			try {
+				if (verdeb) {
+
+					vacunaVerde.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaVerde.png"))));
+				} else {
+					vacunaVerde.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaGris.png"))));
+				}
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			add(vacunaVerde);
 
 		} else {
 			System.exit(0); // Cuando se pulse salir, se cerrará el juego
