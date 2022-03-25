@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <parametros>
-    <numCiudadesInfectadasInicio>Hola</numCiudadesInfectadasInicio>
-    <numCuidadesInfectadasRonda>esta</numCuidadesInfectadasRonda>
-    <numEnfermedadesActivasDerrota>es</numEnfermedadesActivasDerrota>
-    <numBrotesDerrota>laprueba</numBrotesDerrota>
+    <numCiudadesInfectadasInicio>5</numCiudadesInfectadasInicio>
+    <numCuidadesInfectadasRonda>3</numCuidadesInfectadasRonda>
+    <numEnfermedadesActivasDerrota>30</numEnfermedadesActivasDerrota>
+    <numBrotesDerrota>7</numBrotesDerrota>
 </parametros>

@@ -85,7 +85,7 @@ public class Login extends JPanel implements ActionListener {
 		if (e.getSource() == enviar) {
 			JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
 			marco.remove(this);
-			marco.add(new PanelNuevaPartida());
+			marco.add(new PanelEscogerDificultad());
 			marco.setVisible(true);
 		}
 	}

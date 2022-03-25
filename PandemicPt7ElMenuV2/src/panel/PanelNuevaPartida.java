@@ -1,25 +1,20 @@
 package panel;
 
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
+import java.util.*;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
+import javax.xml.parsers.*;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.*;
+import org.xml.sax.SAXException;
 
 public class PanelNuevaPartida extends JPanel implements ActionListener {
 
@@ -136,6 +131,9 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		guardar.setLocation(30, 670);
 		guardar.setBackground(Color.red);
 		guardar.setBorder(null);
+		guardar.setBorderPainted(false);
+		guardar.setContentAreaFilled(false);
+		guardar.setBorderPainted(false);
 
 		try {
 			guardar.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//guardar.png"))));
@@ -151,10 +149,13 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		salir = new JButton();
 
 		salir.setIcon(null);
-		salir.setSize(130, 40);
-		salir.setLocation(1130, 10);
+		salir.setSize(150, 50);
+		salir.setLocation(1120, 10);
 		salir.setBackground(Color.green);
 		salir.setBorder(null);
+		salir.setBorderPainted(false);
+		salir.setContentAreaFilled(false);
+		salir.setBorderPainted(false);
 
 		try {
 			salir.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//salir.png"))));
@@ -196,22 +197,22 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	}
 
 	public void vacunas() { // LAS PUTAS VACUNAS
-		vacunaAzul.setSize(100, 100);
+		vacunaAzul.setSize(90, 100);
 		vacunaAzul.setLocation(1070, 750);
 		vacunaAzul.setContentAreaFilled(false);
 		vacunaAzul.setBorder(null);
 
-		vacunaAmarilla.setSize(100, 100);
+		vacunaAmarilla.setSize(90, 100);
 		vacunaAmarilla.setLocation(1140, 750);
 		vacunaAmarilla.setContentAreaFilled(false);
 		vacunaAmarilla.setBorder(null);
 
-		vacunaRoja.setSize(100, 100);
+		vacunaRoja.setSize(90, 100);
 		vacunaRoja.setLocation(1000, 750);
 		vacunaRoja.setContentAreaFilled(false);
 		vacunaRoja.setBorder(null);
 
-		vacunaVerde.setSize(100, 100);
+		vacunaVerde.setSize(90, 100);
 		vacunaVerde.setLocation(930, 750);
 		vacunaVerde.setContentAreaFilled(false);
 		vacunaVerde.setBorder(null);
@@ -327,7 +328,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 
 		if (e.getSource() == boton1) {
 			System.out.println(contadorAccion);
-			contadorAccion--;
+			contadorAccion -= 4;
 			acciones(contadorAccion);
 		} else if (e.getSource() == boton2) {
 			System.out.println(contadorAccion);
@@ -414,6 +415,37 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 
 		} else {
 			System.exit(0); // Cuando se pulse salir, se cerrará el juego
+		}
+	}
+	
+
+	public static void leerFichero() throws ParserConfigurationException, SAXException {
+		try {
+			File file = new File("Ficheros//NuevaPartida.xml");
+			DocumentBuilderFactory DBF = DocumentBuilderFactory.newInstance();
+			DocumentBuilder DB = DBF.newDocumentBuilder();
+			Document Documento = DB.parse(file);
+			Documento.getDocumentElement().normalize();
+			System.out.println("Root Element: " + Documento.getDocumentElement().getNodeName());
+			NodeList nList = Documento.getElementsByTagName("parametros");
+			System.out.println("----------------------------");
+			for (int i = 0; i < nList.getLength(); i++) {
+				Node nNode = nList.item(i);
+				System.out.println("Elemento actual :" + nNode.getNodeName());
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element eElement = (Element) nNode;
+					System.out.println("Ciudades infectadas al inicio : "
+							+ eElement.getElementsByTagName("numCiudadesInfectadasInicio").item(0).getTextContent());
+					System.out.println("Ciudades infectadas en la ronda : "
+							+ eElement.getElementsByTagName("numCuidadesInfectadasRonda").item(0).getTextContent());
+					System.out.println("Enfermedades activas para derrota : "
+							+ eElement.getElementsByTagName("numEnfermedadesActivasDerrota").item(0).getTextContent());
+					System.out.println("Numero de brotes para derrota : "
+							+ eElement.getElementsByTagName("numBrotesDerrota").item(0).getTextContent());
+				}
+			}
+		} catch (IOException e) {
+			System.out.println(e);
 		}
 	}
 }
