@@ -19,7 +19,6 @@ public class Marco extends JFrame {
 	Dimension tamañoPantalla;
 
 	Marco() {
-		// setBounds(0,0,500,500); //Donde va a salir y k tamaño tendrá
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Fin del programa al pulsar la X
 		setTitle("BIOHAZARD, PANDEMIC");
@@ -34,7 +33,7 @@ public class Marco extends JFrame {
 		setVisible(true);// Modificar la visibilidad del marco
 	}
 	
-	public void ReproducirSonido() {
+	private void ReproducirSonido() {
 
 		try {
 			AudioInputStream audioInputStream = AudioSystem
