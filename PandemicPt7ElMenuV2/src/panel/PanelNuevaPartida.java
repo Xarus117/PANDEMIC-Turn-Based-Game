@@ -194,6 +194,79 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		acciones(contadorAccion);
 		vacunas();
 
+		mapeo();
+		
+	}
+
+	public void mapeo() {
+		ArrayList<String> ciudades = new ArrayList<>();
+		ArrayList<String> coordenadas = new ArrayList<>();
+
+		String linea = "";
+		int contador = 0;
+		int contadorArray = 0;
+
+		try {
+			File myObj = new File("Ficheros//ciudades.txt");
+			Scanner myReader = new Scanner(myObj);
+
+			while (myReader.hasNext()) {
+				linea = myReader.nextLine();
+				contador = 0;
+				while (linea.charAt(contador) != ';') {
+					contador++;
+				}
+				ciudades.add(linea.substring(0, contador));
+				contadorArray++;
+				
+			}
+			myReader.close();
+			
+			for (int i = 0; i < ciudades.size(); i++) {
+				System.out.println(ciudades.get(i));
+			}
+			
+		} catch (FileNotFoundException e) {
+			System.out.println("Ha ocurrido un error.");
+			e.printStackTrace();
+		}
+
+		int contador2 = 0;
+		int contadorCordenadas = 0;
+
+		try {
+			File myObj = new File("Ficheros//ciudades.txt");
+			Scanner myReader = new Scanner(myObj);
+
+			while (myReader.hasNext()) {
+				linea = myReader.nextLine();
+				contador = 0;
+				contador2 = 0;
+				while (linea.charAt(contador) != ';') {
+					contador++;
+				}
+
+				contador2 = contador + 3;
+
+				while (linea.charAt(contador2) != ';') {
+					contador2++;
+				}
+
+				coordenadas.add(linea.substring(contador + 1, contador2));
+				contadorCordenadas++;
+				
+			}
+			myReader.close();
+
+			for (int i = 0; i < coordenadas.size(); i++) {
+				System.out.println(coordenadas.get(i));
+			}
+			
+		} catch (FileNotFoundException e) {
+			System.out.println("Ha ocurrido un error.");
+			e.printStackTrace();
+		}
+
 	}
 
 	public void vacunas() { // LAS PUTAS VACUNAS
@@ -417,7 +490,6 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			System.exit(0); // Cuando se pulse salir, se cerrará el juego
 		}
 	}
-	
 
 	public static void leerFichero() throws ParserConfigurationException, SAXException {
 		try {
