@@ -36,6 +36,8 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	JButton accion2;
 	JButton accion3;
 	JButton accion4;
+	
+	JLabels mapeo;
 
 	Image image;
 
@@ -195,7 +197,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		vacunas();
 
 		mapeo();
-		
+
 	}
 
 	public void mapeo() {
@@ -218,14 +220,14 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				}
 				ciudades.add(linea.substring(0, contador));
 				contadorArray++;
-				
+
 			}
 			myReader.close();
-			
+
 			for (int i = 0; i < ciudades.size(); i++) {
 				System.out.println(ciudades.get(i));
 			}
-			
+
 		} catch (FileNotFoundException e) {
 			System.out.println("Ha ocurrido un error.");
 			e.printStackTrace();
@@ -244,24 +246,34 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				contador2 = 0;
 				while (linea.charAt(contador) != ';') {
 					contador++;
+				
 				}
 
 				contador2 = contador + 3;
 
-				while (linea.charAt(contador2) != ';') {
+				while (linea.charAt(contador2) != ',') {
 					contador2++;
 				}
 
-				coordenadas.add(linea.substring(contador + 1, contador2));
-				contadorCordenadas++;
+				String coordenada = linea.substring(contador+3, linea.length());
 				
+				coordenadas.add(coordenada);
+				contadorCordenadas++;
+
 			}
 			myReader.close();
 
 			for (int i = 0; i < coordenadas.size(); i++) {
 				System.out.println(coordenadas.get(i));
 			}
+			for (int i = 0; i < ciudades.size(); i++) {
+				
+				mapeo = new JLabels(ciudades.get(i), coordenadas.get(i));
+			}
 			
+			
+			
+
 		} catch (FileNotFoundException e) {
 			System.out.println("Ha ocurrido un error.");
 			e.printStackTrace();
@@ -516,6 +528,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 							+ eElement.getElementsByTagName("numBrotesDerrota").item(0).getTextContent());
 				}
 			}
+
 		} catch (IOException e) {
 			System.out.println(e);
 		}
