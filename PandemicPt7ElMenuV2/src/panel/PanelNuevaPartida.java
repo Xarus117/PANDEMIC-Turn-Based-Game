@@ -36,8 +36,6 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	JButton accion2;
 	JButton accion3;
 	JButton accion4;
-	
-	JLabels mapeo;
 
 	Image image;
 
@@ -203,6 +201,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	public void mapeo() {
 		ArrayList<String> ciudades = new ArrayList<>();
 		ArrayList<String> coordenadas = new ArrayList<>();
+		ArrayList<JButtons> colocar = new ArrayList<>();
 
 		String linea = "";
 		int contador = 0;
@@ -224,10 +223,6 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			}
 			myReader.close();
 
-			for (int i = 0; i < ciudades.size(); i++) {
-				System.out.println(ciudades.get(i));
-			}
-
 		} catch (FileNotFoundException e) {
 			System.out.println("Ha ocurrido un error.");
 			e.printStackTrace();
@@ -246,33 +241,45 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				contador2 = 0;
 				while (linea.charAt(contador) != ';') {
 					contador++;
-				
+
 				}
 
 				contador2 = contador + 3;
 
-				while (linea.charAt(contador2) != ',') {
+				while (linea.charAt(contador2) != ';') {
 					contador2++;
 				}
 
-				String coordenada = linea.substring(contador+3, linea.length());
-				
+				String coordenada = linea.substring(contador + 3, contador2);
+
 				coordenadas.add(coordenada);
 				contadorCordenadas++;
 
 			}
 			myReader.close();
 
+			String[] xS = new String[coordenadas.size()];
+			String[] yS = new String[coordenadas.size()];
+			int[] x = new int[coordenadas.size()];
+			int[] y = new int[coordenadas.size()];
+
 			for (int i = 0; i < coordenadas.size(); i++) {
-				System.out.println(coordenadas.get(i));
+				String[] partes = coordenadas.get(i).split(",");
+				xS[i] = partes[0];
+				yS[i] = partes[1];
+				x[i] = Integer.parseInt(xS[i]);
+				y[i] = Integer.parseInt(yS[i]);
+			}
+
+			for (int i = 0; i < ciudades.size(); i++) {
+
+				JButtons mapeo = new JButtons(ciudades.get(i), x[i], y[i]);
+				colocar.add(mapeo);
 			}
 			for (int i = 0; i < ciudades.size(); i++) {
-				
-				mapeo = new JLabels(ciudades.get(i), coordenadas.get(i));
+
+				add(colocar.get(i));
 			}
-			
-			
-			
 
 		} catch (FileNotFoundException e) {
 			System.out.println("Ha ocurrido un error.");
