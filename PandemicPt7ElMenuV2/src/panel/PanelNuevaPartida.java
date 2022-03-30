@@ -274,6 +274,12 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			for (int i = 0; i < ciudades.size(); i++) {
 
 				JButtons mapeo = new JButtons(ciudades.get(i), x[i], y[i]);
+				try {
+					mapeo.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//OjeteNo.png"))));
+				} catch (IOException e) {
+					System.out.println("Toni maricon");
+					e.printStackTrace();
+				}
 				colocar.add(mapeo);
 			}
 			for (int i = 0; i < ciudades.size(); i++) {
