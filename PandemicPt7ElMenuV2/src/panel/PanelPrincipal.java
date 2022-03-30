@@ -374,7 +374,7 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			marco.remove(this);
 			marco.add(new PanelReglas());
 			marco.setVisible(true);
-		} else if (e.getSource() == boton5) { 
+		} else if (e.getSource() == boton5) {
 		} else if (e.getSource() == boton6) {
 			JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
 			marco.remove(this);
