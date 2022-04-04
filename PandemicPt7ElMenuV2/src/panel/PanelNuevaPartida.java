@@ -27,6 +27,8 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	JButton vacunaRoja;
 	JButton vacunaVerde;
 	JButton vacunaGris;
+	
+	JButton mapeo;
 
 	JButton guardar;
 
@@ -36,6 +38,13 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	JButton accion2;
 	JButton accion3;
 	JButton accion4;
+	
+	ArrayList<String> ciudades = new ArrayList<>();
+	ArrayList<String> coordenadas = new ArrayList<>();
+	ArrayList<JButtons> colocar = new ArrayList<>();
+	
+	int [] y;
+	int [] x;
 
 	Image image;
 
@@ -199,11 +208,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	}
 
 	public void mapeo() {
-		ArrayList<String> ciudades = new ArrayList<>();
-		ArrayList<String> coordenadas = new ArrayList<>();
-		ArrayList<JButtons> colocar = new ArrayList<>();
-		ArrayList<JLabels> colocarTextos = new ArrayList<>();
-
+		
 
 		String linea = "";
 		int contador = 0;
@@ -272,52 +277,30 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				x[i] = Integer.parseInt(xS[i]);
 				y[i] = Integer.parseInt(yS[i]);
 			}
- 
+
 			for (int i = 0; i < ciudades.size(); i++) {
 
-				JButtons mapeo = new JButtons(ciudades.get(i), x[i], y[i]);	
-				
-				JLabels textos = new JLabels(ciudades.get(i), x[i], y[i]);
+				mapeo = new JButtons(ciudades.get(i), x[i], y[i]);
+
 				try {
 					mapeo.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//OjeteNo.png"))));
-					
+
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				colocar.add(mapeo);
-				colocarTextos.add(textos);
+				colocar.add((JButtons) mapeo);
 			}
-			
-			
+
 			for (int i = 0; i < ciudades.size(); i++) {
-				this.addMouseListener(new MouseAdapter() {
-					public void mouseEntered(MouseEvent e) {
-						int j = 0;
-						add(colocarTextos.get(j));
-						j++;
-					}
-
-					public void mouseExited(MouseEvent e) { // ESTO ES UNA MIERDA	
-						PanelNuevaPartida.remove();
-					}
-				});
 				add(colocar.get(i));
-
 			}
-			
-			
-
 		} catch (FileNotFoundException e) {
 			System.out.println("Ha ocurrido un error.");
 			e.printStackTrace();
 		}
 
-		
-		
 	}
 
-	
-	
 	public void vacunas() { // LAS PUTAS VACUNAS
 		vacunaAzul.setSize(90, 100);
 		vacunaAzul.setLocation(1070, 750);
@@ -535,7 +518,13 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			}
 			add(vacunaVerde);
 
-		} else {
+		} else if (e.getSource() == mapeo) {
+			
+			for (int i = 0; i < ciudades.size(); i++) {
+			JLabel ciudadesTexto = new JLabels (ciudades.get(i), x[i], y[i]);
+			add(ciudadesTexto);
+			}
+		}else {
 			System.exit(0); // Cuando se pulse salir, se cerrará el juego
 		}
 	}
