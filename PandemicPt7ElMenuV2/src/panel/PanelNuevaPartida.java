@@ -202,6 +202,8 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		ArrayList<String> ciudades = new ArrayList<>();
 		ArrayList<String> coordenadas = new ArrayList<>();
 		ArrayList<JButtons> colocar = new ArrayList<>();
+		ArrayList<JLabels> colocarTextos = new ArrayList<>();
+
 
 		String linea = "";
 		int contador = 0;
@@ -270,30 +272,52 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				x[i] = Integer.parseInt(xS[i]);
 				y[i] = Integer.parseInt(yS[i]);
 			}
-
+ 
 			for (int i = 0; i < ciudades.size(); i++) {
 
-				JButtons mapeo = new JButtons(ciudades.get(i), x[i], y[i]);
+				JButtons mapeo = new JButtons(ciudades.get(i), x[i], y[i]);	
+				
+				JLabels textos = new JLabels(ciudades.get(i), x[i], y[i]);
 				try {
 					mapeo.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//OjeteNo.png"))));
+					
 				} catch (IOException e) {
-					System.out.println("Toni maricon");
 					e.printStackTrace();
 				}
 				colocar.add(mapeo);
+				colocarTextos.add(textos);
 			}
+			
+			
 			for (int i = 0; i < ciudades.size(); i++) {
+				this.addMouseListener(new MouseAdapter() {
+					public void mouseEntered(MouseEvent e) {
+						int j = 0;
+						add(colocarTextos.get(j));
+						j++;
+					}
 
+					public void mouseExited(MouseEvent e) { // ESTO ES UNA MIERDA	
+						PanelNuevaPartida.remove();
+					}
+				});
 				add(colocar.get(i));
+
 			}
+			
+			
 
 		} catch (FileNotFoundException e) {
 			System.out.println("Ha ocurrido un error.");
 			e.printStackTrace();
 		}
 
+		
+		
 	}
 
+	
+	
 	public void vacunas() { // LAS PUTAS VACUNAS
 		vacunaAzul.setSize(90, 100);
 		vacunaAzul.setLocation(1070, 750);
