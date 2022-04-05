@@ -7,12 +7,6 @@ import java.util.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.xml.parsers.*;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
@@ -29,6 +23,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	JButton vacunaGris;
 	
 	JButton mapeo;
+	JLabel ciudadesTexto;
 
 	JButton guardar;
 
@@ -440,14 +435,12 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			contadorAccion--;
 			acciones(contadorAccion);
 
-		}
-
-		else if (e.getSource() == salir) {
+		} else if (e.getSource() == salir) {
 			JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
 			marco.remove(this);
 			marco.add(new PanelPrincipal());
 			marco.setVisible(true);
-		} else if (e.getSource() == vacunaAzul) { // PRUEBAS CAMBIO DE COLOR | VACUNAS
+		} else if (e.getSource() == vacunaAzul) { 
 			if (azulb == false) {
 				azulb = true;
 			} else {
@@ -517,15 +510,15 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				e1.printStackTrace();
 			}
 			add(vacunaVerde);
-
-		} else if (e.getSource() == mapeo) {
 			
+		} else if (e.getSource() == mapeo) {
+			System.out.println("cerdo");
 			for (int i = 0; i < ciudades.size(); i++) {
-			JLabel ciudadesTexto = new JLabels (ciudades.get(i), x[i], y[i]);
+			 ciudadesTexto = new JLabels (ciudades.get(i), x[i], y[i]);
 			add(ciudadesTexto);
 			}
 		}else {
-			System.exit(0); // Cuando se pulse salir, se cerrará el juego
+			System.exit(0); 
 		}
 	}
 

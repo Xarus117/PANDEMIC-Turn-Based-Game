@@ -34,7 +34,6 @@ Bombay;2;910,430;Karachi,Nueva Delhi,Madras;
 Nueva Delhi;2;930,400;Teheran,Karachi,Bombay,Madras,Calcuta;
 Calcuta;2;960,420;Nueva Delhi,Hong Kong,Madras,Bangkok;
 Madras;2;940,455;Bombay,Nueva Delhi,Calcula,Bangkok,Yakarta;
-Bombay;2;1005,410;Karachi,Madras,Nueva Delhi;
 Yakarta;1;1035,575;Madras,Bangkok,Ho Chi Minh,Sidney;
 Bangkok;1;1020,470;Yakarta,Calcuta,Madras,Ho Chi Minh,Hong Kong;
 Hong Kong;1;1060,430;Bangkok,Ho Chi Minh,Taipei,Manila,Shanghai;
