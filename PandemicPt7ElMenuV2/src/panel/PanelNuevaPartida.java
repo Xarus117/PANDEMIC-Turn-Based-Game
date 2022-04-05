@@ -36,7 +36,6 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	
 	ArrayList<String> ciudades = new ArrayList<>();
 	ArrayList<String> coordenadas = new ArrayList<>();
-	ArrayList<JButtons> colocar = new ArrayList<>();
 	
 	int [] y;
 	int [] x;
@@ -198,16 +197,15 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		acciones(contadorAccion);
 		vacunas();
 
-		mapeo();
+		Mapeo();
 
 	}
 
-	public void mapeo() {
+	public void Mapeo() {
 		
 
 		String linea = "";
 		int contador = 0;
-		int contadorArray = 0;
 
 		try {
 			File myObj = new File("Ficheros//ciudades.txt");
@@ -220,18 +218,14 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 					contador++;
 				}
 				ciudades.add(linea.substring(0, contador));
-				contadorArray++;
-
 			}
 			myReader.close();
 
 		} catch (FileNotFoundException e) {
-			System.out.println("Ha ocurrido un error.");
 			e.printStackTrace();
 		}
 
 		int contador2 = 0;
-		int contadorCordenadas = 0;
 
 		try {
 			File myObj = new File("Ficheros//ciudades.txt");
@@ -255,7 +249,6 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				String coordenada = linea.substring(contador + 3, contador2);
 
 				coordenadas.add(coordenada);
-				contadorCordenadas++;
 
 			}
 			myReader.close();
@@ -276,6 +269,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			for (int i = 0; i < ciudades.size(); i++) {
 
 				mapeo = new JButtons(ciudades.get(i), x[i], y[i]);
+				mapeo.addActionListener(this);
 
 				try {
 					mapeo.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//OjeteNo.png"))));
@@ -283,14 +277,9 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				colocar.add((JButtons) mapeo);
-			}
-
-			for (int i = 0; i < ciudades.size(); i++) {
-				add(colocar.get(i));
+				add(mapeo);
 			}
 		} catch (FileNotFoundException e) {
-			System.out.println("Ha ocurrido un error.");
 			e.printStackTrace();
 		}
 
@@ -427,11 +416,9 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getSource() == boton1) {
-			System.out.println(contadorAccion);
 			contadorAccion -= 4;
 			acciones(contadorAccion);
 		} else if (e.getSource() == boton2) {
-			System.out.println(contadorAccion);
 			contadorAccion--;
 			acciones(contadorAccion);
 
@@ -512,7 +499,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			add(vacunaVerde);
 			
 		} else if (e.getSource() == mapeo) {
-			System.out.println("cerdo");
+			System.out.println("x");
 			for (int i = 0; i < ciudades.size(); i++) {
 			 ciudadesTexto = new JLabels (ciudades.get(i), x[i], y[i]);
 			add(ciudadesTexto);

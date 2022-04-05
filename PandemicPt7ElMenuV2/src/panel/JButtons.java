@@ -7,14 +7,8 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
+
 
 public class JButtons extends JButton {
 
@@ -41,5 +35,6 @@ public class JButtons extends JButton {
 				setCursor(cur);
 			}
 		});
+		
 	}
 };
