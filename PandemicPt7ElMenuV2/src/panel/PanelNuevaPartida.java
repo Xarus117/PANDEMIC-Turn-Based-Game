@@ -23,7 +23,6 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	JButton vacunaGris;
 	
 	JButton mapeo;
-	JLabel ciudadesTexto;
 
 	JButton guardar;
 
@@ -36,6 +35,8 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	
 	ArrayList<String> ciudades = new ArrayList<>();
 	ArrayList<String> coordenadas = new ArrayList<>();
+	ArrayList<JButtons> colocar = new ArrayList<>();
+	ArrayList<JLabels> textos = new ArrayList<>();
 	
 	int [] y;
 	int [] x;
@@ -268,16 +269,16 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 
 			for (int i = 0; i < ciudades.size(); i++) {
 
-				mapeo = new JButtons(ciudades.get(i), x[i], y[i]);
-				mapeo.addActionListener(this);
+				colocar.add(new JButtons(ciudades.get(i), x[i], y[i]));
+				colocar.get(i).addActionListener(this);
 
 				try {
-					mapeo.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//OjeteNo.png"))));
+					colocar.get(i).setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//OjeteNo.png"))));
 
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				add(mapeo);
+				add(colocar.get(i));
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -498,14 +499,14 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			}
 			add(vacunaVerde);
 			
-		} else if (e.getSource() == mapeo) {
-			System.out.println("x");
-			for (int i = 0; i < ciudades.size(); i++) {
-			 ciudadesTexto = new JLabels (ciudades.get(i), x[i], y[i]);
-			add(ciudadesTexto);
+		} 
+		for(int i = 0; i < ciudades.size(); i++) {
+		if (e.getSource() == colocar.get(i)) {
+			for (int j = 0; j < ciudades.size(); j++) {
+				textos.add(new JLabels (ciudades.get(j), x[j], y[j]));
+				add(textos.get(i));
 			}
-		}else {
-			System.exit(0); 
+		}
 		}
 	}
 

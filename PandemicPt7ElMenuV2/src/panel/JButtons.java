@@ -5,6 +5,7 @@ import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JButton;
@@ -26,6 +27,7 @@ public class JButtons extends JButton {
 		this.setBorderPainted(false);
 		this.setContentAreaFilled(false);
 		this.setBorderPainted(false);
+		this.setVisible(true);
 		this.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
 				setCursor(cur2);
