@@ -21,25 +21,27 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	JButton vacunaRoja;
 	JButton vacunaVerde;
 	JButton vacunaGris;
-	
+
 	JButton mapeo;
 
 	JButton guardar;
 
 	JButton salir;
+	JLabel recuadroInfo;
 
 	JButton accion1;
 	JButton accion2;
 	JButton accion3;
 	JButton accion4;
-	
+
 	ArrayList<String> ciudades = new ArrayList<>();
 	ArrayList<String> coordenadas = new ArrayList<>();
 	ArrayList<JButtons> colocar = new ArrayList<>();
 	ArrayList<JLabels> textos = new ArrayList<>();
-	
-	int [] y;
-	int [] x;
+
+	int[] y;
+	int[] x;
+	int vacunas = 4;
 
 	Image image;
 
@@ -150,6 +152,21 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 
 		// SALIR
 
+		
+		recuadroInfo = new JLabel();
+		recuadroInfo.setText("Me follo abuelas");
+		recuadroInfo.setFont(new Font("Serif", Font.PLAIN, 16));
+		recuadroInfo.setSize(280, 200);
+		recuadroInfo.setForeground(Color.WHITE);
+		recuadroInfo.setBorder(getBorder());
+		recuadroInfo.setBackground(Color.GRAY);
+		recuadroInfo.setLocation(5, 5);
+		recuadroInfo.setOpaque(true);
+		recuadroInfo.setHorizontalAlignment(SwingConstants.LEFT);
+		recuadroInfo.setVerticalAlignment(SwingConstants.TOP);
+		recuadroInfo.setVisible(false);
+		add(recuadroInfo);
+
 		salir = new JButton();
 
 		salir.setIcon(null);
@@ -203,7 +220,6 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	}
 
 	public void Mapeo() {
-		
 
 		String linea = "";
 		int contador = 0;
@@ -419,16 +435,19 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		if (e.getSource() == boton1) {
 			contadorAccion -= 4;
 			acciones(contadorAccion);
+			recuadroInfo.setText("<html>Has pulsado [BUSCAR VACUNA] <br> Puede buscar un total de </html>" + vacunas + "<html> vacunas</html>");
+			recuadroInfo.setVisible(true);
+			
 		} else if (e.getSource() == boton2) {
 			contadorAccion--;
 			acciones(contadorAccion);
-
+			recuadroInfo.setVisible(true);
 		} else if (e.getSource() == salir) {
 			JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
 			marco.remove(this);
 			marco.add(new PanelPrincipal());
 			marco.setVisible(true);
-		} else if (e.getSource() == vacunaAzul) { 
+		} else if (e.getSource() == vacunaAzul) {
 			if (azulb == false) {
 				azulb = true;
 			} else {
@@ -498,15 +517,12 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				e1.printStackTrace();
 			}
 			add(vacunaVerde);
-			
-		} 
-		for(int i = 0; i < ciudades.size(); i++) {
-		if (e.getSource() == colocar.get(i)) {
-			for (int j = 0; j < ciudades.size(); j++) {
-				textos.add(new JLabels (ciudades.get(j), x[j], y[j]));
-				add(textos.get(i));
-			}
+
 		}
+		for (int i = 0; i < ciudades.size(); i++) {
+			if (e.getSource() == colocar.get(i)) {
+				recuadroInfo.setVisible(true);
+			}
 		}
 	}
 

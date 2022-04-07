@@ -347,6 +347,8 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 		discord.addActionListener(this);
 
 		add(discord);
+		
+		
 
 		// ----
 	}
