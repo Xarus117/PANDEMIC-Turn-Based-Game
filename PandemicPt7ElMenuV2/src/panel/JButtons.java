@@ -16,10 +16,13 @@ public class JButtons extends JButton {
 	String nombre;
 
 	public JButtons(String nombre, int x, int y) {
+		String nombreCompleto = (nombre + ": [" + x + " | " + y + "]");
+		
 		Image im = Toolkit.getDefaultToolkit().createImage("imagenes//cursorDefecto.png");
 		Image im2 = Toolkit.getDefaultToolkit().createImage("imagenes//cursorHover.png");
 		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10, 10), "WILL");
 		Cursor cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10, 10), "WILL");
+		this.setName(nombreCompleto); // ME CAGO EN LA PUTA ES ESTO
 		this.nombre = nombre;
 		this.setBounds(x - 90, y - 95, 15, 15);
 		this.setForeground(Color.WHITE);
@@ -37,6 +40,6 @@ public class JButtons extends JButton {
 				setCursor(cur);
 			}
 		});
-		
+		System.out.println(this.getName());
 	}
 };

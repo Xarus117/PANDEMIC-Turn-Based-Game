@@ -55,6 +55,9 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	// ACCIONES
 	int contadorAccion = 4;
 
+	String guardarCiudad = "";
+	String ciudadesEscogida = "";
+
 	PanelNuevaPartida() {
 		setLayout(null);
 		Image im = Toolkit.getDefaultToolkit().createImage("imagenes//cursorDefecto.png");
@@ -152,7 +155,6 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 
 		// SALIR
 
-		
 		recuadroInfo = new JLabel();
 		recuadroInfo.setText("Me follo abuelas");
 		recuadroInfo.setFont(new Font("Serif", Font.PLAIN, 16));
@@ -435,9 +437,10 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		if (e.getSource() == boton1) {
 			contadorAccion -= 4;
 			acciones(contadorAccion);
-			recuadroInfo.setText("<html>Has pulsado [BUSCAR VACUNA] <br> Puede buscar un total de </html>" + vacunas + "<html> vacunas</html>");
+			recuadroInfo.setText("<html>Has pulsado [BUSCAR VACUNA] <br> Puede buscar un total de </html>" + vacunas
+					+ "<html> vacunas</html>");
 			recuadroInfo.setVisible(true);
-			
+
 		} else if (e.getSource() == boton2) {
 			contadorAccion--;
 			acciones(contadorAccion);
@@ -519,8 +522,13 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			add(vacunaVerde);
 
 		}
-		for (int i = 0; i < ciudades.size(); i++) {
-			if (e.getSource() == colocar.get(i)) {
+
+		else {
+
+			String guardarCiudad = ((JComponent) e.getSource()).getName();
+
+			for (int i = 0; i < ciudades.size(); i++) {
+				recuadroInfo.setText(guardarCiudad);
 				recuadroInfo.setVisible(true);
 			}
 		}
