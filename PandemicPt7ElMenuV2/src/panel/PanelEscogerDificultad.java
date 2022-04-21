@@ -180,6 +180,19 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 			marco.remove(this);
 			marco.add(new PanelNuevaPartida());
 			marco.setVisible(true);
+
+			try {
+				Enfermedades.ronda(Enfermedades.NomFit1, Enfermedades.NomFit, Enfermedades.n0, Enfermedades.ciudades,
+						Enfermedades.NomFit2, Enfermedades.Ciudad_Enfermedad);
+				for (int j = 0; j < Enfermedades.Ciudad_Enfermedad.length; j++) {
+					System.out.println(Enfermedades.Ciudad_Enfermedad[j]);
+				}
+
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
 		} else if (e.getSource() == normal) {
 			JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
 			marco.remove(this);

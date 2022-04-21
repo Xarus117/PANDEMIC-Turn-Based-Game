@@ -43,6 +43,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	int[] y;
 	int[] x;
 	int vacunas = 4;
+	int cont_azul = 0, cont_rojo = 0, cont_amarillo = 0, cont_verde = 0;
 
 	Image image;
 
@@ -219,11 +220,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		Mapeo();
 
 	}
-	
-	public void funcionamientoJuego() {
-		
-	}
-	
+
 	public void Mapeo() {
 
 		String linea = "";
@@ -234,7 +231,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 
 			while (myReader.hasNext()) {
 				linea = myReader.nextLine();
-				String [] datos = linea.split(";");
+				String[] datos = linea.split(";");
 				nombres.add(datos[0]);
 				contador = 0;
 				while (linea.charAt(contador) != ';') {
@@ -302,10 +299,25 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				}
 				add(colocar.get(i));
 			}
-			
-			for (int i = 0; i < 48; i++) {
 
-				ciudades.add(new Ciudades(nombres.get(i), 0, 0, 0, 0));
+			for (int i = 0; i < 48; i++) {
+				String ciudad_enfermedad_necesaria;
+				if (Enfermedades.Ciudad_Enfermedad[i] != null) {
+					ciudad_enfermedad_necesaria = Enfermedades.Ciudad_Enfermedad[i];
+					for (int j = 0; j < ciudad_enfermedad_necesaria.length(); j++) {
+						if (ciudad_enfermedad_necesaria.contains("0")) {
+							cont_amarillo++;
+						} else if (ciudad_enfermedad_necesaria.contains("1")) {
+							cont_azul++;
+						} else if (ciudad_enfermedad_necesaria.contains("2")) {
+							cont_rojo++;
+						} else if (ciudad_enfermedad_necesaria.contains("3")) {
+							cont_verde++;
+						}
+					}
+				}
+
+				ciudades.add(new Ciudades(nombres.get(i), cont_rojo, cont_verde, cont_amarillo, cont_azul));
 				colocar.get(i).addActionListener(this);
 
 				try {
@@ -315,7 +327,12 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 					e.printStackTrace();
 				}
 				add(colocar.get(i));
+
 			}
+			cont_amarillo = 0;
+			cont_azul = 0;
+			cont_rojo = 0;
+			cont_verde = 0;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

@@ -1,13 +1,11 @@
 package panel;
 
 public class Ciudades {
-	String nombre;
-	int Roja;
-	int Verde;
-	int Amarilla;
-	int Azul;
-	int nivelEnfermedad;
-	
+	static String nombre;
+	static int Roja;
+	static int Verde;
+	static int Amarilla;
+	static int Azul;
 	
 	public Ciudades(String nombre, int roja, int verde, int amarilla, int azul) {
 		super();
@@ -67,15 +65,4 @@ public class Ciudades {
 	public void setAzul(int azul) {
 		Azul = azul;
 	}
-
-
-	public int getNivelEnfermedad() {
-		return nivelEnfermedad;
-	}
-
-
-	public void setNivelEnfermedad(int nivelEnfermedad) {
-		this.nivelEnfermedad = nivelEnfermedad;
-	}
-
 }

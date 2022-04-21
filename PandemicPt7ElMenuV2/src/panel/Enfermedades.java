@@ -13,17 +13,17 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class Enfermedades {
+	static String NomFit = "Ficheros//CCP.bin"; // EL FICHERO BIN
+	static String NomFit1 = "Ficheros//ciudades.txt";
+	static String NomFit2 = "ficheros//ciudades-enfermedad.bin";
 
-	public static void main(String[] args) throws IOException {
+	static int[] n0 = new int[48];
+	static String[] ciudades = new String[48];
+	static int ronda = 10;
+	static String Ciudad_Enfermedad[] = new String[48];
+
+	public static void funcionamiento() throws IOException {
 		// TODO Auto-generated method stub
-		String NomFit = "Ficheros//CCP.bin"; // EL FICHERO BIN
-		String NomFit1 = "Ficheros//ciudades.txt";
-		String NomFit2 = "ficheros//ciudades-enfermedad.bin";
-
-		int[] n0 = new int[48];
-		String[] ciudades = new String[48];
-		int ronda = 10;
-		String Ciudad_Enfermedad[] = new String[48];
 
 		// for (int i = 0; i < ronda; i++) {
 		// Ciudad_Enfermedad = ronda(NomFit1, NomFit, n0, ciudades, NomFit2,
@@ -33,22 +33,15 @@ public class Enfermedades {
 		// System.out.print(" posicion " + j + Ciudad_Enfermedad[j]);
 		// }
 		// }
-		
-		
-		for (int i = 0; i < ronda; i++) {
+
 			ronda(NomFit1, NomFit, n0, ciudades, NomFit2, Ciudad_Enfermedad);
-			System.out.println("Ronda: " + i);
 			for (int j = 0; j < Ciudad_Enfermedad.length; j++) {
 				System.out.println(Ciudad_Enfermedad[j]);
 			}
-		}
 		
-		System.out.println("\n\n");
+
 		
-		brote(Ciudad_Enfermedad, NomFit1, NomFit2);
-		for (int i = 0; i < Ciudad_Enfermedad.length; i++) {
-			System.out.println(Ciudad_Enfermedad[i]);
-		}
+
 		System.out.println("\n\n");
 		cura(Ciudad_Enfermedad);
 	}
@@ -136,7 +129,9 @@ public class Enfermedades {
 		} catch (IOException e) {
 			System.out.println("Error E/S");
 		}
+		brote(Ciudad_Enfermedad, NomFit1, NomFit2);
 		return Ciudad_Enfermedad;
+		
 	}
 
 	public static String[] brote(String[] Ciudad_Enfermedad, String NomFit, String NomFit1) {
@@ -257,62 +252,62 @@ public class Enfermedades {
 		System.out.println(cont_enfer_1);
 		System.out.println(cont_enfer_2);
 		System.out.println(cont_enfer_3);
-		
+
 		return Ciudad_Enfermedad;
 	}
-	
-	public static void cura(String Ciudad_Enfermedad []) {
-        Scanner sc = new Scanner(System.in);
-        int ciudad_curar = 0;
-        int codi_enferme_curar =0;
-        int position_ned = 0;
-        
+
+	public static void cura(String Ciudad_Enfermedad[]) {
+		Scanner sc = new Scanner(System.in);
+		int ciudad_curar = 0;
+		int codi_enferme_curar = 0;
+		int position_ned = 0;
+
 		System.out.println("numero de la ciudad que quieres curar:");
 		ciudad_curar = sc.nextInt();
-		
-		System.out.println("la ciudad numero "+ciudad_curar+" esta infectada por "+" "+Ciudad_Enfermedad[ciudad_curar]);
+
+		System.out.println(
+				"la ciudad numero " + ciudad_curar + " esta infectada por " + " " + Ciudad_Enfermedad[ciudad_curar]);
 		System.out.println("que enfermedad quieres curar: ");
 		codi_enferme_curar = sc.nextInt();
-		
-		
+
 		if (codi_enferme_curar == 0) {
 			for (int i = 0; i < Ciudad_Enfermedad[ciudad_curar].length(); i++) {
 				if (Ciudad_Enfermedad[ciudad_curar].charAt(i) == '0') {
 					position_ned = i;
 				}
 			}
-		}else if (codi_enferme_curar == 1) {
+		} else if (codi_enferme_curar == 1) {
 			for (int i = 0; i < Ciudad_Enfermedad[ciudad_curar].length(); i++) {
 				if (Ciudad_Enfermedad[ciudad_curar].charAt(i) == '1') {
 					position_ned = i;
 				}
 			}
-		}else if (codi_enferme_curar == 2) {
+		} else if (codi_enferme_curar == 2) {
 			for (int i = 0; i < Ciudad_Enfermedad[ciudad_curar].length(); i++) {
 				if (Ciudad_Enfermedad[ciudad_curar].charAt(i) == '2') {
 					position_ned = i;
 				}
 			}
-		}else if (codi_enferme_curar == 3) {
+		} else if (codi_enferme_curar == 3) {
 			for (int i = 0; i < Ciudad_Enfermedad[ciudad_curar].length(); i++) {
-				if (Ciudad_Enfermedad[ciudad_curar].charAt(i) == '3') {					
+				if (Ciudad_Enfermedad[ciudad_curar].charAt(i) == '3') {
 					position_ned = i;
 				}
 			}
 		}
-		
-		
+
 		System.out.println(Ciudad_Enfermedad[ciudad_curar].length());
 		if (Ciudad_Enfermedad[ciudad_curar].length() >= 3) {
 			System.out.println(Ciudad_Enfermedad[ciudad_curar]);
-			Ciudad_Enfermedad[ciudad_curar]=Ciudad_Enfermedad[ciudad_curar].substring(0,position_ned) + Ciudad_Enfermedad[ciudad_curar].substring(position_ned+2);
-			System.out.println(Ciudad_Enfermedad[ciudad_curar]);	
-		}else {
+			Ciudad_Enfermedad[ciudad_curar] = Ciudad_Enfermedad[ciudad_curar].substring(0, position_ned)
+					+ Ciudad_Enfermedad[ciudad_curar].substring(position_ned + 2);
 			System.out.println(Ciudad_Enfermedad[ciudad_curar]);
-			Ciudad_Enfermedad[ciudad_curar]=Ciudad_Enfermedad[ciudad_curar].substring(position_ned+2);
+		} else {
+			System.out.println(Ciudad_Enfermedad[ciudad_curar]);
+			Ciudad_Enfermedad[ciudad_curar] = Ciudad_Enfermedad[ciudad_curar].substring(position_ned + 2);
 			System.out.println(Ciudad_Enfermedad[ciudad_curar]);
 		}
-		
-		position_ned=0;
+
+		position_ned = 0;
 	}
 }

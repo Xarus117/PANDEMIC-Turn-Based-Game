@@ -13,12 +13,12 @@ import javax.swing.JButton;
 
 public class JButtons extends JButton {
 
-	String nombre;
+	private String nombre;
 
 	
 
 	public JButtons(String nombre, int x, int y) {
-		String nombreCompleto = (nombre + ": [" + x + " | " + y + "]" + " Actualmente esta infectada por la enferedad");
+		String nombreCompleto = (nombre + ": [" + x + " | " + y + "]" + " \nActualmente esta infectada por la enfermedad"+"\nRoja: " + Ciudades.Roja + "\n Verde: " + Ciudades.Verde + "\n Amarilla: " + Ciudades.Amarilla + "\n Azul: " + Ciudades.Azul);
 		
 		Image im = Toolkit.getDefaultToolkit().createImage("imagenes//cursorDefecto.png");
 		Image im2 = Toolkit.getDefaultToolkit().createImage("imagenes//cursorHover.png");
