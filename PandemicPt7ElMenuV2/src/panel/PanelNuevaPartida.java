@@ -27,17 +27,18 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	JButton guardar;
 
 	JButton salir;
-	JLabel recuadroInfo;
+	JTextArea recuadroInfo;
 
 	JButton accion1;
 	JButton accion2;
 	JButton accion3;
 	JButton accion4;
 
-	ArrayList<String> ciudades = new ArrayList<>();
+	ArrayList<Ciudades> ciudades = new ArrayList<>();
+	ArrayList<String> nombres = new ArrayList<>();
+	ArrayList<String> bCiudades = new ArrayList<>();
 	ArrayList<String> coordenadas = new ArrayList<>();
 	ArrayList<JButtons> colocar = new ArrayList<>();
-	ArrayList<JLabels> textos = new ArrayList<>();
 
 	int[] y;
 	int[] x;
@@ -155,7 +156,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 
 		// SALIR
 
-		recuadroInfo = new JLabel();
+		recuadroInfo = new JTextArea();
 		recuadroInfo.setText("Me follo abuelas");
 		recuadroInfo.setFont(new Font("Serif", Font.PLAIN, 16));
 		recuadroInfo.setSize(280, 200);
@@ -164,8 +165,6 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		recuadroInfo.setBackground(Color.GRAY);
 		recuadroInfo.setLocation(5, 5);
 		recuadroInfo.setOpaque(true);
-		recuadroInfo.setHorizontalAlignment(SwingConstants.LEFT);
-		recuadroInfo.setVerticalAlignment(SwingConstants.TOP);
 		recuadroInfo.setVisible(false);
 		add(recuadroInfo);
 
@@ -220,23 +219,28 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		Mapeo();
 
 	}
-
+	
+	public void funcionamientoJuego() {
+		
+	}
+	
 	public void Mapeo() {
 
 		String linea = "";
 		int contador = 0;
-
 		try {
 			File myObj = new File("Ficheros//ciudades.txt");
 			Scanner myReader = new Scanner(myObj);
 
 			while (myReader.hasNext()) {
 				linea = myReader.nextLine();
+				String [] datos = linea.split(";");
+				nombres.add(datos[0]);
 				contador = 0;
 				while (linea.charAt(contador) != ';') {
 					contador++;
 				}
-				ciudades.add(linea.substring(0, contador));
+				bCiudades.add(linea.substring(0, contador));
 			}
 			myReader.close();
 
@@ -285,9 +289,23 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				y[i] = Integer.parseInt(yS[i]);
 			}
 
-			for (int i = 0; i < ciudades.size(); i++) {
+			for (int i = 0; i < bCiudades.size(); i++) {
 
-				colocar.add(new JButtons(ciudades.get(i), x[i], y[i]));
+				colocar.add(new JButtons(bCiudades.get(i), x[i], y[i]));
+				colocar.get(i).addActionListener(this);
+
+				try {
+					colocar.get(i).setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//OjeteNo.png"))));
+
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				add(colocar.get(i));
+			}
+			
+			for (int i = 0; i < 48; i++) {
+
+				ciudades.add(new Ciudades(nombres.get(i), 0, 0, 0, 0));
 				colocar.get(i).addActionListener(this);
 
 				try {
@@ -527,7 +545,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 
 			String guardarCiudad = ((JComponent) e.getSource()).getName();
 
-			for (int i = 0; i < ciudades.size(); i++) {
+			for (int i = 0; i < bCiudades.size(); i++) {
 				recuadroInfo.setText(guardarCiudad);
 				recuadroInfo.setVisible(true);
 			}

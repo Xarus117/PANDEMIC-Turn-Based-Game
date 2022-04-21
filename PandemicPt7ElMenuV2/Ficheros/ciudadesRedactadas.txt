@@ -1,0 +1,49 @@
+La ciudad San Francisco est� en las coordenadas 235,315 sus ciudades colindantes son: Chicago,Los Angeles,Manila,Tokio
+La ciudad Chicago est� en las coordenadas 300,280 sus ciudades colindantes son: San Francisco,Montreal,Atlanta,Mexico DF,Los Angeles
+La ciudad Atlanta est� en las coordenadas 320,320 sus ciudades colindantes son: Chicago,Miami,Washington
+La ciudad Montreal est� en las coordenadas 350,280 sus ciudades colindantes son: Chicago,Nueva York, Washington
+La ciudad Nueva York est� en las coordenadas 380,290 sus ciudades colindantes son: Montreal,Washington,Londres,Madrid
+La ciudad Washington est� en las coordenadas 360,330 sus ciudades colindantes son: Montreal,Nueva York,Atlanta,Miami
+La ciudad Londres est� en las coordenadas 700,230 sus ciudades colindantes son: Nueva York,Madrid,Paris,Essen
+La ciudad Madrid est� en las coordenadas 687,290 sus ciudades colindantes son: Nueva York,Londres,Paris,Sao Paulo,Argel
+La ciudad Paris est� en las coordenadas 727,250 sus ciudades colindantes son: Madrid,Londres,Essen,Argel,Milan
+La ciudad Essen est� en las coordenadas 755,190 sus ciudades colindantes son: Londres,Paris,San Petersburgo,Milan
+La ciudad Milan est� en las coordenadas 755,235 sus ciudades colindantes son: Essen,Paris,Estambul
+La ciudad San Petersburgo est� en las coordenadas 815,210 sus ciudades colindantes son: Essen,Estambul,Moscu
+La ciudad Los Angeles est� en las coordenadas 275,355 sus ciudades colindantes son: San Francisco,Mexico DF,Chicago,Sidney
+La ciudad Miami est� en las coordenadas 380,360 sus ciudades colindantes son: Washington,Atlanta,Mexico DF,Bogota
+La ciudad Mexico DF est� en las coordenadas 300,385 sus ciudades colindantes son: Los Angeles,Miami,Chicago,Bogota,Lima
+La ciudad Bogota est� en las coordenadas 400,460 sus ciudades colindantes son: Miami,Mexico DF,Lima,Sao Paulo,Buenos Aires
+La ciudad Lima est� en las coordenadas 395,520 sus ciudades colindantes son: Mexico DF,Bogota,Santiago de Chile
+La ciudad Santiago de Chile est� en las coordenadas 430,620 sus ciudades colindantes son: Lima
+La ciudad Buenos Aires est� en las coordenadas 453,670 sus ciudades colindantes son: Sao Paulo,Bogota
+La ciudad Sao Paulo est� en las coordenadas 520,570 sus ciudades colindantes son: Bogota,Buenos Aires,Lagos,Madrid
+La ciudad Lagos est� en las coordenadas 710,450 sus ciudades colindantes son: Sao Paulo,Kinsasa,Jartum
+La ciudad Kinsasa est� en las coordenadas 770,540 sus ciudades colindantes son: Lagos,Jartum,Johannesburgo
+La ciudad Jartum est� en las coordenadas 815,450 sus ciudades colindantes son: El Cairo,Lagos,Kinsasa,Johannesburgo
+La ciudad Johannesburgo est� en las coordenadas 815,630 sus ciudades colindantes son: Kinsasa,Jartum
+La ciudad Argel est� en las coordenadas 730,330 sus ciudades colindantes son: Madrid,Paris,Estambul,El Cairo
+La ciudad El Cairo est� en las coordenadas 820,350 sus ciudades colindantes son: Argel,Estambul,Bagdad
+La ciudad Riad est� en las coordenadas 895,385 sus ciudades colindantes son: El Cairo,Bagdad,Karachi
+La ciudad Estambul est� en las coordenadas 830,294 sus ciudades colindantes son: Argel,El Cairo,Bagdad,Moscu
+La ciudad Bagdad est� en las coordenadas 880,320 sus ciudades colindantes son: Estambul,Karachi,Riad,El Cairo
+La ciudad Moscu est� en las coordenadas 890,230 sus ciudades colindantes son: Teheran,Estambul,San Petersburgo
+La ciudad Teheran est� en las coordenadas 920,310 sus ciudades colindantes son: Moscu,Bagdad,Karachi,Nueva Delhi
+La ciudad Karachi est� en las coordenadas 980,355 sus ciudades colindantes son: Teheran,Bagdad,Nueva Delhi,Riad,Bombay
+La ciudad Bombay est� en las coordenadas 1005,395 sus ciudades colindantes son: Karachi,Nueva Delhi,Madras
+La ciudad Nueva Delhi est� en las coordenadas 1025,330 sus ciudades colindantes son: Teheran,Karachi,Bombay,Madras,Calcuta
+La ciudad Calcuta est� en las coordenadas 1070,370 sus ciudades colindantes son: Nueva Delhi,Hong Kong,Madras,Bangkok
+La ciudad Madras est� en las coordenadas 1035,410 sus ciudades colindantes son: Bombay,Nueva Delhi,Calcula,Bangkok,Yakarta
+La ciudad Bombay est� en las coordenadas 1005,395 sus ciudades colindantes son: Karachi,Madras,Nueva Delhi
+La ciudad Yakarta est� en las coordenadas 1150,525 sus ciudades colindantes son: Madras,Bangkok,Ho Chi Minh,Sidney
+La ciudad Bangkok est� en las coordenadas 1120,415 sus ciudades colindantes son: Yakarta,Calcuta,Madras,Ho Chi Minh,Hong Kong
+La ciudad Hong Kong est� en las coordenadas 1165,370 sus ciudades colindantes son: Bangkok,Ho Chi Minh,Taipei,Manila,Shanghai
+La ciudad Shanghai est� en las coordenadas 1195,355 sus ciudades colindantes son: Pekin,Hong Kong,Seul,Tokio,Taipei
+La ciudad Pekin est� en las coordenadas 1175,300 sus ciudades colindantes son: Seul,Shanghai
+La ciudad Seul est� en las coordenadas 1225,297 sus ciudades colindantes son: Pekin,Tokio
+La ciudad Tokio est� en las coordenadas 1280,290 sus ciudades colindantes son: San Francisco,Seul,Osaka,Shanghai
+La ciudad Osaka est� en las coordenadas 1255,320 sus ciudades colindantes son: Tokio,Taipei
+La ciudad Taipei est� en las coordenadas 1205,375 sus ciudades colindantes son: Osaka,Shanghai,Hong Kong,Manila
+La ciudad Ho Chi Minh est� en las coordenadas 1148,429 sus ciudades colindantes son: Yakarta,Bangkok,Hong Kong,Manila
+La ciudad Manila est� en las coordenadas 1200,420 sus ciudades colindantes son: San Francisco,Ho Chi Minh,Taipei,Hong Kong,Sidney
+La ciudad Sidney est� en las coordenadas 1320,645 sus ciudades colindantes son: Los Angeles,Manila,Yakarta

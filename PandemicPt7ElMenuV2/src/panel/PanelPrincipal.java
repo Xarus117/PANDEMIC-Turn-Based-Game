@@ -347,8 +347,6 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 		discord.addActionListener(this);
 
 		add(discord);
-		
-		
 
 		// ----
 	}
@@ -402,6 +400,5 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			System.exit(0); // Cuando se pulse salir, se cerrará el juego
 		}
 	}
-	
 
 }
