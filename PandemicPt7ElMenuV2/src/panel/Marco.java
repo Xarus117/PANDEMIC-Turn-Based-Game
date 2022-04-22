@@ -19,6 +19,7 @@ public class Marco extends JFrame {
 	Dimension tamañoPantalla;
 
 	Marco() {
+		// setBounds(0,0,500,500); //Donde va a salir y k tamaño tendrá
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Fin del programa al pulsar la X
 		setTitle("BIOHAZARD, PANDEMIC");
@@ -33,9 +34,9 @@ public class Marco extends JFrame {
 		setVisible(true);// Modificar la visibilidad del marco
 	}
 	
-	private void ReproducirSonido() {
+	public void ReproducirSonido() {
 
-		/*try {
+		try {
 			AudioInputStream audioInputStream = AudioSystem
 					.getAudioInputStream(new File("Audios\\musica.wav").getAbsoluteFile());
 			Clip clip = AudioSystem.getClip();
@@ -44,6 +45,5 @@ public class Marco extends JFrame {
 		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
 			System.out.println("Error al reproducir el sonido.");
 		}
-		*/
 	}
 }
