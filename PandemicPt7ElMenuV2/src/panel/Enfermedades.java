@@ -22,6 +22,7 @@ public class Enfermedades {
 	static String[] ciudades = new String[48];
 	static int ronda = 10;
 	static String Ciudad_Enfermedad[] = new String[48];
+	static int infectadaRonda;
 
 	public static void funcionamiento() throws IOException {
 		// TODO Auto-generated method stub
@@ -110,7 +111,7 @@ public class Enfermedades {
 			while (cantCiudadesInfectadasPorRonda < modo_facil) {
 				int contador = 1;
 				int a = (int) Math.floor(Math.random() * (47 - 1 + 1) + 1);// el numero de la ciudad que se va a
-																			// infectar(en el array).
+				infectadaRonda = a;															// infectar(en el array).
 				int guardar_ciudades[] = new int[modo_facil];
 				guardar_ciudades[contador] = a;
 

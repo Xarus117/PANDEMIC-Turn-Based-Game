@@ -61,6 +61,8 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	// ACCIONES
 	int contadorAccion = 4;
 
+	int infectadaRonda;
+
 	PanelNuevaPartida() {
 		setLayout(null);
 		Image im = Toolkit.getDefaultToolkit().createImage("imagenes//cursorDefecto.png");
@@ -309,6 +311,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 
 				} catch (IOException e) {
 					e.printStackTrace();
+
 				}
 				add(colocar.get(i));
 			}
@@ -344,6 +347,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 
 				ciudades.add(new Ciudades(nombres.get(i), roja, verde, amarilla, azul));
 				colocar.get(i).addActionListener(this);
+
 				try {
 					colocar.get(i).setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//OjeteNo.png"))));
 
@@ -519,24 +523,21 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			recuadroInfo.setText("Has pulsado [CURAR CIUDAD]\nPuede curar las siguentes ciudades: ");
 			recuadroInfo.setVisible(true);
 		} else if (e.getSource() == boton4) {
+			infectadaRonda = Enfermedades.infectadaRonda;
+			for (int i = 0; i < infectadaRonda; i++) {
+			}
+
 			try {
 				conservarRonda = Enfermedades.ronda(Enfermedades.NomFit1, Enfermedades.NomFit, Enfermedades.n0,
 						Enfermedades.ciudades, Enfermedades.NomFit2, Enfermedades.Ciudad_Enfermedad);
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-			for(int i = 0; i < 48; i++) {
-			System.out.println(conservarRonda[i] + " " + i);
-			}
+
 			contadorAccion += 4;
 			acciones(contadorAccion);
-			recuadroInfo.setText("Se han infectado las siguientes ciudades: ");
+			pasarRonda();
 			recuadroInfo.setVisible(true);
-		} else if (e.getSource() == salir) {
-			JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
-			marco.remove(this);
-			marco.add(new PanelPrincipal());
-			marco.setVisible(true);
 		} else if (e.getSource() == salir) {
 			JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
 			marco.remove(this);
@@ -822,6 +823,25 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				+ " \r\nActualmente esta infectada por la enfermedad" + "\r\nRoja: " + ciudades.get(indice).getRoja()
 				+ "\r\nVerde: " + ciudades.get(indice).getVerde() + "\r\nAmarilla: "
 				+ ciudades.get(indice).getAmarilla() + "\r\nAzul: " + ciudades.get(indice).getAzul());
+		recuadroInfo.setVisible(true);
+	}
+
+	
+	
+	public void pasarRonda() {
+		recuadroInfo.setText("Las ciudades infectadas son:\n");
+		
+		
+		String guardarRecuadro = recuadroInfo.getText();
+		String lineaRecuadro = guardarRecuadro;
+		
+		for (int j = 0; j < conservarRonda.length; j++) {
+			if (conservarRonda[j] != null) {
+			guardarRecuadro = recuadroInfo.getText();
+			lineaRecuadro = guardarRecuadro + "\n" + conservarRonda[j];
+			recuadroInfo.setText(ciudades.get(j).getNombre() + lineaRecuadro);
+			}
+		}
 		recuadroInfo.setVisible(true);
 	}
 
