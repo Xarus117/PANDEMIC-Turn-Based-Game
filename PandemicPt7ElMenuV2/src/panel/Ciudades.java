@@ -1,11 +1,11 @@
 package panel;
 
 public class Ciudades {
-	static String nombre;
-	static int Roja;
-	static int Verde;
-	static int Amarilla;
-	static int Azul;
+	private String nombre;
+	private int Roja;
+	private int Verde;
+	private int Amarilla;
+	private int Azul;
 	
 	public Ciudades(String nombre, int roja, int verde, int amarilla, int azul) {
 		super();

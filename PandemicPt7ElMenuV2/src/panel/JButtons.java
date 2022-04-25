@@ -18,13 +18,11 @@ public class JButtons extends JButton {
 	
 
 	public JButtons(String nombre, int x, int y) {
-		String nombreCompleto = (nombre + ": [" + x + " | " + y + "]" + " \nActualmente esta infectada por la enfermedad"+"\nRoja: " + Ciudades.Roja + "\n Verde: " + Ciudades.Verde + "\n Amarilla: " + Ciudades.Amarilla + "\n Azul: " + Ciudades.Azul);
 		
 		Image im = Toolkit.getDefaultToolkit().createImage("imagenes//cursorDefecto.png");
 		Image im2 = Toolkit.getDefaultToolkit().createImage("imagenes//cursorHover.png");
 		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10, 10), "WILL");
-		Cursor cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10, 10), "WILL");
-		this.setName(nombreCompleto); 
+		Cursor cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10, 10), "WILL"); 
 		this.nombre = nombre;
 		this.setBounds(x - 90, y - 95, 15, 15);
 		this.setForeground(Color.WHITE);

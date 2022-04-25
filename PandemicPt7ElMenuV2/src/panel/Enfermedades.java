@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -130,6 +131,7 @@ public class Enfermedades {
 			System.out.println("Error E/S");
 		}
 		brote(Ciudad_Enfermedad, NomFit1, NomFit2);
+		
 		return Ciudad_Enfermedad;
 		
 	}
@@ -165,9 +167,6 @@ public class Enfermedades {
 				ciudades[i] = parts[0];
 
 				colindantes[i].split(separador1);
-
-				System.out.println(colindantes[i]);
-
 				bw.newLine();
 			}
 
@@ -247,12 +246,6 @@ public class Enfermedades {
 			}
 
 		}
-
-		System.out.println(cont_enfer_0);
-		System.out.println(cont_enfer_1);
-		System.out.println(cont_enfer_2);
-		System.out.println(cont_enfer_3);
-
 		return Ciudad_Enfermedad;
 	}
 
