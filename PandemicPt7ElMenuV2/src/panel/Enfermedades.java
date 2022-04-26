@@ -25,16 +25,6 @@ public class Enfermedades {
 	static int infectadaRonda;
 
 	public static void funcionamiento() throws IOException {
-		// TODO Auto-generated method stub
-
-		// for (int i = 0; i < ronda; i++) {
-		// Ciudad_Enfermedad = ronda(NomFit1, NomFit, n0, ciudades, NomFit2,
-		// Ciudad_Enfermedad);
-		// System.out.println("\n");
-		// for (int j = 0; j < Ciudad_Enfermedad.length; j++) {
-		// System.out.print(" posicion " + j + Ciudad_Enfermedad[j]);
-		// }
-		// }
 
 			ronda(NomFit1, NomFit, n0, ciudades, NomFit2, Ciudad_Enfermedad);
 			for (int j = 0; j < Ciudad_Enfermedad.length; j++) {

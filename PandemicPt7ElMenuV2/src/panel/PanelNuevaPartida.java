@@ -24,9 +24,9 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	JButton vacunaGris;
 	// Botones Miscelanea
 	JButton guardar;
-	JButton salir;
 	// Recuadro
 	JTextArea recuadroInfo;
+	JTextArea recuadroInfo2;
 	// Acciones del usuario
 	JButton accion1;
 	JButton accion2;
@@ -44,9 +44,6 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	static int indice = 0;
 	int vacunas = 4;
 
-	private int roja = 0, amarilla = 0, verde = 0, azul = 0;
-	int cont_rojo = 0, cont_amarillo = 0, cont_vered = 0, cont_azul = 0;
-
 	String[] conservarRonda = new String[48];
 
 	Image image;
@@ -60,8 +57,6 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 
 	// ACCIONES
 	int contadorAccion = 4;
-
-	int infectadaRonda;
 
 	PanelNuevaPartida() {
 		setLayout(null);
@@ -162,7 +157,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		guardar.setIcon(null);
 
 		guardar.setSize(50, 50);
-		guardar.setLocation(30, 670);
+		guardar.setLocation(1150, 670);
 		guardar.setBackground(Color.red);
 		guardar.setBorder(null);
 		guardar.setBorderPainted(false);
@@ -178,11 +173,10 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		add(guardar);
 		guardar(); // FUNCIÓN PARA GUARDAR
 
-		// SALIR
-
+		// RECUADROS
 		recuadroInfo = new JTextArea();
 		recuadroInfo.setFont(new Font("Serif", Font.PLAIN, 16));
-		recuadroInfo.setSize(280, 200);
+		recuadroInfo.setSize(200, 710);
 		recuadroInfo.setForeground(Color.WHITE);
 		recuadroInfo.setBorder(BorderFactory.createLineBorder(Color.white));
 		recuadroInfo.setBackground(Color.BLACK);
@@ -191,26 +185,16 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		recuadroInfo.setVisible(false);
 		add(recuadroInfo);
 
-		salir = new JButton();
-
-		salir.setIcon(null);
-		salir.setSize(150, 50);
-		salir.setLocation(1120, 10);
-		salir.setBackground(Color.green);
-		salir.setBorder(null);
-		salir.setBorderPainted(false);
-		salir.setContentAreaFilled(false);
-		salir.setBorderPainted(false);
-
-		try {
-			salir.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//salir.png"))));
-		} catch (IOException e2) {
-			System.out.println("Ha ocurrido un error al cargar el botón de guardar el estado de la partida");
-		}
-
-		salir.addActionListener(this);
-
-		add(salir);
+		recuadroInfo2 = new JTextArea();
+		recuadroInfo2.setFont(new Font("Serif", Font.PLAIN, 16));
+		recuadroInfo2.setSize(200, 140);
+		recuadroInfo2.setForeground(Color.WHITE);
+		recuadroInfo2.setBorder(BorderFactory.createLineBorder(Color.white));
+		recuadroInfo2.setBackground(Color.BLACK);
+		recuadroInfo2.setLocation(1050, 5);
+		recuadroInfo2.setOpaque(true);
+		recuadroInfo2.setVisible(false);
+		add(recuadroInfo2);
 
 		// INICIAR VACUNAS
 
@@ -302,7 +286,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			}
 
 			for (int i = 0; i < bCiudades.size(); i++) {
-
+				ciudades.add(new Ciudades(nombres.get(i)));
 				colocar.add(new JButtons(bCiudades.get(i), X[i], Y[i]));
 				colocar.get(i).addActionListener(this);
 
@@ -322,56 +306,36 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				e1.printStackTrace();
 			}
 			for (int i = 0; i < 48; i++) {
-				String ciudad_enfermedad_necesaria;
 				System.out.println(conservarRonda[i] + " " + i);
 				if (conservarRonda[i] != null) {
-					ciudad_enfermedad_necesaria = conservarRonda[i];
-					if (ciudad_enfermedad_necesaria.contains("0")) {
-						cont_amarillo++;
-					}
-					if (ciudad_enfermedad_necesaria.contains("1")) {
-						cont_azul++;
-					}
-					if (ciudad_enfermedad_necesaria.contains("2")) {
-						cont_rojo++;
-					}
-					if (ciudad_enfermedad_necesaria.contains("3")) {
-						cont_vered++;
+					if (conservarRonda[i].contains("0")) {
+						ciudades.get(i).setAmarilla(ciudades.get(i).getAmarilla() + 1);
+					}if (conservarRonda[i].contains("1")) {
+						ciudades.get(i).setAzul(ciudades.get(i).getAzul() + 1);
+					}if (conservarRonda[i].contains("2")) {
+						ciudades.get(i).setRoja(ciudades.get(i).getRoja() + 1);
+					}if (conservarRonda[i].contains("3")) {
+						ciudades.get(i).setVerde(ciudades.get(i).getVerde() + 1);
 					}
 				}
-
-				setCont_amarillo(cont_amarillo);
-				setCont_azul(cont_azul);
-				setCont_rojo(cont_rojo);
-				setCont_verde(cont_vered);
-
-				ciudades.add(new Ciudades(nombres.get(i), roja, verde, amarilla, azul));
-				colocar.get(i).addActionListener(this);
-
-				try {
-					colocar.get(i).setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//OjeteNo.png"))));
-
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				add(colocar.get(i));
-
-				cont_amarillo = 0;
-				cont_azul = 0;
-				cont_rojo = 0;
-				cont_vered = 0;
-
-				setCont_amarillo(cont_amarillo);
-				setCont_azul(cont_azul);
-				setCont_rojo(cont_rojo);
-				setCont_verde(cont_vered);
 			}
+			recuadroInfo.setText("Las ciudades infectadas son:\n");
+
+			String guardarRecuadro = recuadroInfo.getText();
+
+			for (int j = 0; j < conservarRonda.length; j++) {
+				if (conservarRonda[j] != null) {
+					guardarRecuadro = recuadroInfo.getText();
+					recuadroInfo.setText(guardarRecuadro + ciudades.get(j).getNombre() + "\n");
+
+				}
+			}
+			recuadroInfo.setVisible(true);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 
 	}
-
 	public void vacunas() { // LAS PUTAS VACUNAS
 		vacunaAzul.setSize(90, 100);
 		vacunaAzul.setLocation(1070, 750);
@@ -498,6 +462,60 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 
 		g.drawImage(image, 0, 0, this);
 	}
+	
+	public void pasarRonda() {
+
+		actualizarCiudad();
+		recuadroInfo.setText("Las ciudades infectadas son:\n");
+
+		String guardarRecuadro = recuadroInfo.getText();
+
+		for (int j = 0; j < conservarRonda.length; j++) {
+			if (conservarRonda[j] != null) {
+				guardarRecuadro = recuadroInfo.getText();
+				recuadroInfo.setText(guardarRecuadro + ciudades.get(j).getNombre() + "\n");
+
+			}
+		}
+		recuadroInfo.setVisible(true);
+	}
+	
+	public void actualizarCiudad() {
+		try {
+			conservarRonda = Enfermedades.ronda(Enfermedades.NomFit1, Enfermedades.NomFit, Enfermedades.n0,
+					Enfermedades.ciudades, Enfermedades.NomFit2, Enfermedades.Ciudad_Enfermedad);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		for (int i = 0; i < 48; i++) {
+			System.out.println(conservarRonda[i] + " " + i);
+			if (conservarRonda[i] != null) {
+				if (conservarRonda[i].contains("0")) {
+					ciudades.get(i).setAmarilla(ciudades.get(i).getAmarilla() + 1);
+				}
+				if (conservarRonda[i].contains("1")) {
+					ciudades.get(i).setAzul(ciudades.get(i).getAzul() + 1);
+				}
+				if (conservarRonda[i].contains("2")) {
+					ciudades.get(i).setRoja(ciudades.get(i).getRoja() + 1);
+				}
+				if (conservarRonda[i].contains("3")) {
+					ciudades.get(i).setVerde(ciudades.get(i).getVerde() + 1);
+				}
+			}
+
+		}
+	}
+	
+	public void identificarCiudad() {
+		recuadroInfo2.setText(ciudades.get(indice).getNombre() + ": [" + X[indice] + " | " + Y[indice] + "]"
+				+ " \r\nActualmente esta infectada por la enfermedad" + "\r\nRoja: " + ciudades.get(indice).getRoja()
+				+ "\r\nVerde: " + ciudades.get(indice).getVerde() + "\r\nAmarilla: "
+				+ ciudades.get(indice).getAmarilla() + "\r\nAzul: " + ciudades.get(indice).getAzul());
+		recuadroInfo2.setVisible(true);
+	}
+
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -513,36 +531,15 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			acciones(contadorAccion);
 			recuadroInfo.setText("Has pulsado [CURAR CIUDAD]\nPuede curar las siguentes ciudades: ");
 			recuadroInfo.setVisible(true);
-		} else if (e.getSource() == salir) {
-			JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
-			marco.remove(this);
-			marco.add(new PanelPrincipal());
-			marco.setVisible(true);
 		} else if (e.getSource() == boton3) {
 			acciones(contadorAccion);
 			recuadroInfo.setText("Has pulsado [CURAR CIUDAD]\nPuede curar las siguentes ciudades: ");
 			recuadroInfo.setVisible(true);
 		} else if (e.getSource() == boton4) {
-			infectadaRonda = Enfermedades.infectadaRonda;
-			for (int i = 0; i < infectadaRonda; i++) {
-			}
-
-			try {
-				conservarRonda = Enfermedades.ronda(Enfermedades.NomFit1, Enfermedades.NomFit, Enfermedades.n0,
-						Enfermedades.ciudades, Enfermedades.NomFit2, Enfermedades.Ciudad_Enfermedad);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-
 			contadorAccion += 4;
 			acciones(contadorAccion);
 			pasarRonda();
 			recuadroInfo.setVisible(true);
-		} else if (e.getSource() == salir) {
-			JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
-			marco.remove(this);
-			marco.add(new PanelPrincipal());
-			marco.setVisible(true);
 		} else if (e.getSource() == vacunaAzul) {
 			if (azulb == false) {
 				azulb = true;
@@ -814,97 +811,8 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		if (e.getSource() == colocar.get(47)) {
 			indice = 47;
 			identificarCiudad();
-		} else {
-		}
+		} 
 	}
 
-	public void identificarCiudad() {
-		recuadroInfo.setText(ciudades.get(indice).getNombre() + ": [" + X[indice] + " | " + Y[indice] + "]"
-				+ " \r\nActualmente esta infectada por la enfermedad" + "\r\nRoja: " + ciudades.get(indice).getRoja()
-				+ "\r\nVerde: " + ciudades.get(indice).getVerde() + "\r\nAmarilla: "
-				+ ciudades.get(indice).getAmarilla() + "\r\nAzul: " + ciudades.get(indice).getAzul());
-		recuadroInfo.setVisible(true);
-	}
 
-	
-	
-	public void pasarRonda() {
-		recuadroInfo.setText("Las ciudades infectadas son:\n");
-		
-		
-		String guardarRecuadro = recuadroInfo.getText();
-		String lineaRecuadro = guardarRecuadro;
-		
-		for (int j = 0; j < conservarRonda.length; j++) {
-			if (conservarRonda[j] != null) {
-			guardarRecuadro = recuadroInfo.getText();
-			lineaRecuadro = guardarRecuadro + "\n" + conservarRonda[j];
-			recuadroInfo.setText(ciudades.get(j).getNombre() + lineaRecuadro);
-			}
-		}
-		recuadroInfo.setVisible(true);
-	}
-
-	public static void leerFichero() throws ParserConfigurationException, SAXException {
-		try {
-			File file = new File("Ficheros//NuevaPartida.xml");
-			DocumentBuilderFactory DBF = DocumentBuilderFactory.newInstance();
-			DocumentBuilder DB = DBF.newDocumentBuilder();
-			Document Documento = DB.parse(file);
-			Documento.getDocumentElement().normalize();
-			System.out.println("Root Element: " + Documento.getDocumentElement().getNodeName());
-			NodeList nList = Documento.getElementsByTagName("parametros");
-			System.out.println("----------------------------");
-			for (int i = 0; i < nList.getLength(); i++) {
-				Node nNode = nList.item(i);
-				System.out.println("Elemento actual :" + nNode.getNodeName());
-				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-					Element eElement = (Element) nNode;
-					System.out.println("Ciudades infectadas al inicio : "
-							+ eElement.getElementsByTagName("numCiudadesInfectadasInicio").item(0).getTextContent());
-					System.out.println("Ciudades infectadas en la ronda : "
-							+ eElement.getElementsByTagName("numCuidadesInfectadasRonda").item(0).getTextContent());
-					System.out.println("Enfermedades activas para derrota : "
-							+ eElement.getElementsByTagName("numEnfermedadesActivasDerrota").item(0).getTextContent());
-					System.out.println("Numero de brotes para derrota : "
-							+ eElement.getElementsByTagName("numBrotesDerrota").item(0).getTextContent());
-				}
-			}
-
-		} catch (IOException e) {
-			System.out.println(e);
-		}
-	}
-
-	public int getCont_rojo() {
-		return roja;
-	}
-
-	public void setCont_rojo(int cont_rojo) {
-		this.roja = cont_rojo;
-	}
-
-	public int getCont_amarillo() {
-		return amarilla;
-	}
-
-	public void setCont_amarillo(int cont_amarillo) {
-		this.amarilla = cont_amarillo;
-	}
-
-	public int getCont_verde() {
-		return verde;
-	}
-
-	public void setCont_verde(int cont_verde) {
-		this.verde = cont_verde;
-	}
-
-	public int getCont_azul() {
-		return azul;
-	}
-
-	public void setCont_azul(int cont_azul) {
-		this.azul = cont_azul;
-	}
 }

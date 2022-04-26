@@ -7,13 +7,13 @@ public class Ciudades {
 	private int Amarilla;
 	private int Azul;
 	
-	public Ciudades(String nombre, int roja, int verde, int amarilla, int azul) {
+	public Ciudades(String nombre) {
 		super();
 		this.nombre = nombre;
-		Roja = roja;
-		Verde = verde;
-		Amarilla = amarilla;
-		Azul = azul;
+		Roja = 0;
+		Verde = 0;
+		Amarilla = 0;
+		Azul = 0;
 	}
 
 
