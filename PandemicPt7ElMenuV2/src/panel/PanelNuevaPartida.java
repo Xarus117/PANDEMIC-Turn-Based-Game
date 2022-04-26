@@ -38,6 +38,8 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	ArrayList<String> bCiudades = new ArrayList<>();
 	static ArrayList<String> coordenadas = new ArrayList<>();
 	ArrayList<JButtons> colocar = new ArrayList<>();
+	// Random
+	static Random rn = new Random();
 
 	static int[] X = new int[48];
 	static int[] Y = new int[48];
@@ -70,7 +72,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		boton1.setSize(200, 50);
 		boton1.setLocation(400, 740);
 		boton1.setFont(new Font("Calibri", Font.BOLD, 20));
-		boton1.setForeground(Color.WHITE);
+		boton1.setForeground(Color.BLACK);
 		boton1.setBackground(Color.green);
 		boton1.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
@@ -87,7 +89,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		boton2.setSize(200, 50);
 		boton2.setLocation(650, 740);
 		boton2.setFont(new Font("Calibri", Font.BOLD, 20));
-		boton2.setForeground(Color.WHITE);
+		boton2.setForeground(Color.BLACK);
 		boton2.setBackground(Color.green);
 		boton2.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
@@ -104,7 +106,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		boton3.setSize(200, 50);
 		boton3.setLocation(400, 800);
 		boton3.setFont(new Font("Calibri", Font.BOLD, 20));
-		boton3.setForeground(Color.WHITE);
+		boton3.setForeground(Color.BLACK);
 		boton3.setBackground(Color.green);
 		boton3.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
@@ -121,7 +123,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		boton4.setSize(200, 50);
 		boton4.setLocation(650, 800);
 		boton4.setFont(new Font("Calibri", Font.BOLD, 20));
-		boton4.setForeground(Color.WHITE);
+		boton4.setForeground(Color.BLACK);
 		boton4.setBackground(Color.green);
 		boton4.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
@@ -175,23 +177,22 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 
 		// RECUADROS
 		recuadroInfo = new JTextArea();
-		recuadroInfo.setFont(new Font("Serif", Font.PLAIN, 16));
-		recuadroInfo.setSize(200, 710);
+		recuadroInfo.setFont(new Font("Serif", Font.PLAIN, 14));
+		recuadroInfo.setSize(210, 120);
 		recuadroInfo.setForeground(Color.WHITE);
-		recuadroInfo.setBorder(BorderFactory.createLineBorder(Color.white));
 		recuadroInfo.setBackground(Color.BLACK);
-		recuadroInfo.setLocation(5, 5);
+		recuadroInfo.setLocation(180, 740);
 		recuadroInfo.setOpaque(true);
 		recuadroInfo.setVisible(false);
 		add(recuadroInfo);
 
 		recuadroInfo2 = new JTextArea();
 		recuadroInfo2.setFont(new Font("Serif", Font.PLAIN, 16));
-		recuadroInfo2.setSize(200, 140);
+		recuadroInfo2.setSize(250, 140);
 		recuadroInfo2.setForeground(Color.WHITE);
 		recuadroInfo2.setBorder(BorderFactory.createLineBorder(Color.white));
 		recuadroInfo2.setBackground(Color.BLACK);
-		recuadroInfo2.setLocation(1050, 5);
+		recuadroInfo2.setLocation(1000, 5);
 		recuadroInfo2.setOpaque(true);
 		recuadroInfo2.setVisible(false);
 		add(recuadroInfo2);
@@ -299,43 +300,14 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				}
 				add(colocar.get(i));
 			}
-			try {
-				conservarRonda = Enfermedades.ronda(Enfermedades.NomFit1, Enfermedades.NomFit, Enfermedades.n0,
-						Enfermedades.ciudades, Enfermedades.NomFit2, Enfermedades.Ciudad_Enfermedad);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-			for (int i = 0; i < 48; i++) {
-				System.out.println(conservarRonda[i] + " " + i);
-				if (conservarRonda[i] != null) {
-					if (conservarRonda[i].contains("0")) {
-						ciudades.get(i).setAmarilla(ciudades.get(i).getAmarilla() + 1);
-					}if (conservarRonda[i].contains("1")) {
-						ciudades.get(i).setAzul(ciudades.get(i).getAzul() + 1);
-					}if (conservarRonda[i].contains("2")) {
-						ciudades.get(i).setRoja(ciudades.get(i).getRoja() + 1);
-					}if (conservarRonda[i].contains("3")) {
-						ciudades.get(i).setVerde(ciudades.get(i).getVerde() + 1);
-					}
-				}
-			}
-			recuadroInfo.setText("Las ciudades infectadas son:\n");
+			contagio();
 
-			String guardarRecuadro = recuadroInfo.getText();
-
-			for (int j = 0; j < conservarRonda.length; j++) {
-				if (conservarRonda[j] != null) {
-					guardarRecuadro = recuadroInfo.getText();
-					recuadroInfo.setText(guardarRecuadro + ciudades.get(j).getNombre() + "\n");
-
-				}
-			}
-			recuadroInfo.setVisible(true);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 
 	}
+
 	public void vacunas() { // LAS PUTAS VACUNAS
 		vacunaAzul.setSize(90, 100);
 		vacunaAzul.setLocation(1070, 750);
@@ -462,83 +434,94 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 
 		g.drawImage(image, 0, 0, this);
 	}
-	
-	public void pasarRonda() {
 
-		actualizarCiudad();
+	public void contagio() {
+		int rd = 0;
+		int rd2 = 0;
+		int ronda = 5;
+		String[] mantener = new String[5];
+
+		for (int i = 0; i < ronda; i++) {
+			rd = rn.nextInt(4);
+			rd2 = rn.nextInt(48);
+			if (rd == 0) {
+				ciudades.get(rd2).setAmarilla(ciudades.get(rd2).getAmarilla() + 1);
+			}
+			if (rd == 1) {
+				ciudades.get(rd2).setAzul(ciudades.get(rd2).getAzul() + 1);
+			}
+			if (rd == 2) {
+				ciudades.get(rd2).setRoja(ciudades.get(rd2).getRoja() + 1);
+			}
+			if (rd == 3) {
+				ciudades.get(rd2).setVerde(ciudades.get(rd2).getVerde() + 1);
+			}
+			mantener[i] = ciudades.get(rd2).getNombre();
+		}
+		ronda = 3;
 		recuadroInfo.setText("Las ciudades infectadas son:\n");
 
 		String guardarRecuadro = recuadroInfo.getText();
 
-		for (int j = 0; j < conservarRonda.length; j++) {
-			if (conservarRonda[j] != null) {
-				guardarRecuadro = recuadroInfo.getText();
-				recuadroInfo.setText(guardarRecuadro + ciudades.get(j).getNombre() + "\n");
-
-			}
+		for (int j = 0; j < mantener.length; j++) {
+			guardarRecuadro = recuadroInfo.getText();
+			recuadroInfo.setText(guardarRecuadro + mantener[j] + "\n");
 		}
 		recuadroInfo.setVisible(true);
 	}
-	
-	public void actualizarCiudad() {
-		try {
-			conservarRonda = Enfermedades.ronda(Enfermedades.NomFit1, Enfermedades.NomFit, Enfermedades.n0,
-					Enfermedades.ciudades, Enfermedades.NomFit2, Enfermedades.Ciudad_Enfermedad);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		for (int i = 0; i < 48; i++) {
-			System.out.println(conservarRonda[i] + " " + i);
-			if (conservarRonda[i] != null) {
-				if (conservarRonda[i].contains("0")) {
-					ciudades.get(i).setAmarilla(ciudades.get(i).getAmarilla() + 1);
-				}
-				if (conservarRonda[i].contains("1")) {
-					ciudades.get(i).setAzul(ciudades.get(i).getAzul() + 1);
-				}
-				if (conservarRonda[i].contains("2")) {
-					ciudades.get(i).setRoja(ciudades.get(i).getRoja() + 1);
-				}
-				if (conservarRonda[i].contains("3")) {
-					ciudades.get(i).setVerde(ciudades.get(i).getVerde() + 1);
-				}
-			}
 
+	public void curar() {
+		if (ciudades.get(indice).getAmarilla() >= 1) {
+			ciudades.get(indice).setAmarilla(ciudades.get(indice).getAmarilla() - 1);
 		}
+		if (ciudades.get(indice).getAzul() >= 1) {
+			ciudades.get(indice).setAzul(ciudades.get(indice).getAzul() - 1);
+		}
+		if (ciudades.get(indice).getRoja() >= 1) {
+			ciudades.get(indice).setRoja(ciudades.get(indice).getRoja() - 1);
+		}
+		if (ciudades.get(indice).getVerde() >= 1) {
+			ciudades.get(indice).setVerde(ciudades.get(indice).getVerde() - 1);
+		}
+		contadorAccion--;
+		acciones(contadorAccion);
 	}
-	
+
 	public void identificarCiudad() {
 		recuadroInfo2.setText(ciudades.get(indice).getNombre() + ": [" + X[indice] + " | " + Y[indice] + "]"
-				+ " \r\nActualmente esta infectada por la enfermedad" + "\r\nRoja: " + ciudades.get(indice).getRoja()
-				+ "\r\nVerde: " + ciudades.get(indice).getVerde() + "\r\nAmarilla: "
-				+ ciudades.get(indice).getAmarilla() + "\r\nAzul: " + ciudades.get(indice).getAzul());
+				+ " \r\nActualmente esta infectada por:" + "\r\nRoja: " + ciudades.get(indice).getRoja() + "\r\nVerde: "
+				+ ciudades.get(indice).getVerde() + "\r\nAmarilla: " + ciudades.get(indice).getAmarilla() + "\r\nAzul: "
+				+ ciudades.get(indice).getAzul());
 		recuadroInfo2.setVisible(true);
 	}
-
-	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getSource() == boton1) {
+			if (contadorAccion < 4) {
+				recuadroInfo.setText("No es posible [BUSCAR VACUNA] \n"+"Ya que no tiene suficientes acciones");
+			}else {
 			contadorAccion -= 4;
 			acciones(contadorAccion);
 			recuadroInfo.setText("Has pulsado [BUSCAR VACUNA]\nPuede buscar un total de: " + vacunas + " vacunas");
+			}
 			recuadroInfo.setVisible(true);
 
 		} else if (e.getSource() == boton2) {
-			contadorAccion--;
-			acciones(contadorAccion);
-			recuadroInfo.setText("Has pulsado [CURAR CIUDAD]\nPuede curar las siguentes ciudades: ");
-			recuadroInfo.setVisible(true);
+			if (contadorAccion < 1) {
+				recuadroInfo.setText("No es posible [BUSCAR CURA] \n"+"Ya que no tiene suficientes acciones");
+			}else {
+			recuadroInfo2.setText("Has curado la infección en 1 todas\nlas enfermedades de: " + ciudades.get(indice).getNombre());
+			curar();}
 		} else if (e.getSource() == boton3) {
 			acciones(contadorAccion);
-			recuadroInfo.setText("Has pulsado [CURAR CIUDAD]\nPuede curar las siguentes ciudades: ");
+			recuadroInfo.setText("Has pulsado [APLICAR VACUNA]\nPuede curar las siguentes ciudades: ");
 			recuadroInfo.setVisible(true);
 		} else if (e.getSource() == boton4) {
 			contadorAccion += 4;
 			acciones(contadorAccion);
-			pasarRonda();
+			contagio();
 			recuadroInfo.setVisible(true);
 		} else if (e.getSource() == vacunaAzul) {
 			if (azulb == false) {
@@ -811,8 +794,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		if (e.getSource() == colocar.get(47)) {
 			indice = 47;
 			identificarCiudad();
-		} 
+		}
 	}
-
 
 }
