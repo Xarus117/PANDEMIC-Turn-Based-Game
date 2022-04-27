@@ -68,12 +68,14 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		Cursor cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10, 10), "WILL");
 		setCursor(cur);
 
+		Color verdeBoton = new Color (144, 238, 144);
+		
 		boton1 = new JButton("Buscar vacuna");
 		boton1.setSize(200, 50);
 		boton1.setLocation(400, 740);
 		boton1.setFont(new Font("Calibri", Font.BOLD, 20));
 		boton1.setForeground(Color.BLACK);
-		boton1.setBackground(Color.green);
+		boton1.setBackground(verdeBoton);
 		boton1.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
 				boton1.setBackground(Color.GRAY);
@@ -81,7 +83,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			}
 
 			public void mouseExited(MouseEvent e) {
-				boton1.setBackground(Color.green);
+				boton1.setBackground(verdeBoton);
 				setCursor(cur);
 			}
 		});
@@ -90,7 +92,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		boton2.setLocation(650, 740);
 		boton2.setFont(new Font("Calibri", Font.BOLD, 20));
 		boton2.setForeground(Color.BLACK);
-		boton2.setBackground(Color.green);
+		boton2.setBackground(verdeBoton);
 		boton2.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
 				boton2.setBackground(Color.GRAY);
@@ -98,7 +100,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			}
 
 			public void mouseExited(MouseEvent e) {
-				boton2.setBackground(Color.green);
+				boton2.setBackground(verdeBoton);
 				setCursor(cur);
 			}
 		});
@@ -107,7 +109,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		boton3.setLocation(400, 800);
 		boton3.setFont(new Font("Calibri", Font.BOLD, 20));
 		boton3.setForeground(Color.BLACK);
-		boton3.setBackground(Color.green);
+		boton3.setBackground(verdeBoton);
 		boton3.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
 				boton3.setBackground(Color.GRAY);
@@ -115,7 +117,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			}
 
 			public void mouseExited(MouseEvent e) {
-				boton3.setBackground(Color.green);
+				boton3.setBackground(verdeBoton);
 				setCursor(cur);
 			}
 		});
@@ -124,7 +126,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		boton4.setLocation(650, 800);
 		boton4.setFont(new Font("Calibri", Font.BOLD, 20));
 		boton4.setForeground(Color.BLACK);
-		boton4.setBackground(Color.green);
+		boton4.setBackground(verdeBoton);
 		boton4.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
 				boton4.setBackground(Color.GRAY);
@@ -132,7 +134,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			}
 
 			public void mouseExited(MouseEvent e) {
-				boton4.setBackground(Color.green);
+				boton4.setBackground(verdeBoton);
 				setCursor(cur);
 			}
 		});
