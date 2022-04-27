@@ -20,13 +20,21 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 public class PanelEscogerDificultad extends JPanel implements ActionListener {
-	
-	JButton facil;
-	JButton normal;
-	JButton dificil;
-	JButton personalizado;
+
+	 JButton facil;
+	 JButton normal;
+
 
 	JButton volver;
 
@@ -36,7 +44,7 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 	Image image;
 	Image recuadro;
 	Image logo;
-	
+
 
 	PanelEscogerDificultad() {
 		setLayout(null);
@@ -51,8 +59,6 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 		texto.setBounds(635, 310, 315, 340);
 		texto.setForeground(Color.white);
 		add(texto);
-		
-
 
 		facil = new JButton("Fácil");
 		facil.setSize(200, 50);
@@ -108,33 +114,6 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 
 		add(normal);
 
-		dificil = new JButton("Difícil");
-		dificil.setSize(200, 50);
-		dificil.setLocation(420, 580);
-		dificil.setFont(new Font("Arial", Font.BOLD, 20));
-		dificil.setBackground(Color.green);
-		dificil.setBorder(new LineBorder(Color.BLACK));
-		dificil.addMouseListener(new MouseAdapter() {
-			public void mouseEntered(MouseEvent e) {
-				dificil.setBackground(Color.MAGENTA);
-				setCursor(cur2);
-				texto.setText(
-						"<html><br><br><br><br><br>La dificultad difícil:<br><br>- Empieza con 3 puntos de acción<br><br>-Pandemia veloz<br><br>-Para jugadores<br>experimentados<html>");
-				add(texto);
-			}
-
-			public void mouseExited(MouseEvent e) {
-				dificil.setBackground(Color.green);
-				setCursor(cur);
-				texto.setText("<html>Escoja una dificultad<br><br><br><html>");
-				add(texto);
-			}
-		});
-
-		dificil.addActionListener(this);
-
-		add(dificil);
-
 		volver = new JButton("Volver");
 		volver.setSize(200, 50);
 		volver.setLocation(550, 710);
@@ -182,22 +161,28 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 		if (e.getSource() == facil) {
 			JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
 			marco.remove(this);
-			marco.add(new PanelNuevaPartida());
+			try {
+				marco.add(new PanelNuevaPartida());
+			} catch (ParserConfigurationException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SAXException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			marco.setVisible(true);
 		} else if (e.getSource() == normal) {
 			JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
 			marco.remove(this);
-			marco.add(new PanelNuevaPartida());
-			marco.setVisible(true);
-		} else if (e.getSource() == dificil) {
-			JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
-			marco.remove(this);
-			marco.add(new PanelNuevaPartida());
-			marco.setVisible(true);
-		} else if (e.getSource() == personalizado) {
-			JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
-			marco.remove(this);
-			marco.add(new PanelNuevaPartida());
+			try {
+				marco.add(new PanelNuevaPartida());
+			} catch (ParserConfigurationException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SAXException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			marco.setVisible(true);
 		} else if (e.getSource() == volver) {
 			JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
