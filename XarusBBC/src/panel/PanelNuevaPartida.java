@@ -24,6 +24,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	JButton vacunaGris;
 	// Botones Miscelanea
 	JButton guardar;
+	JButton salir;
 	// Recuadro
 	JTextArea recuadroInfo;
 	JTextArea recuadroInfo2;
@@ -49,8 +50,6 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	String[] conservarRonda = new String[48];
 
 	Image image;
-	ImageIcon ciudadMarcadaSi;
-	ImageIcon ciudadMarcadaNo;
 
 	// BOOLEAN PARA ACTIVAR O DESACTIVAR LAS VACUNAS
 	boolean azulb = false;
@@ -62,6 +61,9 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	// ACCIONES
 	int contadorAccion = 4;
 
+	Font fuente1;
+	Font fuente2;
+
 	PanelNuevaPartida() {
 		setLayout(null);
 		Image im = Toolkit.getDefaultToolkit().createImage("imagenes//cursorDefecto.png");
@@ -70,12 +72,20 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		Cursor cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10, 10), "WILL");
 		setCursor(cur);
 
-		Color verdeBoton = new Color(144, 238, 144);
+		try {
+			fuente1 = Font.createFont(Font.TRUETYPE_FONT, new File("fuentes//Averta.otf")).deriveFont(20f);
+			fuente2 = Font.createFont(Font.TRUETYPE_FONT, new File("fuentes//Averta.otf")).deriveFont(13f);
 
-		boton1 = new JButton("Buscar vacuna");
+		} catch (FontFormatException | IOException e3) {
+			e3.printStackTrace();
+		}
+
+		Color verdeBoton = new Color(247, 185, 71);
+
+		boton1 = new JButton("BUSCAR VACUNA");
 		boton1.setSize(200, 50);
 		boton1.setLocation(400, 740);
-		boton1.setFont(new Font("Calibri", Font.BOLD, 20));
+		boton1.setFont(fuente1);
 		boton1.setForeground(Color.BLACK);
 		boton1.setBackground(verdeBoton);
 		boton1.addMouseListener(new MouseAdapter() {
@@ -89,10 +99,10 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				setCursor(cur);
 			}
 		});
-		boton2 = new JButton("Curar ciudad");
+		boton2 = new JButton("CURAR CIUDAD");
 		boton2.setSize(200, 50);
 		boton2.setLocation(650, 740);
-		boton2.setFont(new Font("Calibri", Font.BOLD, 20));
+		boton2.setFont(fuente1);
 		boton2.setForeground(Color.BLACK);
 		boton2.setBackground(verdeBoton);
 		boton2.addMouseListener(new MouseAdapter() {
@@ -106,10 +116,10 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				setCursor(cur);
 			}
 		});
-		boton3 = new JButton("Aplicar Vacuna");
+		boton3 = new JButton("APLICAR VACUNA");
 		boton3.setSize(200, 50);
 		boton3.setLocation(400, 800);
-		boton3.setFont(new Font("Calibri", Font.BOLD, 20));
+		boton3.setFont(fuente1);
 		boton3.setForeground(Color.BLACK);
 		boton3.setBackground(verdeBoton);
 		boton3.addMouseListener(new MouseAdapter() {
@@ -123,10 +133,10 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				setCursor(cur);
 			}
 		});
-		boton4 = new JButton("Pasar turno");
+		boton4 = new JButton("PASAR TURNO");
 		boton4.setSize(200, 50);
 		boton4.setLocation(650, 800);
-		boton4.setFont(new Font("Calibri", Font.BOLD, 20));
+		boton4.setFont(fuente1);
 		boton4.setForeground(Color.BLACK);
 		boton4.setBackground(verdeBoton);
 		boton4.addMouseListener(new MouseAdapter() {
@@ -163,7 +173,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		guardar.setIcon(null);
 
 		guardar.setSize(50, 50);
-		guardar.setLocation(1150, 670);
+		guardar.setLocation(1130, 670);
 		guardar.setBackground(Color.red);
 		guardar.setBorder(null);
 		guardar.setBorderPainted(false);
@@ -179,9 +189,30 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		add(guardar);
 		guardar(); // FUNCIÓN PARA GUARDAR
 
+		// SALIR
+
+		salir = new JButton();
+		salir.setIcon(null);
+
+		salir.setSize(50, 50);
+		salir.setLocation(1200, 670);
+		salir.setBackground(Color.red);
+		salir.setBorder(null);
+		salir.setBorderPainted(false);
+		salir.setContentAreaFilled(false);
+		salir.setBorderPainted(false);
+
+		try {
+			salir.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//salir.png"))));
+		} catch (IOException e2) {
+			System.out.println("Ha ocurrido un error al cargar el botón de salir de la partida");
+		}
+
+		add(salir);
+
 		// RECUADROS
 		recuadroInfo = new JTextArea();
-		recuadroInfo.setFont(new Font("Serif", Font.PLAIN, 14));
+		recuadroInfo.setFont(fuente2);
 		recuadroInfo.setSize(210, 120);
 		recuadroInfo.setForeground(Color.WHITE);
 		recuadroInfo.setBackground(Color.BLACK);
@@ -191,7 +222,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		add(recuadroInfo);
 
 		recuadroInfo2 = new JTextArea();
-		recuadroInfo2.setFont(new Font("Serif", Font.PLAIN, 16));
+		recuadroInfo2.setFont(fuente2);
 		recuadroInfo2.setSize(250, 140);
 		recuadroInfo2.setForeground(Color.WHITE);
 		recuadroInfo2.setBorder(BorderFactory.createLineBorder(Color.white));
