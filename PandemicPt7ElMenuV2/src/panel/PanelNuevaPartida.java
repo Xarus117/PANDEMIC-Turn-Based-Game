@@ -40,6 +40,8 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	ArrayList<JButtons> colocar = new ArrayList<>();
 	// Random
 	static Random rn = new Random();
+	int rd = 0;
+	int rd2 = 0;
 
 	static int[] X = new int[48];
 	static int[] Y = new int[48];
@@ -56,6 +58,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	boolean rojab = false;
 	boolean verdeb = false;
 	boolean grisb = false;
+	int vacunaEncontrada = 0;
 
 	// ACCIONES
 	int contadorAccion = 4;
@@ -68,8 +71,8 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		Cursor cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10, 10), "WILL");
 		setCursor(cur);
 
+		//Botones
 		Color verdeBoton = new Color (144, 238, 144);
-		
 		boton1 = new JButton("Buscar vacuna");
 		boton1.setSize(200, 50);
 		boton1.setLocation(400, 740);
@@ -156,10 +159,8 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		}
 
 		// ICONO GUARDAR
-
 		guardar = new JButton();
 		guardar.setIcon(null);
-
 		guardar.setSize(50, 50);
 		guardar.setLocation(1150, 670);
 		guardar.setBackground(Color.red);
@@ -167,13 +168,11 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		guardar.setBorderPainted(false);
 		guardar.setContentAreaFilled(false);
 		guardar.setBorderPainted(false);
-
 		try {
 			guardar.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//guardar.png"))));
 		} catch (IOException e2) {
 			System.out.println("Ha ocurrido un error al cargar el botón de guardar el estado de la partida");
 		}
-
 		add(guardar);
 		guardar(); // FUNCIÓN PARA GUARDAR
 
@@ -187,7 +186,6 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		recuadroInfo.setOpaque(true);
 		recuadroInfo.setVisible(false);
 		add(recuadroInfo);
-
 		recuadroInfo2 = new JTextArea();
 		recuadroInfo2.setFont(new Font("Serif", Font.PLAIN, 16));
 		recuadroInfo2.setSize(250, 140);
@@ -200,7 +198,6 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		add(recuadroInfo2);
 
 		// INICIAR VACUNAS
-
 		vacunaVerde = new JButton();
 		vacunaAzul = new JButton();
 		vacunaAmarilla = new JButton();
@@ -210,9 +207,28 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		vacunaRoja.setIcon(null);
 		vacunaAmarilla.setIcon(null);
 		vacunaRoja.setIcon(null);
+		
+		vacunaAzul.setSize(90, 100);
+		vacunaAzul.setLocation(1070, 750);
+		vacunaAzul.setContentAreaFilled(false);
+		vacunaAzul.setBorder(null);
+
+		vacunaAmarilla.setSize(90, 100);
+		vacunaAmarilla.setLocation(1140, 750);
+		vacunaAmarilla.setContentAreaFilled(false);
+		vacunaAmarilla.setBorder(null);
+
+		vacunaRoja.setSize(90, 100);
+		vacunaRoja.setLocation(1000, 750);
+		vacunaRoja.setContentAreaFilled(false);
+		vacunaRoja.setBorder(null);
+
+		vacunaVerde.setSize(90, 100);
+		vacunaVerde.setLocation(930, 750);
+		vacunaVerde.setContentAreaFilled(false);
+		vacunaVerde.setBorder(null);
 
 		// INICIAR ACCIONES
-
 		accion1 = new JButton();
 		accion2 = new JButton();
 		accion3 = new JButton();
@@ -222,10 +238,10 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		accion2.setIcon(null);
 		accion3.setIcon(null);
 		accion4.setIcon(null);
-
 		acciones(contadorAccion);
 		vacunas();
-
+		
+		//Mapeo del juego
 		Mapeo();
 
 	}
@@ -310,26 +326,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 
 	}
 
-	public void vacunas() { // LAS PUTAS VACUNAS
-		vacunaAzul.setSize(90, 100);
-		vacunaAzul.setLocation(1070, 750);
-		vacunaAzul.setContentAreaFilled(false);
-		vacunaAzul.setBorder(null);
-
-		vacunaAmarilla.setSize(90, 100);
-		vacunaAmarilla.setLocation(1140, 750);
-		vacunaAmarilla.setContentAreaFilled(false);
-		vacunaAmarilla.setBorder(null);
-
-		vacunaRoja.setSize(90, 100);
-		vacunaRoja.setLocation(1000, 750);
-		vacunaRoja.setContentAreaFilled(false);
-		vacunaRoja.setBorder(null);
-
-		vacunaVerde.setSize(90, 100);
-		vacunaVerde.setLocation(930, 750);
-		vacunaVerde.setContentAreaFilled(false);
-		vacunaVerde.setBorder(null);
+	public void vacunas() { 
 
 		try {
 			if (azulb) {
@@ -359,18 +356,69 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		} catch (Exception e) {
 			System.out.println("Ha ocurrido un error al mostrar las vacunas");
 		}
-
-		vacunaAzul.addActionListener(this);
-		vacunaAmarilla.addActionListener(this);
-		vacunaRoja.addActionListener(this);
-		vacunaVerde.addActionListener(this);
-
+		
 		add(vacunaAzul);
 		add(vacunaAmarilla);
 		add(vacunaRoja);
 		add(vacunaVerde);
 	}
-
+	
+	public void buscarVacuna() {
+		int rda = 0;
+		int rdam = 0;
+		int rdv = 0;
+		int rdr = 0;
+		rda = rn.nextInt(100) + 1;
+		rdam = rn.nextInt(100) + 1;
+		rdv = rn.nextInt(100) + 1;
+		rdr = rn.nextInt(100) + 1;
+		
+		
+		if(azulb && amarillab && verdeb && rojab) {
+			recuadroInfo.setText("No es posible buscar más vacunas");
+		}if(rda <= 40 && !azulb) {
+			recuadroInfo.setText("Ha encontrado una o más vacunas!");
+			azulb = true;
+			vacunaEncontrada++;
+		}if(rdam <= 40 && !amarillab) {
+			recuadroInfo.setText("Ha encontrado una o más vacunas!");
+			amarillab = true;
+			vacunaEncontrada++;
+		}if(rdv <= 40 && !verdeb) {
+			recuadroInfo.setText("Ha encontrado una o más vacunas!");
+			verdeb = true;
+			vacunaEncontrada++;
+		}if(rdr <= 40 && ! rojab) {
+			recuadroInfo.setText("Ha encontrado una o más vacunas!");
+			rojab = true;
+			vacunaEncontrada++;
+		}
+		vacunas();
+	}
+	public void aplicarVacuna() {
+		if(azulb) {
+			recuadroInfo.setText("Se curó la enfermedad azul");
+			ciudades.get(rd2).setAzul(0);
+		}if(amarillab) {
+			recuadroInfo.setText("Se curó la enfermedad amarilla");
+			ciudades.get(rd2).setAmarilla(0);
+		}if(rojab) {
+			recuadroInfo.setText("Se curó la enfermedad roja");
+			ciudades.get(rd2).setRoja(0);
+		}if(verdeb) {
+			recuadroInfo.setText("Se curó la enfermedad verde");
+			ciudades.get(rd2).setVerde(0);
+		}if(vacunaEncontrada == 2) {
+			recuadroInfo.setText("Se curaron 2 enfermedades");
+		}if(vacunaEncontrada == 3) {
+			recuadroInfo.setText("Se curaron 3 enfermedades");
+		}if(vacunaEncontrada == 4) {
+			recuadroInfo.setText("Se curaron las 4 enfermedades!!");
+		}if(vacunaEncontrada == 0) {
+			recuadroInfo.setText("No tienes vacunas para aplicar :(");
+		}
+		recuadroInfo.setVisible(true);
+	}
 	public void acciones(int contadorAccion) { // LAS PUTAS ACCIONES
 		try {
 			accion1.setSize(20, 100);
@@ -393,7 +441,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			accion4.setContentAreaFilled(false);
 			accion4.setBorder(null);
 
-			if (contadorAccion == 4) {
+			if (contadorAccion >= 4) {
 				accion1.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//Accion.png"))));
 				accion2.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//Accion.png"))));
 				accion3.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//Accion.png"))));
@@ -438,24 +486,22 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	}
 
 	public void contagio() {
-		int rd = 0;
-		int rd2 = 0;
 		int ronda = 5;
 		String[] mantener = new String[5];
 
 		for (int i = 0; i < ronda; i++) {
 			rd = rn.nextInt(4);
 			rd2 = rn.nextInt(48);
-			if (rd == 0) {
+			if (rd == 0 && !amarillab) {
 				ciudades.get(rd2).setAmarilla(ciudades.get(rd2).getAmarilla() + 1);
 			}
-			if (rd == 1) {
+			if (rd == 1 && !azulb) {
 				ciudades.get(rd2).setAzul(ciudades.get(rd2).getAzul() + 1);
 			}
-			if (rd == 2) {
+			if (rd == 2 && !rojab) {
 				ciudades.get(rd2).setRoja(ciudades.get(rd2).getRoja() + 1);
 			}
-			if (rd == 3) {
+			if (rd == 3 && !verdeb) {
 				ciudades.get(rd2).setVerde(ciudades.get(rd2).getVerde() + 1);
 			}
 			mantener[i] = ciudades.get(rd2).getNombre();
@@ -506,7 +552,8 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			}else {
 			contadorAccion -= 4;
 			acciones(contadorAccion);
-			recuadroInfo.setText("Has pulsado [BUSCAR VACUNA]\nPuede buscar un total de: " + vacunas + " vacunas");
+			recuadroInfo.setText("No se encontraron vacunas");
+			buscarVacuna();
 			}
 			recuadroInfo.setVisible(true);
 
@@ -518,10 +565,9 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			curar();}
 		} else if (e.getSource() == boton3) {
 			acciones(contadorAccion);
-			recuadroInfo.setText("Has pulsado [APLICAR VACUNA]\nPuede curar las siguentes ciudades: ");
-			recuadroInfo.setVisible(true);
+			aplicarVacuna();
 		} else if (e.getSource() == boton4) {
-			contadorAccion += 4;
+			contadorAccion = 4;
 			acciones(contadorAccion);
 			contagio();
 			recuadroInfo.setVisible(true);
