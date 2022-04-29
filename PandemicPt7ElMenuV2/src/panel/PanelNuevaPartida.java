@@ -26,14 +26,15 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	JButton vacunaAmarilla;
 	JButton vacunaRoja;
 	JButton vacunaVerde;
-	JButton vacunaGris;
+	JButton vacunaGris;	
 	// Botones Miscelanea
 	JButton guardar;
 	JButton salir;
-	JLabel dragonite;
-	// Recuadro
+	// Recuadros
 	JTextArea recuadroInfo;
 	JTextArea recuadroInfo2;
+	JTextArea mostrarInfeccion;
+	JTextArea mostrarBrotes;
 	// Acciones del usuario
 	JButton accion1;
 	JButton accion2;
@@ -48,17 +49,18 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	static Random rn = new Random();
 	int rd = 0;
 	int rd2 = 0;
+	int ronda = 5;
 
 	static int indice = 0;
 	int vacunas = 4;
 	static String guardarCol;
 	static String mantener[] = new String[48];
-	int brote = 0;
+	int brote;
 	int infeccionAmarilla = 0;
 	int infeccionAzul = 0;
 	int infeccionVerde = 0;
 	int infeccionRoja = 0;
-	int infeccionesSuma = 0;
+	int sumaTotal;
 
 	String[] conservarRonda = new String[48];
 
@@ -179,18 +181,27 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		guardar.setBorderPainted(false);
 		guardar.setContentAreaFilled(false);
 		guardar.setBorderPainted(false);
+		guardar.addActionListener(this);
 		try {
 			guardar.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//guardar.png"))));
 		} catch (IOException e2) {
 			System.out.println("Ha ocurrido un error al cargar el botón de guardar el estado de la partida");
 		}
+		guardar.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent e) {
+				setCursor(cur2);
+			}
+
+			public void mouseExited(MouseEvent e) {
+				setCursor(cur);
+			}
+		});
 		add(guardar);
 		guardar(); // FUNCIÓN PARA GUARDAR
 
 		// SALIR
 		salir = new JButton();
 		salir.setIcon(null);
-
 		salir.setSize(50, 50);
 		salir.setLocation(1200, 670);
 		salir.setBackground(Color.red);
@@ -198,22 +209,23 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		salir.setBorderPainted(false);
 		salir.setContentAreaFilled(false);
 		salir.setBorderPainted(false);
+		salir.addActionListener(this);
 
 		try {
 			salir.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//salir.png"))));
 		} catch (IOException e2) {
 			System.out.println("Ha ocurrido un error al cargar el botón de salir de la partida");
 		}
+		salir.addMouseListener(new MouseAdapter() {
+		public void mouseEntered(MouseEvent e) {
+			setCursor(cur2);
+		}
 
+		public void mouseExited(MouseEvent e) {
+			setCursor(cur);
+		}
+	});
 		add(salir);
-
-		// DRAGONITE
-		dragonite = new JLabel();
-		dragonite.setIcon(new ImageIcon("Imagenes//vivaEspaña.jpg"));
-		dragonite.setSize(600, 600);
-		dragonite.setLocation(450, 120);
-		dragonite.setBackground(Color.red);
-		dragonite.setBorder(null);
 
 		// RECUADROS
 		recuadroInfo = new JTextArea();
@@ -235,13 +247,34 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		recuadroInfo2.setOpaque(true);
 		recuadroInfo2.setVisible(false);
 		add(recuadroInfo2);
+		
+		//Crear JLabels
+		mostrarInfeccion = new JTextArea();
+		mostrarInfeccion.setSize(130, 15);
+		mostrarInfeccion.setLocation(860, 740);
+		mostrarInfeccion.setFont(fuente2);
+		mostrarInfeccion.setForeground(Color.WHITE);
+		mostrarInfeccion.setBackground(Color.BLACK);
+		mostrarInfeccion.setOpaque(true);
+		mostrarInfeccion.setVisible(true);
+		add(mostrarInfeccion);
+		
+		mostrarBrotes = new JTextArea();
+		mostrarBrotes.setSize(115, 15);
+		mostrarBrotes.setLocation(860, 770);
+		mostrarBrotes.setFont(fuente2);
+		mostrarBrotes.setForeground(Color.WHITE);
+		mostrarBrotes.setBackground(Color.BLACK);
+		mostrarBrotes.setOpaque(true);
+		mostrarBrotes.setVisible(true);
+		add(mostrarBrotes);
 
 		// INICIAR VACUNAS
 		vacunaVerde = new JButton();
 		vacunaAzul = new JButton();
 		vacunaAmarilla = new JButton();
 		vacunaRoja = new JButton();
-
+		
 		vacunaAzul.setIcon(null);
 		vacunaRoja.setIcon(null);
 		vacunaAmarilla.setIcon(null);
@@ -504,34 +537,38 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	}
 
 	public void contagio() {
-		int ronda = 5;
-		String[] mantener = new String[5];
+		ArrayList<String> mantener = new ArrayList<>();
 
 		for (int i = 0; i < ronda; i++) {
 			rd = rn.nextInt(4);
 			rd2 = rn.nextInt(48);
 			if (rd == 0 && !amarillab) {
 				ciudades.get(rd2).setAmarilla(ciudades.get(rd2).getAmarilla() + 1);
+				infeccionAmarilla++;
 			}
 			if (rd == 1 && !azulb) {
 				ciudades.get(rd2).setAzul(ciudades.get(rd2).getAzul() + 1);
+				infeccionAzul++;
 			}
 			if (rd == 2 && !rojab) {
 				ciudades.get(rd2).setRoja(ciudades.get(rd2).getRoja() + 1);
+				infeccionRoja++;
 			}
 			if (rd == 3 && !verdeb) {
 				ciudades.get(rd2).setVerde(ciudades.get(rd2).getVerde() + 1);
+				infeccionVerde++;
 			}
-			mantener[i] = ciudades.get(rd2).getNombre();
+			mantener.add(ciudades.get(rd2).getNombre());
 		}
+		sumaTotal = infeccionAmarilla + infeccionAzul + infeccionRoja + infeccionVerde;
 		ronda = 3;
 		recuadroInfo.setText("Las ciudades infectadas son:\n");
 
 		String guardarRecuadro = recuadroInfo.getText();
 
-		for (int j = 0; j < mantener.length; j++) {
+		for (int j = 0; j < mantener.size(); j++) {
 			guardarRecuadro = recuadroInfo.getText();
-			recuadroInfo.setText(guardarRecuadro + mantener[j] + "\n");
+			recuadroInfo.setText(guardarRecuadro + mantener.get(j) + "\n");
 		}
 		recuadroInfo.setVisible(true);
 	}
@@ -547,9 +584,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				guardarRecuadro = recuadroInfo2.getText();
 				recuadroInfo2.setText(guardarRecuadro + mantener[i] + "\n");
 				brote++;
-				infeccionAmarilla += mantener.length;
-			}
-			if (ciudades.get(i).getRoja() >= 3) {
+			}else if (ciudades.get(i).getRoja() >= 3) {
 				buscarColindante(1, i);
 				recuadroInfo2.setText("Ha habido un brote azul en: " + ciudades.get(i).getNombre()
 						+ "\nSe han infectado las siguientes ciudades:\n");
@@ -557,9 +592,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				guardarRecuadro = recuadroInfo2.getText();
 				recuadroInfo2.setText(guardarRecuadro + mantener[i] + "\n");
 				brote++;
-				infeccionRoja += mantener.length;
-			}
-			if (ciudades.get(i).getAzul() >= 3) {
+			}else if (ciudades.get(i).getAzul() >= 3) {
 				buscarColindante(2, i);
 				recuadroInfo2.setText("Ha habido un brote rojo en: " + ciudades.get(i).getNombre()
 						+ "\nSe han infectado las siguientes ciudades:\n");
@@ -567,9 +600,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				guardarRecuadro = recuadroInfo2.getText();
 				recuadroInfo2.setText(guardarRecuadro + mantener[i] + "\n");
 				brote++;
-				infeccionAzul += mantener.length;
-			}
-			if (ciudades.get(i).getVerde() >= 3) {
+			}else if (ciudades.get(i).getVerde() >= 3) {
 				buscarColindante(3, i);
 				recuadroInfo2.setText("Ha habido un brote verde en: " + ciudades.get(i).getNombre()
 						+ "\nSe han infectado las siguientes ciudades:\n");
@@ -577,7 +608,6 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				guardarRecuadro = recuadroInfo2.getText();
 				recuadroInfo2.setText(guardarRecuadro + mantener[i] + "\n");
 				brote++;
-				infeccionVerde += mantener.length;
 			}
 		}
 	}
@@ -650,7 +680,6 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				buscarVacuna();
 			}
 			recuadroInfo.setVisible(true);
-
 		} else if (e.getSource() == boton2) {
 			if (contadorAccion < 1) {
 				recuadroInfo.setText("No es posible [BUSCAR CURA] \n" + "Ya que no tiene suficientes acciones");
@@ -664,36 +693,39 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			acciones(contadorAccion);
 			contagio();
 			brote();
+			System.out.println(sumaTotal);
+			mostrarInfeccion.setText("Cantidad infección: " + sumaTotal );
+			mostrarBrotes.setText("Cantidad brotes: " + brote);
 			System.out.println(brote);
-			infeccionesSuma = infeccionAmarilla + infeccionAzul + infeccionRoja + infeccionVerde;
 			if (brote >= 5) {
 				JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
 				marco.remove(this);
 				try {
 					marco.add(new PanelDerrota());
 				} catch (ParserConfigurationException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (SAXException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				marco.setVisible(true);
-			}
-			if (infeccionesSuma >= 30) {
+			}else if (sumaTotal >= 80) {
+				System.out.println(sumaTotal);
 				JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
 				marco.remove(this);
 				try {
 					marco.add(new PanelDerrota());
 				} catch (ParserConfigurationException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (SAXException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				marco.setVisible(true);
 			}
+		} else if (e.getSource() == salir) {
+			JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
+			marco.remove(this);
+			marco.add(new PanelPrincipal());
+			marco.setVisible(true);
 		} else if (e.getSource() == vacunaAzul) {
 			if (azulb == false) {
 				azulb = true;

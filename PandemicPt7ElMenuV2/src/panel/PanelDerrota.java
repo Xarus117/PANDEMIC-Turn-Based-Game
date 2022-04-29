@@ -71,62 +71,24 @@ public class PanelDerrota extends JPanel implements ActionListener {
 		}
 
 		// Botones
-		Color verdeBoton = new Color(247, 185, 71);
 		boton1 = new JButton("Buscar vacuna");
 		boton1.setSize(200, 50);
 		boton1.setLocation(400, 740);
 		boton1.setFont(fuente1);
 		boton1.setForeground(Color.BLACK);
-		boton1.setBackground(verdeBoton);
-		boton1.addMouseListener(new MouseAdapter() {
-			public void mouseEntered(MouseEvent e) {
-				boton1.setBackground(Color.GRAY);
-				setCursor(cur2);
-			}
-
-			public void mouseExited(MouseEvent e) {
-				boton1.setBackground(verdeBoton);
-				setCursor(cur);
-			}
-		});
+		boton1.setBackground(Color.GRAY);
 		boton2 = new JButton("Curar ciudad");
 		boton2.setSize(200, 50);
 		boton2.setLocation(650, 740);
 		boton2.setFont(fuente1);
 		boton2.setForeground(Color.BLACK);
-		boton2.setBackground(verdeBoton);
-		boton2.addMouseListener(new MouseAdapter() {
-			public void mouseEntered(MouseEvent e) {
-				boton2.setBackground(Color.GRAY);
-				setCursor(cur2);
-			}
-
-			public void mouseExited(MouseEvent e) {
-				boton2.setBackground(verdeBoton);
-				setCursor(cur);
-			}
-		});
+		boton2.setBackground(Color.GRAY);
 		boton4 = new JButton("Pasar turno");
 		boton4.setSize(200, 50);
 		boton4.setLocation(650, 800);
 		boton4.setFont(fuente1);
 		boton4.setForeground(Color.BLACK);
-		boton4.setBackground(verdeBoton);
-		boton4.addMouseListener(new MouseAdapter() {
-			public void mouseEntered(MouseEvent e) {
-				boton4.setBackground(Color.GRAY);
-				setCursor(cur2);
-			}
-
-			public void mouseExited(MouseEvent e) {
-				boton4.setBackground(verdeBoton);
-				setCursor(cur);
-			}
-		});
-
-		boton1.addActionListener(this);
-		boton2.addActionListener(this);
-		boton4.addActionListener(this);
+		boton4.setBackground(Color.GRAY);
 
 		add(boton1);
 		add(boton2);
@@ -137,28 +99,10 @@ public class PanelDerrota extends JPanel implements ActionListener {
 		} catch (IOException e1) {
 			System.out.println("Ha ocurrido un error al mostrar el mapa");
 		}
-
-		// ICONO GUARDAR
-		guardar = new JButton();
-		guardar.setIcon(null);
-		guardar.setSize(50, 50);
-		guardar.setLocation(1130, 670);
-		guardar.setBackground(Color.red);
-		guardar.setBorder(null);
-		guardar.setBorderPainted(false);
-		guardar.setContentAreaFilled(false);
-		guardar.setBorderPainted(false);
-		try {
-			guardar.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//guardar.png"))));
-		} catch (IOException e2) {
-			System.out.println("Ha ocurrido un error al cargar el botón de guardar el estado de la partida");
-		}
-		add(guardar);
-
+		
 		// SALIR
 		salir = new JButton();
 		salir.setIcon(null);
-
 		salir.setSize(50, 50);
 		salir.setLocation(1200, 670);
 		salir.setBackground(Color.red);
@@ -166,13 +110,22 @@ public class PanelDerrota extends JPanel implements ActionListener {
 		salir.setBorderPainted(false);
 		salir.setContentAreaFilled(false);
 		salir.setBorderPainted(false);
+		salir.addActionListener(this);
 
 		try {
 			salir.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//salir.png"))));
 		} catch (IOException e2) {
 			System.out.println("Ha ocurrido un error al cargar el botón de salir de la partida");
 		}
+		salir.addMouseListener(new MouseAdapter() {
+		public void mouseEntered(MouseEvent e) {
+			setCursor(cur2);
+		}
 
+		public void mouseExited(MouseEvent e) {
+			setCursor(cur);
+		}
+	});
 		add(salir);
 
 		// DRAGONITE
@@ -310,10 +263,10 @@ public class PanelDerrota extends JPanel implements ActionListener {
 			accion4.setBorder(null);
 
 			if (contadorAccion >= 4) {
-				accion1.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//Accion.png"))));
-				accion2.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//Accion.png"))));
-				accion3.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//Accion.png"))));
-				accion4.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//Accion.png"))));
+				accion1.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//AccionNo.png"))));
+				accion2.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//AccionNo.png"))));
+				accion3.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//AccionNo.png"))));
+				accion4.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//AccionNo.png"))));
 			}
 
 			if (contadorAccion <= 3) {
@@ -352,25 +305,11 @@ public class PanelDerrota extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		if (e.getSource() == boton1) {
-			recuadroInfo.setVisible(true);
-
-		} else if (e.getSource() == boton2) {
-		} else if (e.getSource() == boton4) {
-		} else if (e.getSource() == vacunaAzul) {
-
-			add(vacunaAzul);
-
-		} else if (e.getSource() == vacunaAmarilla) {
-
-			add(vacunaAmarilla);
-
-		} else if (e.getSource() == vacunaRoja) {
-			add(vacunaRoja);
-
-		} else if (e.getSource() == vacunaVerde) {
-			add(vacunaVerde);
-
+		if (e.getSource() == salir) {
+			JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
+			marco.remove(this);
+			marco.add(new PanelPrincipal());
+			marco.setVisible(true);
 		}
-}
+	}
 }

@@ -2,7 +2,7 @@
 <parametros>
     <numCiudadesInfectadasInicioFacil>5</numCiudadesInfectadasInicioFacil>
     <numCuidadesInfectadasRondaFacil>3</numCuidadesInfectadasRondaFacil>
-    <numEnfermedadesActivasDerrotaFacil>30</numEnfermedadesActivasDerrotaFacil>
+    <numEnfermedadesActivasDerrotaFacil>80</numEnfermedadesActivasDerrotaFacil>
     <numBrotesDerrotaFacil>5</numBrotesDerrotaFacil>
     
      <numCiudadesInfectadasInicioNormal>5</numCiudadesInfectadasInicioNormal>
