@@ -44,6 +44,8 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 	Image image;
 	Image recuadro;
 	Image logo;
+	
+	static int dificultad = 0;
 
 
 	PanelEscogerDificultad() {
@@ -71,7 +73,7 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 				facil.setBackground(Color.cyan);
 				setCursor(cur2);
 				texto.setText(
-						"<html><br><br><br><br><br>La dificultad fácil:<br><br>-5 puntos de acción<br><br>-Pandemia más lenta<br><br>-Destinado a nuevos<br> jugadores<html>");
+						"<html><br><br><br><br><br>La dificultad fácil:<br><br>-4 puntos de acción<br><br>-5 infecciones por ronda<br><br>-80 infecciones y 7 brotes para derrota<br><br>-Destinado a nuevos jugadores<br><html>");
 				add(texto);
 			}
 
@@ -98,7 +100,7 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 				normal.setBackground(Color.yellow);
 				setCursor(cur2);
 				texto.setText(
-						"<html><br><br><br><br><br>La dificultad normal:<br><br>-4 puntos de acción<br><br>-Pandemia por defecto<br><br>-El modo en el cual<br>se planteo el juego<html>");
+						"<html><br><br><br><br><br>La dificultad normal:<br><br>-4 puntos de acción<br><br>-7 infecciones por ronda<br><br>-80 infecciones y 5 brotes para derrota<br><br>-El modo en el cual<br>el juego no será tan fácil<html>");
 				add(texto);
 			}
 
@@ -159,6 +161,7 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == facil) {
+			dificultad = 1;
 			JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
 			marco.remove(this);
 			try {
@@ -172,6 +175,7 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 			}
 			marco.setVisible(true);
 		} else if (e.getSource() == normal) {
+			dificultad = 2;
 			JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
 			marco.remove(this);
 			try {

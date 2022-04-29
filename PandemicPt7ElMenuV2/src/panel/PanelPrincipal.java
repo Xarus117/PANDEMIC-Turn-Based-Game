@@ -45,7 +45,7 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			boton1.setSize(200, 50);
 			boton1.setLocation(550, 300);
 			boton1.setFont(new Font("Arial", Font.BOLD, 18));
-			boton1.setBackground(Color.green);
+			boton1.setBackground(new Color(247, 185, 71));
 			boton1.addMouseListener(new MouseAdapter() {
 				public void mouseEntered(MouseEvent e) {
 					boton1.setBackground(Color.GRAY);
@@ -54,7 +54,7 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 				}
 
 				public void mouseExited(MouseEvent e) {
-					boton1.setBackground(Color.green);
+					boton1.setBackground(new Color(98,148,42));
 					setCursor(cur);
 
 				}
@@ -63,7 +63,7 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			boton2.setSize(200, 50);
 			boton2.setLocation(550, 370);
 			boton2.setFont(new Font("Arial", Font.BOLD, 18));
-			boton2.setBackground(Color.green);
+			boton2.setBackground(new Color(98,148,42));
 			boton2.addMouseListener(new MouseAdapter() {
 				public void mouseEntered(MouseEvent e) {
 					boton2.setBackground(Color.GRAY);

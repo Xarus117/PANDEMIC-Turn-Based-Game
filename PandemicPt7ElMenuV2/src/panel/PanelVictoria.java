@@ -16,7 +16,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-public class PanelDerrota extends JPanel implements ActionListener {
+public class PanelVictoria extends JPanel implements ActionListener {
 	// Botones principales
 	JButton boton1;
 	JButton boton2;
@@ -55,7 +55,7 @@ public class PanelDerrota extends JPanel implements ActionListener {
 	Font fuente1;
 	Font fuente2;
 
-	PanelDerrota() throws ParserConfigurationException, SAXException {
+	PanelVictoria() throws ParserConfigurationException, SAXException {
 		setLayout(null);
 		Image im = Toolkit.getDefaultToolkit().createImage("imagenes//cursorDefecto.png");
 		Image im2 = Toolkit.getDefaultToolkit().createImage("imagenes//cursorHover.png");
@@ -130,7 +130,7 @@ public class PanelDerrota extends JPanel implements ActionListener {
 
 		// DRAGONITE
 		dragonite = new JLabel();
-		dragonite.setIcon(new ImageIcon("Imagenes//derrota.png"));
+		dragonite.setIcon(new ImageIcon("Imagenes//victoria.png"));
 		dragonite.setSize(1200, 720);
 		dragonite.setLocation(350, 0);
 		dragonite.setBorder(null);

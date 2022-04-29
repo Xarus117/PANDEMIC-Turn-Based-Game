@@ -35,7 +35,7 @@ public class Marco extends JFrame {
 	
 	private void ReproducirSonido() {
 
-		/*try {
+		try {
 			AudioInputStream audioInputStream = AudioSystem
 					.getAudioInputStream(new File("Audios\\musica.wav").getAbsoluteFile());
 			Clip clip = AudioSystem.getClip();
@@ -44,6 +44,6 @@ public class Marco extends JFrame {
 		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
 			System.out.println("Error al reproducir el sonido.");
 		}
-		*/
+		
 	}
 }

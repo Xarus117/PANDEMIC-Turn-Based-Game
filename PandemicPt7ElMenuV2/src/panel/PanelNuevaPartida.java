@@ -26,7 +26,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	JButton vacunaAmarilla;
 	JButton vacunaRoja;
 	JButton vacunaVerde;
-	JButton vacunaGris;	
+	JButton vacunaGris;
 	// Botones Miscelanea
 	JButton guardar;
 	JButton salir;
@@ -217,14 +217,14 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			System.out.println("Ha ocurrido un error al cargar el botón de salir de la partida");
 		}
 		salir.addMouseListener(new MouseAdapter() {
-		public void mouseEntered(MouseEvent e) {
-			setCursor(cur2);
-		}
+			public void mouseEntered(MouseEvent e) {
+				setCursor(cur2);
+			}
 
-		public void mouseExited(MouseEvent e) {
-			setCursor(cur);
-		}
-	});
+			public void mouseExited(MouseEvent e) {
+				setCursor(cur);
+			}
+		});
 		add(salir);
 
 		// RECUADROS
@@ -247,8 +247,8 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		recuadroInfo2.setOpaque(true);
 		recuadroInfo2.setVisible(false);
 		add(recuadroInfo2);
-		
-		//Crear JLabels
+
+		// Crear JLabels
 		mostrarInfeccion = new JTextArea();
 		mostrarInfeccion.setSize(130, 15);
 		mostrarInfeccion.setLocation(860, 740);
@@ -258,7 +258,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		mostrarInfeccion.setOpaque(true);
 		mostrarInfeccion.setVisible(true);
 		add(mostrarInfeccion);
-		
+
 		mostrarBrotes = new JTextArea();
 		mostrarBrotes.setSize(115, 15);
 		mostrarBrotes.setLocation(860, 770);
@@ -274,7 +274,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		vacunaAzul = new JButton();
 		vacunaAmarilla = new JButton();
 		vacunaRoja = new JButton();
-		
+
 		vacunaAzul.setIcon(null);
 		vacunaRoja.setIcon(null);
 		vacunaAmarilla.setIcon(null);
@@ -430,40 +430,79 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		if (azulb && amarillab && verdeb && rojab) {
 			recuadroInfo.setText("No es posible buscar más vacunas");
 		}
-		if (rda <= 30 && !azulb) {
-			recuadroInfo.setText("Ha encontrado una o más vacunas!");
-			azulb = true;
-			vacunaEncontrada++;
-			for (int i = 0; i < 48; i++) {
-				ciudades.get(i).setAzul(0);
-				infeccionAzul = 0;
+		if (PanelEscogerDificultad.dificultad == 1) {
+			if (rda <= 30 && !azulb) {
+				recuadroInfo.setText("Ha encontrado una o más vacunas!");
+				azulb = true;
+				vacunaEncontrada++;
+				for (int i = 0; i < 48; i++) {
+					ciudades.get(i).setAzul(0);
+					infeccionAzul = 0;
+				}
 			}
-		}
-		if (rdam <= 30 && !amarillab) {
-			recuadroInfo.setText("Ha encontrado una o más vacunas!");
-			amarillab = true;
-			vacunaEncontrada++;
-			for (int i = 0; i < 48; i++) {
-				ciudades.get(i).setAmarilla(0);
-				infeccionAmarilla = 0;
+			if (rdam <= 30 && !amarillab) {
+				recuadroInfo.setText("Ha encontrado una o más vacunas!");
+				amarillab = true;
+				vacunaEncontrada++;
+				for (int i = 0; i < 48; i++) {
+					ciudades.get(i).setAmarilla(0);
+					infeccionAmarilla = 0;
+				}
 			}
-		}
-		if (rdv <= 30 && !verdeb) {
-			recuadroInfo.setText("Ha encontrado una o más vacunas!");
-			verdeb = true;
-			vacunaEncontrada++;
-			for (int i = 0; i < 48; i++) {
-				ciudades.get(i).setRoja(0);
-				infeccionVerde = 0;
+			if (rdv <= 30 && !verdeb) {
+				recuadroInfo.setText("Ha encontrado una o más vacunas!");
+				verdeb = true;
+				vacunaEncontrada++;
+				for (int i = 0; i < 48; i++) {
+					ciudades.get(i).setRoja(0);
+					infeccionVerde = 0;
+				}
 			}
-		}
-		if (rdr <= 30 && !rojab) {
-			recuadroInfo.setText("Ha encontrado una o más vacunas!");
-			rojab = true;
-			vacunaEncontrada++;
-			for (int i = 0; i < 48; i++) {
-				ciudades.get(i).setVerde(0);
-				infeccionRoja = 0;
+			if (rdr <= 30 && !rojab) {
+				recuadroInfo.setText("Ha encontrado una o más vacunas!");
+				rojab = true;
+				vacunaEncontrada++;
+				for (int i = 0; i < 48; i++) {
+					ciudades.get(i).setVerde(0);
+					infeccionRoja = 0;
+				}
+			}
+		} else if (PanelEscogerDificultad.dificultad == 2) {
+			if (rda <= 15 && !azulb) {
+				recuadroInfo.setText("Ha encontrado una o más vacunas!");
+				azulb = true;
+				vacunaEncontrada++;
+				for (int i = 0; i < 48; i++) {
+					ciudades.get(i).setAzul(0);
+					infeccionAzul = 0;
+				}
+			}
+			if (rdam <= 15 && !amarillab) {
+				recuadroInfo.setText("Ha encontrado una o más vacunas!");
+				amarillab = true;
+				vacunaEncontrada++;
+				for (int i = 0; i < 48; i++) {
+					ciudades.get(i).setAmarilla(0);
+					infeccionAmarilla = 0;
+				}
+			}
+			if (rdv <= 15 && !verdeb) {
+				recuadroInfo.setText("Ha encontrado una o más vacunas!");
+				verdeb = true;
+				vacunaEncontrada++;
+				for (int i = 0; i < 48; i++) {
+					ciudades.get(i).setRoja(0);
+					infeccionVerde = 0;
+				}
+			}
+			if (rdr <= 15 && !rojab) {
+				recuadroInfo.setText("Ha encontrado una o más vacunas!");
+				rojab = true;
+				vacunaEncontrada++;
+				for (int i = 0; i < 48; i++) {
+					ciudades.get(i).setVerde(0);
+					infeccionRoja = 0;
+				}
 			}
 		}
 		vacunas();
@@ -539,7 +578,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	public void contagio() {
 		ArrayList<String> mantener = new ArrayList<>();
 
-		for (int i = 0; i < ronda; i++) {
+		for (int i = 0; i < infectadasInicio; i++) {
 			rd = rn.nextInt(4);
 			rd2 = rn.nextInt(48);
 			if (rd == 0 && !amarillab) {
@@ -561,7 +600,6 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			mantener.add(ciudades.get(rd2).getNombre());
 		}
 		sumaTotal = infeccionAmarilla + infeccionAzul + infeccionRoja + infeccionVerde;
-		ronda = 3;
 		recuadroInfo.setText("Las ciudades infectadas son:\n");
 
 		String guardarRecuadro = recuadroInfo.getText();
@@ -584,7 +622,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				guardarRecuadro = recuadroInfo2.getText();
 				recuadroInfo2.setText(guardarRecuadro + mantener[i] + "\n");
 				brote++;
-			}else if (ciudades.get(i).getRoja() >= 3) {
+			} else if (ciudades.get(i).getRoja() >= 3) {
 				buscarColindante(1, i);
 				recuadroInfo2.setText("Ha habido un brote azul en: " + ciudades.get(i).getNombre()
 						+ "\nSe han infectado las siguientes ciudades:\n");
@@ -592,7 +630,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				guardarRecuadro = recuadroInfo2.getText();
 				recuadroInfo2.setText(guardarRecuadro + mantener[i] + "\n");
 				brote++;
-			}else if (ciudades.get(i).getAzul() >= 3) {
+			} else if (ciudades.get(i).getAzul() >= 3) {
 				buscarColindante(2, i);
 				recuadroInfo2.setText("Ha habido un brote rojo en: " + ciudades.get(i).getNombre()
 						+ "\nSe han infectado las siguientes ciudades:\n");
@@ -600,7 +638,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				guardarRecuadro = recuadroInfo2.getText();
 				recuadroInfo2.setText(guardarRecuadro + mantener[i] + "\n");
 				brote++;
-			}else if (ciudades.get(i).getVerde() >= 3) {
+			} else if (ciudades.get(i).getVerde() >= 3) {
 				buscarColindante(3, i);
 				recuadroInfo2.setText("Ha habido un brote verde en: " + ciudades.get(i).getNombre()
 						+ "\nSe han infectado las siguientes ciudades:\n");
@@ -636,6 +674,22 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 					}
 				}
 			}
+		}
+	}
+
+	public void victoria() {
+
+		if (azulb && amarillab && verdeb && rojab) {
+			JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
+			marco.remove(this);
+			try {
+				marco.add(new PanelVictoria());
+			} catch (ParserConfigurationException e1) {
+				e1.printStackTrace();
+			} catch (SAXException e1) {
+				e1.printStackTrace();
+			}
+			marco.setVisible(true);
 		}
 	}
 
@@ -689,15 +743,14 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				curar();
 			}
 		} else if (e.getSource() == boton4) {
+			victoria();
 			contadorAccion = 4;
 			acciones(contadorAccion);
 			contagio();
 			brote();
-			System.out.println(sumaTotal);
-			mostrarInfeccion.setText("Cantidad infección: " + sumaTotal );
+			mostrarInfeccion.setText("Cantidad infección: " + sumaTotal);
 			mostrarBrotes.setText("Cantidad brotes: " + brote);
-			System.out.println(brote);
-			if (brote >= 5) {
+			if (brote >= InfeccionPerder) {
 				JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
 				marco.remove(this);
 				try {
@@ -708,8 +761,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 					e1.printStackTrace();
 				}
 				marco.setVisible(true);
-			}else if (sumaTotal >= 80) {
-				System.out.println(sumaTotal);
+			} else if (sumaTotal >= infeccionDerrota) {
 				JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
 				marco.remove(this);
 				try {
@@ -1012,7 +1064,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				Node nNode = nList.item(i);
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element eElement = (Element) nNode;
-					if (indice == 1) {
+					if (PanelEscogerDificultad.dificultad == 1) {
 						infectadasInicio = Integer.parseInt(eElement
 								.getElementsByTagName("numCiudadesInfectadasInicioFacil").item(0).getTextContent());
 						infectadasRonda = Integer.parseInt(eElement
@@ -1022,7 +1074,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 						InfeccionPerder = Integer.parseInt(
 								eElement.getElementsByTagName("numBrotesDerrotaFacil").item(0).getTextContent());
 					}
-					if (indice == 1) {
+					if (PanelEscogerDificultad.dificultad == 2) {
 						infectadasInicio = Integer.parseInt(eElement
 								.getElementsByTagName("numCiudadesInfectadasInicioNormal").item(0).getTextContent());
 						infectadasRonda = Integer.parseInt(eElement
