@@ -133,7 +133,6 @@ public class PanelDerrota extends JPanel implements ActionListener {
 		dragonite.setIcon(new ImageIcon("Imagenes//vivaEspaña.jpg"));
 		dragonite.setSize(600, 600);
 		dragonite.setLocation(450, 120);
-		dragonite.setBackground(Color.red);
 		dragonite.setBorder(null);
 		add(dragonite);
 
