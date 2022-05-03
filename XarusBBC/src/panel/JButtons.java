@@ -8,21 +8,21 @@ import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
+
 
 public class JButtons extends JButton {
 
 	private String nombre;
 
+	
 
 	public JButtons(String nombre, int x, int y) {
-
+		
 		Image im = Toolkit.getDefaultToolkit().createImage("imagenes//cursorDefecto.png");
 		Image im2 = Toolkit.getDefaultToolkit().createImage("imagenes//cursorHover.png");
 		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10, 10), "WILL");
-		Cursor cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10, 10), "WILL");
+		Cursor cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10, 10), "WILL"); 
 		this.nombre = nombre;
 		this.setBounds(x - 90, y - 95, 15, 15);
 		this.setForeground(Color.WHITE);
@@ -35,13 +35,13 @@ public class JButtons extends JButton {
 			public void mouseEntered(MouseEvent e) {
 				setCursor(cur2);
 			}
+
 			public void mouseExited(MouseEvent e) {
 				setCursor(cur);
-	
 			}
 		});
 	}
-
+	
 	public String getNombre() {
 		return nombre;
 	}
