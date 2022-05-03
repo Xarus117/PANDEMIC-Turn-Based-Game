@@ -141,7 +141,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		});
 		boton4 = new JButton("Pasar turno");
 		boton4.setSize(200, 50);
-		boton4.setLocation(650, 800);
+		boton4.setLocation(530, 800);
 		boton4.setFont(fuente1);
 		boton4.setForeground(Color.BLACK);
 		boton4.setBackground(verdeBoton);

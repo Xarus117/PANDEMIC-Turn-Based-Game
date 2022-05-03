@@ -57,7 +57,7 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 		setCursor(cur);
 
 		texto = new JLabel("<html>Escoja una dificultad<br><br><br><html>");
-		texto.setFont(new Font("Arial", Font.BOLD, 20));
+		texto.setFont(new Font("Arial", Font.BOLD, 16));
 		texto.setBounds(635, 310, 315, 340);
 		texto.setForeground(Color.white);
 		add(texto);
@@ -66,19 +66,19 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 		facil.setSize(200, 50);
 		facil.setLocation(420, 440);
 		facil.setFont(new Font("Arial", Font.BOLD, 20));
-		facil.setBackground(Color.green);
+		facil.setBackground(new Color(247, 185, 71));
 		facil.setBorder(new LineBorder(Color.BLACK));
 		facil.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
 				facil.setBackground(Color.cyan);
 				setCursor(cur2);
 				texto.setText(
-						"<html><br><br><br><br><br>La dificultad fácil:<br><br>-4 puntos de acción<br><br>-5 infecciones por ronda<br><br>-80 infecciones y 7 brotes para derrota<br><br>-Destinado a nuevos jugadores<br><html>");
+						"<html><br><br><br><br><br>La dificultad fácil:<br><br>-4 puntos de acción<br><br>-5 infecciones por ronda<br><br>-80 infecciones y 7 brotes <br>para derrota<br><br>-Destinado a nuevos jugadores<br><html>");
 				add(texto);
 			}
 
 			public void mouseExited(MouseEvent e) {
-				facil.setBackground(Color.green);
+				facil.setBackground(new Color(247, 185, 71));
 				setCursor(cur);
 				texto.setText("<html>Escoja una dificultad<br><br><br><html>");
 				add(texto);
@@ -93,19 +93,19 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 		normal.setSize(200, 50);
 		normal.setLocation(420, 510);
 		normal.setFont(new Font("Arial", Font.BOLD, 20));
-		normal.setBackground(Color.green);
+		normal.setBackground(new Color(247, 185, 71));
 		normal.setBorder(new LineBorder(Color.BLACK));
 		normal.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
 				normal.setBackground(Color.yellow);
 				setCursor(cur2);
 				texto.setText(
-						"<html><br><br><br><br><br>La dificultad normal:<br><br>-4 puntos de acción<br><br>-7 infecciones por ronda<br><br>-80 infecciones y 5 brotes para derrota<br><br>-El modo en el cual<br>el juego no será tan fácil<html>");
+						"<html><br><br><br><br><br>La dificultad normal:<br><br>-4 puntos de acción<br><br>-7 infecciones por ronda<br><br>-80 infecciones y 5 brotes <br>para derrota<br><br>-El modo en el cual<br>el juego no será tan fácil<html>");
 				add(texto);
 			}
 
 			public void mouseExited(MouseEvent e) {
-				normal.setBackground(Color.green);
+				normal.setBackground(new Color(247, 185, 71));
 				setCursor(cur);
 				texto.setText("<html>Escoja una dificultad<br><br><br><html>");
 				add(texto);
@@ -118,19 +118,24 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 
 		volver = new JButton("Volver");
 		volver.setSize(200, 50);
-		volver.setLocation(550, 710);
+		volver.setLocation(420, 580);
 		volver.setFont(new Font("Arial", Font.BOLD, 20));
-		volver.setBackground(Color.green);
+		volver.setBackground(new Color(247, 185, 71));
 		volver.setBorder(new LineBorder(Color.BLACK));
 		volver.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
 				volver.setBackground(Color.GRAY);
 				setCursor(cur2);
+				texto.setText(
+						"<html>Volver al menú<html>");
+				add(texto);
 			}
 
 			public void mouseExited(MouseEvent e) {
-				volver.setBackground(Color.green);
+				volver.setBackground(new Color(247, 185, 71));
 				setCursor(cur);
+				texto.setText("<html>Escoja una dificultad<br><br><br><html>");
+				add(texto);
 			}
 		});
 		volver.addActionListener(this);
