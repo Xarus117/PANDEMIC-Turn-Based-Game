@@ -128,7 +128,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		boton1 = new JButton("Buscar vacuna");
 		boton1.setSize(200, 50);
 		boton1.setLocation(400, 740);
-		boton1.setFont(fuente1);
+		boton1.setFont(new Font("Arial", Font.BOLD, 20));
 		boton1.setForeground(Color.BLACK);
 		boton1.setBackground(verdeBoton);
 		boton1.addMouseListener(new MouseAdapter() {
@@ -145,7 +145,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		boton2 = new JButton("Curar ciudad");
 		boton2.setSize(200, 50);
 		boton2.setLocation(650, 740);
-		boton2.setFont(fuente1);
+		boton2.setFont(new Font("Arial", Font.BOLD, 20));
 		boton2.setForeground(Color.BLACK);
 		boton2.setBackground(verdeBoton);
 		boton2.addMouseListener(new MouseAdapter() {
@@ -162,7 +162,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		boton4 = new JButton("Pasar turno");
 		boton4.setSize(200, 50);
 		boton4.setLocation(530, 800);
-		boton4.setFont(fuente1);
+		boton4.setFont(new Font("Arial", Font.BOLD, 20));
 		boton4.setForeground(Color.BLACK);
 		boton4.setBackground(verdeBoton);
 		boton4.addMouseListener(new MouseAdapter() {
@@ -271,7 +271,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		mostrarInfeccion = new JTextArea();
 		mostrarInfeccion.setSize(130, 15);
 		mostrarInfeccion.setLocation(860, 740);
-		mostrarInfeccion.setFont(fuente2);
+		mostrarInfeccion.setFont(new Font("Arial", Font.BOLD, 20));
 		mostrarInfeccion.setForeground(Color.WHITE);
 		mostrarInfeccion.setBackground(Color.BLACK);
 		mostrarInfeccion.setOpaque(true);
@@ -281,7 +281,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		mostrarBrotes = new JTextArea();
 		mostrarBrotes.setSize(115, 15);
 		mostrarBrotes.setLocation(860, 770);
-		mostrarBrotes.setFont(fuente2);
+		mostrarBrotes.setFont(new Font("Arial", Font.BOLD, 20));
 		mostrarBrotes.setForeground(Color.WHITE);
 		mostrarBrotes.setBackground(Color.BLACK);
 		mostrarBrotes.setOpaque(true);

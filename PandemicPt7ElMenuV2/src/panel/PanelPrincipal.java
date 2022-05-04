@@ -172,6 +172,15 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			boton6.setBorder(new LineBorder(Color.BLACK));
 			boton7.setBorder(new LineBorder(Color.BLACK));
 			boton8.setBorder(new LineBorder(Color.BLACK));
+			
+			boton1.setForeground(Color.black);
+			boton3.setForeground(Color.black);
+			boton4.setForeground(Color.black);
+			boton5.setForeground(Color.black);
+			boton6.setForeground(Color.black);
+			boton7.setForeground(Color.black);
+			boton8.setForeground(Color.black);
+
 
 		boton1.addActionListener(this);
 		boton3.addActionListener(this);

@@ -17,6 +17,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 
 public class Login extends JPanel implements ActionListener {
 	JTextField txtNombre;
@@ -27,6 +28,7 @@ public class Login extends JPanel implements ActionListener {
 
 	JButton login;
 	JButton registrar;
+	JButton volver;
 
 	Image image;
 	Image Logo;
@@ -53,14 +55,17 @@ public class Login extends JPanel implements ActionListener {
 		etiNombre = new JLabel("Introduzca su nombre");
 		etiNombre.setBounds(30, 30, 200, 30);
 		etiNombre.setLocation(500, 450);
+		etiNombre.setForeground(Color.black);
 
+		
 		etiPass = new JLabel("Introduzca la contraseña");
 		etiPass.setBounds(30, 30, 200, 30);
-		etiPass.setLocation(500, 550);
+		etiPass.setLocation(490, 500);
+		etiPass.setForeground(Color.black);
 
 		mensaje = new JLabel("");
 		mensaje.setBounds(30, 30, 400, 30);
-		mensaje.setLocation(500, 600);
+		mensaje.setLocation(560, 540);
 		mensaje.setForeground(Color.red);
 
 		txtNombre = new JTextField();
@@ -69,13 +74,15 @@ public class Login extends JPanel implements ActionListener {
 
 		txtPass = new JTextField();
 		txtPass.setBounds(200, 30, 150, 30);
-		txtPass.setLocation(650, 550);
+		txtPass.setLocation(650, 500);
 
 		login = new JButton("Entrar");
-		login.setBounds(200, 70, 100, 30);
-		login.setLocation(700, 650);
-		login.setFont(new Font("Comforta", Font.BOLD, 18));
-		login.setBackground(Color.WHITE);
+		login.setSize(200, 50);
+		login.setLocation(660, 580);
+		login.setFont(new Font("Arial", Font.BOLD, 20));
+		login.setForeground(Color.black);
+		login.setBackground(new Color(247, 185, 71));
+		login.setBorder(new LineBorder(Color.BLACK));
 		login.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
 				login.setBackground(Color.GRAY);
@@ -83,7 +90,7 @@ public class Login extends JPanel implements ActionListener {
 			}
 
 			public void mouseExited(MouseEvent e) {
-				login.setBackground(Color.WHITE);
+				login.setBackground(new Color(247, 185, 71));
 				setCursor(cur);
 			}
 		});
@@ -91,10 +98,12 @@ public class Login extends JPanel implements ActionListener {
 		login.addActionListener(this);
 
 		registrar = new JButton("Registrar");
-		registrar.setBounds(200, 70, 150, 30);
-		registrar.setLocation(500, 650);
-		registrar.setFont(new Font("Comforta", Font.BOLD, 18));
-		registrar.setBackground(Color.WHITE);
+		registrar.setSize(200, 50);
+		registrar.setLocation(440, 580);
+		registrar.setFont(new Font("Arial", Font.BOLD, 20));
+		registrar.setBackground(new Color(247, 185, 71));
+		registrar.setBorder(new LineBorder(Color.BLACK));
+		registrar.setForeground(Color.black);
 		registrar.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
 				registrar.setBackground(Color.GRAY);
@@ -102,7 +111,7 @@ public class Login extends JPanel implements ActionListener {
 			}
 
 			public void mouseExited(MouseEvent e) {
-				registrar.setBackground(Color.WHITE);
+				registrar.setBackground(new Color(247, 185, 71));
 				setCursor(cur);
 			}
 		});
@@ -117,6 +126,28 @@ public class Login extends JPanel implements ActionListener {
 		add(registrar);
 		add(login);
 
+		volver = new JButton("Volver");
+		volver.setSize(200, 50);
+		volver.setLocation(550, 640);
+		volver.setFont(new Font("Arial", Font.BOLD, 20));
+		volver.setBackground(new Color(247, 185, 71));
+		volver.setBorder(new LineBorder(Color.BLACK));
+		volver .setForeground(Color.black);
+		volver.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent e) {
+				volver.setBackground(Color.GRAY);
+				setCursor(cur2);
+			}
+
+			public void mouseExited(MouseEvent e) {
+				volver.setBackground(new Color(247, 185, 71));
+				setCursor(cur);
+			}
+		});
+		volver.addActionListener(this);
+
+		add(volver);
+		
 		try {
 			image = ImageIO.read(new File("Imagenes//Fondo.jpg"));
 			Logo = ImageIO.read(new File("Imagenes//LOGO.png"));
@@ -129,6 +160,7 @@ public class Login extends JPanel implements ActionListener {
 
 	public static Connection makeConnection() {
 		System.out.println("Conectando a la base de datos...");
+
 		Connection con = null;
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -171,9 +203,6 @@ public class Login extends JPanel implements ActionListener {
 				String usuario = rs.getString("usuario");
 				String pass = rs.getString("contraseña");
 
-				System.out.println("\nLISTA USUARIOS:");
-				System.out.println(rs.getString("usuario"));
-
 				if (usuario.equals(guardarUsuario) && pass.equals(guardarPass)) {
 					valorReturn = 1;
 				}
@@ -185,6 +214,7 @@ public class Login extends JPanel implements ActionListener {
 			System.out.println("Ha habído un error con el select: " + e);
 
 		}
+		System.out.println(valorReturn);
 		return valorReturn;
 	}
 
@@ -209,43 +239,6 @@ public class Login extends JPanel implements ActionListener {
 		return mensajeError;
 	}
 
-	public static void insertarPartidasUsuario(Connection con, String guardarUsuario) {
-
-		for (int i = 1; i < 4; i++) {
-
-			String sql = "INSERT INTO PARTIDA (ID_PARTIDA, NOMBRE_USUARIO)" + "VALUES(" + i + "," + "'" + guardarUsuario
-					+ "'" + ")";
-
-			try { // SE EJECUTA LA SENTENCIA PARA CREAR LOS SLOTS DE CADA USUARIO
-
-				Statement statement = (Statement) con.createStatement();
-				statement.execute(sql);
-				statement.close();
-
-			} catch (SQLException e) {
-				System.out.println("Error: " + e.getMessage());
-			}
-		}
-
-		for (int i = 1; i < 4; i++) {
-
-			String sql = "INSERT INTO INFO_CIUDADES (ID_PARTIDA, USUARIO)" + "VALUES(" + i + "," + "'" + guardarUsuario
-					+ "'" + ")";
-
-			try { // SE EJECUTA LA SENTENCIA PARA CREAR LOS SLOTS DE CADA USUARIO
-
-				Statement statement = (Statement) con.createStatement();
-				statement.execute(sql);
-				statement.close();
-
-			} catch (SQLException e) {
-				System.out.println("Error: " + e.getMessage());
-			}
-		}
-
-		System.out.println("Se han creado los slots de guardado del usuario: " + guardarUsuario);
-	}
-
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(image, 0, -30, this);
@@ -265,20 +258,17 @@ public class Login extends JPanel implements ActionListener {
 				mensajeError = insertWithStatement(connection, guardarUsuario, guardarPass);
 				if (mensajeError == "Correcto") {
 					mensaje.setText("¡REGISTRO REALIZADO! Ahora debe iniciar sesión");
-					insertarPartidasUsuario(connection, guardarUsuario);
 				} else {
 					String[] partes = mensajeError.split("-");
 					txtNombre.setText("");
 					txtPass.setText("");
 					mensaje.setText(partes[2]);
 				}
-				closeConnection(connection);
 			} else {
 				mensaje.setText("Formato incorrecto, vuelva a introducir los valores");
 			}
 			txtNombre.setText("");
 			txtPass.setText("");
-
 		}
 
 		else if (e.getSource() == login) {
@@ -288,13 +278,12 @@ public class Login extends JPanel implements ActionListener {
 			if (guardarUsuario.length() > 0 && guardarPass.length() > 0) {
 				Connection connection = makeConnection();
 				numeroError = selectWithStatement(connection, guardarUsuario, guardarPass);
-				closeConnection(connection);
 				if (numeroError == 1) {
 					JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
 					marco.remove(this);
 					marco.add(new PanelEscogerDificultad());
 					marco.setVisible(true);
-
+					closeConnection(connection);
 				} else {
 					txtNombre.setText("");
 					txtPass.setText("");
@@ -302,6 +291,11 @@ public class Login extends JPanel implements ActionListener {
 				}
 			}
 
+		}else if (e.getSource() == volver) {
+			JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
+			marco.remove(this);
+			marco.add(new PanelPrincipal());
+			marco.setVisible(true);
 		}
 	}
 }
