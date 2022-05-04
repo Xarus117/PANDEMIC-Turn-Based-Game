@@ -52,10 +52,6 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 
 	static int dificultad = 0;
 
-	private static final String USER = "PND_QALQO";
-	private static final String PWD = "TYX1234";
-	private static final String URL = "jdbc:oracle:thin:@192.168.3.26:1521:xe";
-
 	PanelEscogerDificultad() {
 		setLayout(null);
 		Image im = Toolkit.getDefaultToolkit().createImage("imagenes//cursorDefecto.png");
@@ -157,8 +153,6 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		selectWithStatement(makeConnection());
 		
 	}
 
@@ -172,80 +166,7 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 
 	}
 
-	public static Connection makeConnection() {
-		System.out.println("Conectando a la base de datos...");
-
-		Connection con = null;
-		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			con = DriverManager.getConnection(URL, USER, PWD);
-
-			System.out.println("Conexión establecida con la base de datos");
-
-		} catch (SQLException e) {
-			throw new IllegalStateException("No se ha podido conectar a la base de datos ", e);
-
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		return con;
-	}
-
-	public static void closeConnection(Connection con) {
-		try {
-			con.close();
-			System.out.println("Se ha cerrado la conexión");
-		} catch (SQLException e) {
-			System.out.println("Ha ocurrido un error cerrando la conexión: " + e);
-
-		}
-	}
-
-	public static void selectWithStatement(Connection con) {
-
-		String sql = "SELECT * FROM USUARIO";
-
-		Statement st = null;
-
-		try {
-			st = con.createStatement();
-
-			ResultSet rs = st.executeQuery(sql);
-
-			while (rs.next()) {
-				String usuario = rs.getString("usuario");
-				String pass = rs.getString("contraseña");
-
-				System.out.println(usuario);
-			}
-
-			st.close();
-
-		} catch (SQLException e) {
-			System.out.println("Ha habído un error con el select: " + e);
-		}
-	}
 	
-	public static String insertWithStatement(Connection con, String guardarUsuario, String guardarPass) {
-
-		String sql = "INSERT INTO PARTIDA(nombre_usuario, num_rondas, fecha_partida, v_azul, \r\n"
-				+ "v_amarilla, v_roja, v_verde, ciudades)\r\n"
-				+ "VALUES (" +", 10, SYSDATE, 1, 0, 0, 1, ciudad('juan', 1, 0, 0, 1, colindantes('jose', 'juan'), 'hola'));";
-		
-		String mensajeError = "Correcto";
-
-		try {
-			Statement statement = (Statement) con.createStatement();
-			statement.execute(sql);
-			statement.close();
-
-		} catch (SQLException e) {
-			System.out.println(e);
-
-			mensajeError = e.getMessage();
-		}
-		return mensajeError;
-	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

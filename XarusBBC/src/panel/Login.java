@@ -41,7 +41,7 @@ public class Login extends JPanel implements ActionListener {
 
 	private static final String USER = "PND_QALQO";
 	private static final String PWD = "TYX1234";
-	private static final String URL = "jdbc:oracle:thin:@192.168.3.26:1521:xe";
+	private static final String URL = "jdbc:oracle:thin:@oracle.ilerna.com:1521:xe";
 
 	Login() {
 		setLayout(null);
@@ -129,7 +129,6 @@ public class Login extends JPanel implements ActionListener {
 
 	public static Connection makeConnection() {
 		System.out.println("Conectando a la base de datos...");
-
 		Connection con = null;
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -172,6 +171,9 @@ public class Login extends JPanel implements ActionListener {
 				String usuario = rs.getString("usuario");
 				String pass = rs.getString("contraseña");
 
+				System.out.println("\nLISTA USUARIOS:");
+				System.out.println(rs.getString("usuario"));
+
 				if (usuario.equals(guardarUsuario) && pass.equals(guardarPass)) {
 					valorReturn = 1;
 				}
@@ -183,7 +185,6 @@ public class Login extends JPanel implements ActionListener {
 			System.out.println("Ha habído un error con el select: " + e);
 
 		}
-		System.out.println(valorReturn);
 		return valorReturn;
 	}
 
@@ -233,11 +234,13 @@ public class Login extends JPanel implements ActionListener {
 					txtPass.setText("");
 					mensaje.setText(partes[2]);
 				}
+				closeConnection(connection);
 			} else {
 				mensaje.setText("Formato incorrecto, vuelva a introducir los valores");
 			}
 			txtNombre.setText("");
 			txtPass.setText("");
+
 		}
 
 		else if (e.getSource() == login) {
@@ -247,12 +250,13 @@ public class Login extends JPanel implements ActionListener {
 			if (guardarUsuario.length() > 0 && guardarPass.length() > 0) {
 				Connection connection = makeConnection();
 				numeroError = selectWithStatement(connection, guardarUsuario, guardarPass);
+				closeConnection(connection);
 				if (numeroError == 1) {
 					JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
 					marco.remove(this);
 					marco.add(new PanelEscogerDificultad());
 					marco.setVisible(true);
-					closeConnection(connection);
+
 				} else {
 					txtNombre.setText("");
 					txtPass.setText("");
