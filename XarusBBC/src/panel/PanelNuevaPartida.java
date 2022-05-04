@@ -218,7 +218,6 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			}
 		});
 		add(guardar);
-		guardar(); // FUNCIÓN PARA GUARDAR
 
 		// SALIR
 		salir = new JButton();
@@ -1136,14 +1135,14 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		try {
 			con.close();
 			System.out.println("Se ha cerrado la conexión");
-		} catch (SQLException e) {
+		} catch (SQLException e) {		
 			System.out.println("Ha ocurrido un error cerrando la conexión: " + e);
 
 		}
 	}
 
 	public static String insertWithStatement(Connection con) {
-		
+
 		int azul = 0;
 		int roja = 0;
 		int amarilla = 0;
@@ -1166,27 +1165,25 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		System.out.println(roja);
 		System.out.println(verde);
 		
-		String sql = "INSERT INTO PARTIDA (nombre_usuario, num_rondas, fecha_partida, v_azul, v_amarilla, v_roja, v_verde)"
-				+ "VALUES ('" + jugador + "', " + ronda + ", SYSDATE ," + azul + ", " + amarilla + ", " + roja + ","
-				+ verde + ");";
-		
-		String sql = "INSERT INTO PARTIDA (nombre_usuario, num_rondas, fecha_partida, v_azul, v_amarilla, v_roja, v_verde)"
-				+ "VALUES ('a', 0, SYSDATE, 0, 0, 0, 0);";
+		for(int i = 0; i < 48;i++) {
+	         String sql = "UPDATE INFO_CIUDADES SET CIUDAD"+i+" = CIUDAD('"+ciudades.get(i).getNombre()+"','"+ ciudades.get(i).getRoja()+"','"+ciudades.get(i).getVerde()+"','"+ciudades.get(i).getAmarilla()+"','"+ciudades.get(i).getAzul() +"')"
+	                    + "where id_partida = '"+1+"'"
+	                    + "and USUARIO = '"+ jugador +"'";
 
-		String mensajeError = "Correcto";
 
-		try {
-			Statement statement = (Statement) con.createStatement();
-			statement.execute(sql);
-			System.out.println("La sentencia se ha ejecutado correctamente");
-			statement.close();
+	        try {
+	            Statement statement = (Statement) con.createStatement();
+	            statement.execute(sql);
+	            statement.close();
+	            System.out.println("juan");
 
-		} catch (SQLException e) {
+	        } catch (SQLException e) {
+	            System.out.println("The Insert had problems!! " + e);
 
-			mensajeError = e.getMessage();
-			System.out.println(mensajeError);
+	            } 
+	        }
 
-		}
+		String mensajeError = "hola";
 		return mensajeError;
 	}
 
