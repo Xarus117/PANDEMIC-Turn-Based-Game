@@ -41,7 +41,7 @@ public class Login extends JPanel implements ActionListener {
 
 	private static final String USER = "PND_QALQO";
 	private static final String PWD = "TYX1234";
-	private static final String URL = "jdbc:oracle:thin:@oracle.ilerna.com:1521:xe";
+	private static final String URL = "jdbc:oracle:thin:@192.168.3.26:1521:xe";
 
 	Login() {
 		setLayout(null);
@@ -209,6 +209,43 @@ public class Login extends JPanel implements ActionListener {
 		return mensajeError;
 	}
 
+	public static void insertarPartidasUsuario(Connection con, String guardarUsuario) {
+
+		for (int i = 1; i < 4; i++) {
+
+			String sql = "INSERT INTO PARTIDA (ID_PARTIDA, NOMBRE_USUARIO)" + "VALUES(" + i + "," + "'" + guardarUsuario
+					+ "'" + ")";
+
+			try { // SE EJECUTA LA SENTENCIA PARA CREAR LOS SLOTS DE CADA USUARIO
+
+				Statement statement = (Statement) con.createStatement();
+				statement.execute(sql);
+				statement.close();
+
+			} catch (SQLException e) {
+				System.out.println("Error: " + e.getMessage());
+			}
+		}
+
+		for (int i = 1; i < 4; i++) {
+
+			String sql = "INSERT INTO INFO_CIUDADES (ID_PARTIDA, USUARIO)" + "VALUES(" + i + "," + "'" + guardarUsuario
+					+ "'" + ")";
+
+			try { // SE EJECUTA LA SENTENCIA PARA CREAR LOS SLOTS DE CADA USUARIO
+
+				Statement statement = (Statement) con.createStatement();
+				statement.execute(sql);
+				statement.close();
+
+			} catch (SQLException e) {
+				System.out.println("Error: " + e.getMessage());
+			}
+		}
+
+		System.out.println("Se han creado los slots de guardado del usuario: " + guardarUsuario);
+	}
+
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(image, 0, -30, this);
@@ -228,6 +265,7 @@ public class Login extends JPanel implements ActionListener {
 				mensajeError = insertWithStatement(connection, guardarUsuario, guardarPass);
 				if (mensajeError == "Correcto") {
 					mensaje.setText("¡REGISTRO REALIZADO! Ahora debe iniciar sesión");
+					insertarPartidasUsuario(connection, guardarUsuario);
 				} else {
 					String[] partes = mensajeError.split("-");
 					txtNombre.setText("");

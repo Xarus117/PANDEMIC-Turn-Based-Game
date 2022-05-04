@@ -153,7 +153,7 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public void paintComponent(Graphics g) {
@@ -165,8 +165,6 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 		g.drawImage(dificultadtitulo, 400, 220, this);
 
 	}
-
-	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

@@ -97,15 +97,14 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 
 	private static final String USER = "PND_QALQO";
 	private static final String PWD = "TYX1234";
-	private static final String URL = "jdbc:oracle:thin:@oracle.ilerna.com:1521:xe";
+	private static final String URL = "jdbc:oracle:thin:@192.168.3.26:1521:xe";
 
 	// Fuentes
 	Font fuente1;
 	Font fuente2;
 
 	public void guardar() {
-		String errorGuardar = insertWithStatement(makeConnection());
-		System.out.println("!!!: " + errorGuardar);
+		insertWithStatement(makeConnection());
 	}
 
 	PanelNuevaPartida() throws ParserConfigurationException, SAXException {
@@ -1135,13 +1134,13 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		try {
 			con.close();
 			System.out.println("Se ha cerrado la conexión");
-		} catch (SQLException e) {		
+		} catch (SQLException e) {
 			System.out.println("Ha ocurrido un error cerrando la conexión: " + e);
 
 		}
 	}
 
-	public static String insertWithStatement(Connection con) {
+	public static void insertWithStatement(Connection con) {
 
 		int azul = 0;
 		int roja = 0;
@@ -1164,27 +1163,41 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		System.out.println(amarilla);
 		System.out.println(roja);
 		System.out.println(verde);
-		
-		for(int i = 0; i < 48;i++) {
-	         String sql = "UPDATE INFO_CIUDADES SET CIUDAD"+i+" = CIUDAD('"+ciudades.get(i).getNombre()+"','"+ ciudades.get(i).getRoja()+"','"+ciudades.get(i).getVerde()+"','"+ciudades.get(i).getAmarilla()+"','"+ciudades.get(i).getAzul() +"')"
-	                    + "where id_partida = '"+1+"'"
-	                    + "and USUARIO = '"+ jugador +"'";
 
+		int slot = 1; // A FUTURO MODIFICABLE CON UN MENÚ
 
-	        try {
-	            Statement statement = (Statement) con.createStatement();
-	            statement.execute(sql);
-	            statement.close();
-	            System.out.println("juan");
+		for (int i = 0; i < 48; i++) {
+			String sql = "UPDATE INFO_CIUDADES SET CIUDAD" + i + " = CIUDAD('" + ciudades.get(i).getNombre() + "','"
+					+ ciudades.get(i).getRoja() + "','" + ciudades.get(i).getVerde() + "','"
+					+ ciudades.get(i).getAmarilla() + "','" + ciudades.get(i).getAzul() + "')" + "where id_partida = '"
+					+ slot + "'" + "and USUARIO = '" + jugador + "'";
 
-	        } catch (SQLException e) {
-	            System.out.println("The Insert had problems!! " + e);
+			try {
+				Statement statement = (Statement) con.createStatement();
+				statement.execute(sql);
+				statement.close();
 
-	            } 
-	        }
+			} catch (SQLException e) {
+				System.out.println("Ha habído un error:" + e);
 
-		String mensajeError = "hola";
-		return mensajeError;
+			}
+		}
+
+		String sql = "UPDATE PARTIDA SET NUM_RONDAS = " + ronda + ", FECHA_PARTIDA = SYSDATE, V_AZUL = " + azul + ", V_AMARILLA =  " + amarilla
+				+ ", V_ROJA = " + roja + ", V_VERDE = " + verde
+				+  "WHERE NOMBRE_USUARIO = '" + jugador +"' AND ID_PARTIDA = " + slot + ""
+				+ "";
+
+		try {
+			Statement statement = (Statement) con.createStatement();
+			statement.execute(sql);
+			statement.close();
+
+		} catch (SQLException e) {
+			System.out.println("Ha habído un error:" + e);
+
+		}
+
 	}
 
 }

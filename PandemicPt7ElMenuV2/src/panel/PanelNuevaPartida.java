@@ -3,6 +3,16 @@ package panel;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -40,7 +50,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	JButton accion2;
 	JButton accion3;
 	JButton accion4;
-	// Arrays para calculos
+	static // Arrays para calculos
 	ArrayList<Ciudades> ciudades = new ArrayList<>();
 	ArrayList<String> nombres = new ArrayList<>();
 	ArrayList<JButtons> colocar = new ArrayList<>();
@@ -49,7 +59,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	static Random rn = new Random();
 	int rd = 0;
 	int rd2 = 0;
-	int ronda = 5;
+	static int ronda = 0;
 
 	static int indice = 0;
 	int vacunas = 4;
@@ -64,14 +74,16 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 
 	String[] conservarRonda = new String[48];
 
+	static String jugador = Login.guardarUsuario;
+
 	Image image;
 
 	// BOOLEAN PARA ACTIVAR O DESACTIVAR LAS VACUNAS
-	boolean azulb = false;
-	boolean amarillab = false;
-	boolean rojab = false;
-	boolean verdeb = false;
-	boolean grisb = false;
+	static boolean azulb = false;
+	static boolean amarillab = false;
+	static boolean rojab = false;
+	static boolean verdeb = false;
+	static boolean grisb = false;
 	int vacunaEncontrada = 0;
 
 	// ACCIONES
@@ -83,9 +95,17 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	static int infeccionDerrota;
 	static int InfeccionPerder;
 
+	private static final String USER = "PND_QALQO";
+	private static final String PWD = "TYX1234";
+	private static final String URL = "jdbc:oracle:thin:@192.168.3.26:1521:xe";
+
 	// Fuentes
 	Font fuente1;
 	Font fuente2;
+
+	public void guardar() {
+		insertWithStatement(makeConnection());
+	}
 
 	PanelNuevaPartida() throws ParserConfigurationException, SAXException {
 		setLayout(null);
@@ -197,7 +217,6 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			}
 		});
 		add(guardar);
-		guardar(); // FUNCIÓN PARA GUARDAR
 
 		// SALIR
 		salir = new JButton();
@@ -312,6 +331,8 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		accion4.setIcon(null);
 		acciones(contadorAccion);
 		vacunas();
+
+		jugador = Login.guardarUsuario;
 
 		// Mapeo del juego
 		Mapeo();
@@ -565,10 +586,6 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 
 	}
 
-	public void guardar() {
-		// FUNCIÓN PARA GUARDAR LA PARTIDA CON FICHEROS
-	}
-
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
@@ -743,6 +760,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				curar();
 			}
 		} else if (e.getSource() == boton4) {
+			ronda++;
 			victoria();
 			contadorAccion = 4;
 			acciones(contadorAccion);
@@ -849,7 +867,10 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			}
 			add(vacunaVerde);
 
+		} else if (e.getSource() == guardar) {
+			guardar();
 		}
+
 		if (e.getSource() == colocar.get(0)) {
 			indice = 0;
 			identificarCiudad();
@@ -1088,6 +1109,95 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			}
 		} catch (IOException a) {
 		}
+	}
+
+	public static Connection makeConnection() {
+		System.out.println("Conectando a la base de datos...");
+
+		Connection con = null;
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			con = DriverManager.getConnection(URL, USER, PWD);
+
+			System.out.println("Conexión establecida con la base de datos");
+
+		} catch (SQLException e) {
+			throw new IllegalStateException("No se ha podido conectar a la base de datos ", e);
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return con;
+	}
+
+	public static void closeConnection(Connection con) {
+		try {
+			con.close();
+			System.out.println("Se ha cerrado la conexión");
+		} catch (SQLException e) {
+			System.out.println("Ha ocurrido un error cerrando la conexión: " + e);
+
+		}
+	}
+
+	public static void insertWithStatement(Connection con) {
+
+		int azul = 0;
+		int roja = 0;
+		int amarilla = 0;
+		int verde = 0;
+
+		if (azulb == true) {
+			azul = 1;
+		} else if (rojab == true) {
+			roja = 1;
+		} else if (amarillab == true) {
+			amarilla = 1;
+		} else if (verdeb == true) {
+			verde = 1;
+		}
+
+		System.out.println(jugador);
+		System.out.println(ronda);
+		System.out.println(azul);
+		System.out.println(amarilla);
+		System.out.println(roja);
+		System.out.println(verde);
+
+		int slot = 1; // A FUTURO MODIFICABLE CON UN MENÚ
+
+		for (int i = 0; i < 48; i++) {
+			String sql = "UPDATE INFO_CIUDADES SET CIUDAD" + i + " = CIUDAD('" + ciudades.get(i).getNombre() + "','"
+					+ ciudades.get(i).getRoja() + "','" + ciudades.get(i).getVerde() + "','"
+					+ ciudades.get(i).getAmarilla() + "','" + ciudades.get(i).getAzul() + "')" + "where id_partida = '"
+					+ slot + "'" + "and USUARIO = '" + jugador + "'";
+
+			try {
+				Statement statement = (Statement) con.createStatement();
+				statement.execute(sql);
+				statement.close();
+
+			} catch (SQLException e) {
+				System.out.println("Ha habído un error:" + e);
+
+			}
+		}
+
+		String sql = "UPDATE PARTIDA SET NUM_RONDAS = " + ronda + ", FECHA_PARTIDA = SYSDATE, V_AZUL = " + azul + ", V_AMARILLA =  " + amarilla
+				+ ", V_ROJA = " + roja + ", V_VERDE = " + verde
+				+  "WHERE NOMBRE_USUARIO = '" + jugador +"' AND ID_PARTIDA = " + slot + ""
+				+ "";
+
+		try {
+			Statement statement = (Statement) con.createStatement();
+			statement.execute(sql);
+			statement.close();
+
+		} catch (SQLException e) {
+			System.out.println("Ha habído un error:" + e);
+
+		}
+
 	}
 
 }

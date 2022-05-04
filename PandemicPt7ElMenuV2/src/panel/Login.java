@@ -129,7 +129,6 @@ public class Login extends JPanel implements ActionListener {
 
 	public static Connection makeConnection() {
 		System.out.println("Conectando a la base de datos...");
-
 		Connection con = null;
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -172,6 +171,9 @@ public class Login extends JPanel implements ActionListener {
 				String usuario = rs.getString("usuario");
 				String pass = rs.getString("contraseña");
 
+				System.out.println("\nLISTA USUARIOS:");
+				System.out.println(rs.getString("usuario"));
+
 				if (usuario.equals(guardarUsuario) && pass.equals(guardarPass)) {
 					valorReturn = 1;
 				}
@@ -183,7 +185,6 @@ public class Login extends JPanel implements ActionListener {
 			System.out.println("Ha habído un error con el select: " + e);
 
 		}
-		System.out.println(valorReturn);
 		return valorReturn;
 	}
 
@@ -208,6 +209,43 @@ public class Login extends JPanel implements ActionListener {
 		return mensajeError;
 	}
 
+	public static void insertarPartidasUsuario(Connection con, String guardarUsuario) {
+
+		for (int i = 1; i < 4; i++) {
+
+			String sql = "INSERT INTO PARTIDA (ID_PARTIDA, NOMBRE_USUARIO)" + "VALUES(" + i + "," + "'" + guardarUsuario
+					+ "'" + ")";
+
+			try { // SE EJECUTA LA SENTENCIA PARA CREAR LOS SLOTS DE CADA USUARIO
+
+				Statement statement = (Statement) con.createStatement();
+				statement.execute(sql);
+				statement.close();
+
+			} catch (SQLException e) {
+				System.out.println("Error: " + e.getMessage());
+			}
+		}
+
+		for (int i = 1; i < 4; i++) {
+
+			String sql = "INSERT INTO INFO_CIUDADES (ID_PARTIDA, USUARIO)" + "VALUES(" + i + "," + "'" + guardarUsuario
+					+ "'" + ")";
+
+			try { // SE EJECUTA LA SENTENCIA PARA CREAR LOS SLOTS DE CADA USUARIO
+
+				Statement statement = (Statement) con.createStatement();
+				statement.execute(sql);
+				statement.close();
+
+			} catch (SQLException e) {
+				System.out.println("Error: " + e.getMessage());
+			}
+		}
+
+		System.out.println("Se han creado los slots de guardado del usuario: " + guardarUsuario);
+	}
+
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(image, 0, -30, this);
@@ -227,17 +265,20 @@ public class Login extends JPanel implements ActionListener {
 				mensajeError = insertWithStatement(connection, guardarUsuario, guardarPass);
 				if (mensajeError == "Correcto") {
 					mensaje.setText("¡REGISTRO REALIZADO! Ahora debe iniciar sesión");
+					insertarPartidasUsuario(connection, guardarUsuario);
 				} else {
 					String[] partes = mensajeError.split("-");
 					txtNombre.setText("");
 					txtPass.setText("");
 					mensaje.setText(partes[2]);
 				}
+				closeConnection(connection);
 			} else {
 				mensaje.setText("Formato incorrecto, vuelva a introducir los valores");
 			}
 			txtNombre.setText("");
 			txtPass.setText("");
+
 		}
 
 		else if (e.getSource() == login) {
@@ -247,12 +288,13 @@ public class Login extends JPanel implements ActionListener {
 			if (guardarUsuario.length() > 0 && guardarPass.length() > 0) {
 				Connection connection = makeConnection();
 				numeroError = selectWithStatement(connection, guardarUsuario, guardarPass);
+				closeConnection(connection);
 				if (numeroError == 1) {
 					JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
 					marco.remove(this);
 					marco.add(new PanelEscogerDificultad());
 					marco.setVisible(true);
-					closeConnection(connection);
+
 				} else {
 					txtNombre.setText("");
 					txtPass.setText("");

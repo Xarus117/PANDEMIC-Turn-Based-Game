@@ -13,6 +13,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -32,9 +38,8 @@ import org.xml.sax.SAXException;
 
 public class PanelEscogerDificultad extends JPanel implements ActionListener {
 
-	 JButton facil;
-	 JButton normal;
-
+	JButton facil;
+	JButton normal;
 
 	JButton volver;
 
@@ -44,9 +49,8 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 	Image image;
 	Image recuadro;
 	Image logo;
-	
-	static int dificultad = 0;
 
+	static int dificultad = 0;
 
 	PanelEscogerDificultad() {
 		setLayout(null);
@@ -126,8 +130,7 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 			public void mouseEntered(MouseEvent e) {
 				volver.setBackground(Color.GRAY);
 				setCursor(cur2);
-				texto.setText(
-						"<html>Volver al menú<html>");
+				texto.setText("<html>Volver al menú<html>");
 				add(texto);
 			}
 
