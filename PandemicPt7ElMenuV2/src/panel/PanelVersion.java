@@ -65,7 +65,7 @@ public class PanelVersion extends JPanel implements ActionListener {
 		super.paintComponent(g);
 
 		g.drawImage(image, 0, 0, this);
-		g.drawImage(versiones, 350, 200, this);
+		g.drawImage(versiones, 320, 200, this);
 
 	}
 

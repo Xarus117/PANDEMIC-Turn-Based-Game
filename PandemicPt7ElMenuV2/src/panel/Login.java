@@ -20,19 +20,12 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 
 public class Login extends JPanel implements ActionListener {
-	JTextField txtNombre;
-	JTextField txtPass;
-	JLabel etiNombre;
-	JLabel etiPass;
-	JLabel mensaje;
+	JTextField txtNombre,txtPass;
+	JLabel etiNombre,etiPass, mensaje;
 
-	JButton login;
-	JButton registrar;
-	JButton volver;
+	JButton login, registrar,volver;
 
-	Image image;
-	Image Logo;
-	Image recuadro;
+	Image image,Logo,recuadro, loginImg;
 
 	static String guardarUsuario;
 	static String guardarPass;
@@ -151,7 +144,9 @@ public class Login extends JPanel implements ActionListener {
 		try {
 			image = ImageIO.read(new File("Imagenes//Fondo.jpg"));
 			Logo = ImageIO.read(new File("Imagenes//LOGO.png"));
-			recuadro = ImageIO.read(new File("Imagenes//recuadro.jpg"));
+			recuadro = ImageIO.read(new File("Imagenes//recuadro1.png"));
+			loginImg = ImageIO.read(new File("Imagenes//Login.png"));
+
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -281,7 +276,9 @@ public class Login extends JPanel implements ActionListener {
 		super.paintComponent(g);
 		g.drawImage(image, 0, -30, this);
 		g.drawImage(Logo, 90, -80, this);
-		g.drawImage(recuadro, 400, 400, this);
+		g.drawImage(recuadro, 406, 380, this);
+		g.drawImage(loginImg, 450, 245, this);
+
 	}
 
 	@Override
