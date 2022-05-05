@@ -153,9 +153,9 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 
 		try {
 			image = ImageIO.read(new File("Imagenes//Fondo.jpg"));
-			recuadro = ImageIO.read(new File("Imagenes//Recuadro.jpg"));
+			recuadro = ImageIO.read(new File("Imagenes//Recuadro3.png"));
 			logo = ImageIO.read(new File("Imagenes//LOGO.png"));
-			dificultadtitulo = ImageIO.read(new File("Imagenes//dificultadtitulo.png"));
+			dificultadtitulo = ImageIO.read(new File("Imagenes//Dificultad.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -167,8 +167,8 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 
 		g.drawImage(image, 0, 0, this);
 		g.drawImage(logo, 90, -80, this);
-		g.drawImage(recuadro, 400, 400, this);
-		g.drawImage(dificultadtitulo, 400, 220, this);
+		g.drawImage(recuadro, 400, 360, this);
+		g.drawImage(dificultadtitulo, 400, 270, this);
 
 	}
 

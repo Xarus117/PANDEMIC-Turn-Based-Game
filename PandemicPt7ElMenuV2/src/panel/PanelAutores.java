@@ -66,7 +66,7 @@ public class PanelAutores extends JPanel implements ActionListener {
 		super.paintComponent(g);
 
 		g.drawImage(image, 0, 0, this);
-		g.drawImage(autores, 350, 200, this);
+		g.drawImage(autores, 320, 200, this);
 	}
 
 	@Override
