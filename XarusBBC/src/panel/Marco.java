@@ -29,11 +29,11 @@ public class Marco extends JFrame {
 		setSize(1280,920);
 		MenuPrincipal = new PanelPrincipal();
 		add(MenuPrincipal);
-		ReproducirSonido();
+		//ReproducirSonido();
 		setVisible(true);// Modificar la visibilidad del marco
 	}
 	
-	private void ReproducirSonido() {
+	/*private void ReproducirSonido() {
 
 		try {
 			AudioInputStream audioInputStream = AudioSystem
@@ -45,5 +45,5 @@ public class Marco extends JFrame {
 			System.out.println("Error al reproducir el sonido.");
 		}
 		
-	}
+	}*/
 }

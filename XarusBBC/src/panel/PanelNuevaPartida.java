@@ -3,11 +3,13 @@ package panel;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Struct;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -60,6 +62,10 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	int rd = 0;
 	int rd2 = 0;
 	static int ronda = 0;
+	// Slots guardado
+	JButton slot1;
+	JButton slot2;
+	JButton slot3;
 
 	static int indice = 0;
 	int vacunas = 4;
@@ -73,8 +79,6 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	int sumaTotal;
 
 	String[] conservarRonda = new String[48];
-
-	static String jugador = Login.guardarUsuario;
 
 	Image image;
 
@@ -99,12 +103,15 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	private static final String PWD = "TYX1234";
 	private static final String URL = "jdbc:oracle:thin:@192.168.3.26:1521:xe";
 
+	public static int cargado;
+
 	// Fuentes
 	Font fuente1;
 	Font fuente2;
 
-	public void guardar() {
-		insertWithStatement(makeConnection());
+	public void guardar(int slot) {
+		insertWithStatement(makeConnection(), slot);
+
 	}
 
 	PanelNuevaPartida() throws ParserConfigurationException, SAXException {
@@ -176,14 +183,74 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				setCursor(cur);
 			}
 		});
+		slot1 = new JButton("Slot 1");
+		slot1.setSize(100, 20);
+		slot1.setLocation(1130, 550);
+		slot1.setFont(fuente1);
+		slot1.setForeground(Color.BLACK);
+		slot1.setBackground(verdeBoton);
+		slot1.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent e) {
+				slot1.setBackground(Color.GRAY);
+				setCursor(cur2);
+			}
+
+			public void mouseExited(MouseEvent e) {
+				slot1.setBackground(verdeBoton);
+				setCursor(cur);
+			}
+		});
+		slot2 = new JButton("Slot 2");
+		slot2.setSize(100, 20);
+		slot2.setLocation(1130, 590);
+		slot2.setFont(fuente1);
+		slot2.setForeground(Color.BLACK);
+		slot2.setBackground(verdeBoton);
+		slot2.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent e) {
+				slot2.setBackground(Color.GRAY);
+				setCursor(cur2);
+			}
+
+			public void mouseExited(MouseEvent e) {
+				slot2.setBackground(verdeBoton);
+				setCursor(cur);
+			}
+		});
+		slot3 = new JButton("Slot 3");
+		slot3.setSize(100, 20);
+		slot3.setLocation(1130, 630);
+		slot3.setFont(fuente1);
+		slot3.setForeground(Color.BLACK);
+		slot3.setBackground(verdeBoton);
+		slot3.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent e) {
+				slot3.setBackground(Color.GRAY);
+				setCursor(cur2);
+			}
+
+			public void mouseExited(MouseEvent e) {
+				slot3.setBackground(verdeBoton);
+				setCursor(cur);
+			}
+		});
 
 		boton1.addActionListener(this);
 		boton2.addActionListener(this);
 		boton4.addActionListener(this);
+		slot1.addActionListener(this);
+		slot2.addActionListener(this);
+		slot3.addActionListener(this);
 
 		add(boton1);
 		add(boton2);
 		add(boton4);
+		add(slot1);
+		add(slot2);
+		add(slot3);
+		slot1.setVisible(false);
+		slot2.setVisible(false);
+		slot3.setVisible(false);
 
 		try {
 			image = ImageIO.read(new File("Imagenes//Mapa.jpg"));
@@ -332,10 +399,9 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		acciones(contadorAccion);
 		vacunas();
 
-		jugador = Login.guardarUsuario;
-
 		// Mapeo del juego
 		Mapeo();
+		cargarPartida(makeConnection());
 
 	}
 
@@ -707,6 +773,11 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				e1.printStackTrace();
 			}
 			marco.setVisible(true);
+			azulb = false;
+			amarillab = false;
+			verdeb = false;
+			rojab = false;
+			ronda = 0;
 		}
 	}
 
@@ -792,6 +863,15 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				marco.setVisible(true);
 			}
 		} else if (e.getSource() == salir) {
+			azulb = false;
+			rojab = false;
+			verdeb = false;
+			amarillab = false;
+
+			for (int i = 0; i < ciudades.size(); i++) {
+				ciudades.removeAll(ciudades);
+			}
+
 			JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
 			marco.remove(this);
 			marco.add(new PanelPrincipal());
@@ -868,9 +948,35 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			add(vacunaVerde);
 
 		} else if (e.getSource() == guardar) {
-			guardar();
+			slot1.setVisible(true);
+			slot2.setVisible(true);
+			slot3.setVisible(true);
 		}
-
+		if (e.getSource() == slot1) {
+			guardar(1);
+			slot1.setVisible(false);
+			slot2.setVisible(false);
+			slot3.setVisible(false);
+			add(slot1);
+			add(slot2);
+			add(slot3);
+		} else if (e.getSource() == slot2) {
+			guardar(2);
+			slot1.setVisible(false);
+			slot2.setVisible(false);
+			slot3.setVisible(false);
+			add(slot1);
+			add(slot2);
+			add(slot3);
+		} else if (e.getSource() == slot3) {
+			guardar(3);
+			slot1.setVisible(false);
+			slot2.setVisible(false);
+			slot3.setVisible(false);
+			add(slot1);
+			add(slot2);
+			add(slot3);
+		}
 		if (e.getSource() == colocar.get(0)) {
 			indice = 0;
 			identificarCiudad();
@@ -1140,7 +1246,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		}
 	}
 
-	public static void insertWithStatement(Connection con) {
+	public static void insertWithStatement(Connection con, int slot) {
 
 		int azul = 0;
 		int roja = 0;
@@ -1149,29 +1255,31 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 
 		if (azulb == true) {
 			azul = 1;
-		} else if (rojab == true) {
+		}
+		if (rojab == true) {
 			roja = 1;
-		} else if (amarillab == true) {
+		}
+		if (amarillab == true) {
 			amarilla = 1;
-		} else if (verdeb == true) {
+		}
+		if (verdeb == true) {
 			verde = 1;
 		}
 
-		System.out.println(jugador);
+		System.out.println(Login.guardarUsuario);
 		System.out.println(ronda);
 		System.out.println(azul);
 		System.out.println(amarilla);
 		System.out.println(roja);
 		System.out.println(verde);
 
-		int slot = 1; // A FUTURO MODIFICABLE CON UN MENÚ
+		// A FUTURO MODIFICABLE CON UN MENÚ
 
 		for (int i = 0; i < 48; i++) {
 			String sql = "UPDATE INFO_CIUDADES SET CIUDAD" + i + " = CIUDAD('" + ciudades.get(i).getNombre() + "','"
 					+ ciudades.get(i).getRoja() + "','" + ciudades.get(i).getVerde() + "','"
 					+ ciudades.get(i).getAmarilla() + "','" + ciudades.get(i).getAzul() + "')" + "where id_partida = '"
-					+ slot + "'" + "and USUARIO = '" + jugador + "'";
-
+					+ slot + "'" + "and USUARIO = '" + Login.guardarUsuario + "'";
 			try {
 				Statement statement = (Statement) con.createStatement();
 				statement.execute(sql);
@@ -1183,10 +1291,9 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			}
 		}
 
-		String sql = "UPDATE PARTIDA SET NUM_RONDAS = " + ronda + ", FECHA_PARTIDA = SYSDATE, V_AZUL = " + azul + ", V_AMARILLA =  " + amarilla
-				+ ", V_ROJA = " + roja + ", V_VERDE = " + verde
-				+  "WHERE NOMBRE_USUARIO = '" + jugador +"' AND ID_PARTIDA = " + slot + ""
-				+ "";
+		String sql = "UPDATE PARTIDA SET NUM_RONDAS = " + ronda + ", FECHA_PARTIDA = SYSDATE, V_AZUL = " + azul
+				+ ", V_AMARILLA =  " + amarilla + ", V_ROJA = " + roja + ", V_VERDE = " + verde
+				+ "WHERE NOMBRE_USUARIO = '" + Login.guardarUsuario + "' AND ID_PARTIDA = " + slot + "" + "";
 
 		try {
 			Statement statement = (Statement) con.createStatement();
@@ -1197,6 +1304,76 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			System.out.println("Ha habído un error:" + e);
 
 		}
+
+	}
+
+	public void cargarPartida(Connection con) {
+
+		try {
+			String sql = "SELECT NUM_RONDAS, FECHA_PARTIDA, V_AZUL, V_AMARILLA, V_ROJA, V_VERDE" + " FROM PARTIDA"
+					+ " WHERE ID_PARTIDA = " + cargado + " AND NOMBRE_USUARIO = '" + Login.guardarUsuario + "'";
+
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+
+			while (rs.next()) {
+				ronda = rs.getInt("num_rondas");
+				if (rs.getInt("v_azul") == 1) {
+					azulb = true;
+					System.out.println("VACUNA AZUL");
+				}
+				if (rs.getInt("v_amarilla") == 1) {
+					amarillab = true;
+					System.out.println("VACUNA AMARILLA");
+				}
+				if (rs.getInt("v_roja") == 1) {
+					rojab = true;
+					System.out.println("VACUNA ROJA");
+				}
+				if (rs.getInt("v_verde") == 1) {
+					verdeb = true;
+					System.out.println("VACUNA VERDE");
+				}
+			}
+
+			st.close();
+
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+
+		for (int i = 0; i < 48; i++) {
+
+			try {
+				String sql = "SELECT CIUDAD" + i + " FROM INFO_CIUDADES WHERE ID_PARTIDA = " + cargado
+						+ " AND USUARIO = '" + Login.guardarUsuario + "'";
+
+				Statement st = con.createStatement();
+				ResultSet rs = st.executeQuery(sql);
+
+				while (rs.next()) {
+					Struct c = (Struct) rs.getObject("CIUDAD" + i);
+					String a = (String) c.getAttributes()[0];
+					ciudades.get(i).setNombre(a);
+					BigDecimal f = (BigDecimal) c.getAttributes()[1];
+					ciudades.get(i).setRoja(f.intValue());
+					BigDecimal g = (BigDecimal) c.getAttributes()[2];
+					ciudades.get(i).setVerde(g.intValue());
+					BigDecimal h = (BigDecimal) c.getAttributes()[3];
+					ciudades.get(i).setAmarilla(h.intValue());
+					BigDecimal j = (BigDecimal) c.getAttributes()[4];
+					ciudades.get(i).setAzul(j.intValue());
+				}
+
+				st.close();
+
+			} catch (SQLException e) {
+				System.out.println("The SELECT had problems!! 2 " + e);
+			}
+		}
+		Mapeo();
+		vacunas();
+		cargado = 0;
 
 	}
 

@@ -38,140 +38,148 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 		Cursor cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10, 10), "WILL");
 		setCursor(cur);
 
-			boton1 = new JButton("Nueva Partida");
-			boton1.setSize(200, 50);
-			boton1.setLocation(550, 300);
-			boton1.setFont(new Font("Arial", Font.BOLD, 18));
-			boton1.setBackground(new Color(247, 185, 71));
-			boton1.addMouseListener(new MouseAdapter() {
-				public void mouseEntered(MouseEvent e) {
-					boton1.setBackground(Color.GRAY);
-					setCursor(cur2);
+		boton1 = new JButton("Nueva Partida");
+		boton1.setSize(200, 50);
+		boton1.setLocation(550, 300);
+		boton1.setFont(new Font("Arial", Font.BOLD, 18));
+		boton1.setBackground(new Color(247, 185, 71));
+		boton1.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent e) {
+				boton1.setBackground(Color.GRAY);
+				setCursor(cur2);
 
-				}
+			}
 
-				public void mouseExited(MouseEvent e) {
-					boton1.setBackground(new Color(247, 185, 71));
-					setCursor(cur);
+			public void mouseExited(MouseEvent e) {
+				boton1.setBackground(new Color(247, 185, 71));
+				setCursor(cur);
 
-				}
-			});
-			boton3 = new JButton("Cargar Partida");
-			boton3.setSize(200, 50);
-			boton3.setLocation(550, 370);
-			boton3.setFont(new Font("Arial", Font.BOLD, 18));
-			boton3.setBackground(new Color(247, 185, 71));
-			boton3.addMouseListener(new MouseAdapter() {
-				public void mouseEntered(MouseEvent e) {
-					boton3.setBackground(Color.GRAY);
-					setCursor(cur2);
+			}
+		});
+		boton3 = new JButton("Cargar Partida");
+		boton3.setSize(200, 50);
+		boton3.setLocation(550, 370);
+		boton3.setFont(new Font("Arial", Font.BOLD, 18));
+		boton3.setBackground(new Color(247, 185, 71));
+		boton3.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent e) {
+				boton3.setBackground(Color.GRAY);
+				setCursor(cur2);
 
-				}
+			}
 
-				public void mouseExited(MouseEvent e) {
-					boton3.setBackground(new Color(247, 185, 71));
-					setCursor(cur);
+			public void mouseExited(MouseEvent e) {
+				boton3.setBackground(new Color(247, 185, 71));
+				setCursor(cur);
 
-				}
-			});
-			boton4 = new JButton("Información");
-			boton4.setSize(200, 50);
-			boton4.setLocation(550, 440);
-			boton4.setFont(new Font("Arial", Font.BOLD, 18));
-			boton4.setBackground(new Color(247, 185, 71));
-			boton4.addMouseListener(new MouseAdapter() {
-				public void mouseEntered(MouseEvent e) {
-					boton4.setBackground(Color.GRAY);
-					setCursor(cur2);
+			}
+		});
+		boton4 = new JButton("Información");
+		boton4.setSize(200, 50);
+		boton4.setLocation(550, 440);
+		boton4.setFont(new Font("Arial", Font.BOLD, 18));
+		boton4.setBackground(new Color(247, 185, 71));
+		boton4.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent e) {
+				boton4.setBackground(Color.GRAY);
+				setCursor(cur2);
 
-				}
+			}
 
-				public void mouseExited(MouseEvent e) {
-					boton4.setBackground(new Color(247, 185, 71));
-					setCursor(cur);
+			public void mouseExited(MouseEvent e) {
+				boton4.setBackground(new Color(247, 185, 71));
+				setCursor(cur);
 
-				}
-			});
-			boton5 = new JButton("Ranking");
-			boton5.setSize(200, 50);
-			boton5.setLocation(550, 510);
-			boton5.setFont(new Font("Arial", Font.BOLD, 18));
-			boton5.setBackground(new Color(247, 185, 71));
-			boton5.addMouseListener(new MouseAdapter() {
-				public void mouseEntered(MouseEvent e) {
-					boton5.setBackground(Color.GRAY);
-					setCursor(cur2);
+			}
+		});
+		boton5 = new JButton("Ranking");
+		boton5.setSize(200, 50);
+		boton5.setLocation(550, 510);
+		boton5.setFont(new Font("Arial", Font.BOLD, 18));
+		boton5.setBackground(new Color(247, 185, 71));
+		boton5.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent e) {
+				boton5.setBackground(Color.GRAY);
+				setCursor(cur2);
 
-				}
+			}
 
-				public void mouseExited(MouseEvent e) {
-					boton5.setBackground(new Color(247, 185, 71));
-					setCursor(cur);
+			public void mouseExited(MouseEvent e) {
+				boton5.setBackground(new Color(247, 185, 71));
+				setCursor(cur);
 
-				}
-			});
-			boton6 = new JButton("Autores");
-			boton6.setSize(200, 50);
-			boton6.setLocation(550, 580);
-			boton6.setFont(new Font("Arial", Font.BOLD, 18));
-			boton6.setBackground(new Color(247, 185, 71));
-			boton6.addMouseListener(new MouseAdapter() {
-				public void mouseEntered(MouseEvent e) {
-					boton6.setBackground(Color.GRAY);
-					setCursor(cur2);
+			}
+		});
+		boton6 = new JButton("Autores");
+		boton6.setSize(200, 50);
+		boton6.setLocation(550, 580);
+		boton6.setFont(new Font("Arial", Font.BOLD, 18));
+		boton6.setBackground(new Color(247, 185, 71));
+		boton6.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent e) {
+				boton6.setBackground(Color.GRAY);
+				setCursor(cur2);
 
-				}
+			}
 
-				public void mouseExited(MouseEvent e) {
-					boton6.setBackground(new Color(247, 185, 71));
-					setCursor(cur);
+			public void mouseExited(MouseEvent e) {
+				boton6.setBackground(new Color(247, 185, 71));
+				setCursor(cur);
 
-				}
-			});
-			boton7 = new JButton("Versión");
-			boton7.setSize(200, 50);
-			boton7.setLocation(550, 650);
-			boton7.setFont(new Font("Arial", Font.BOLD, 18));
-			boton7.setBackground(new Color(247, 185, 71));
-			boton7.addMouseListener(new MouseAdapter() {
-				public void mouseEntered(MouseEvent e) {
-					boton7.setBackground(Color.GRAY);
-					setCursor(cur2);
+			}
+		});
+		boton7 = new JButton("Versión");
+		boton7.setSize(200, 50);
+		boton7.setLocation(550, 650);
+		boton7.setFont(new Font("Arial", Font.BOLD, 18));
+		boton7.setBackground(new Color(247, 185, 71));
+		boton7.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent e) {
+				boton7.setBackground(Color.GRAY);
+				setCursor(cur2);
 
-				}
+			}
 
-				public void mouseExited(MouseEvent e) {
-					boton7.setBackground(new Color(247, 185, 71));
-					setCursor(cur);
+			public void mouseExited(MouseEvent e) {
+				boton7.setBackground(new Color(247, 185, 71));
+				setCursor(cur);
 
-				}
-			});
-			boton8 = new JButton("Salir");
-			boton8.setSize(200, 50);
-			boton8.setLocation(550, 720);
-			boton8.setFont(new Font("Arial", Font.BOLD, 20));
-			boton8.setBackground(new Color(247, 185, 71));
-			boton8.addMouseListener(new MouseAdapter() {
-				public void mouseEntered(MouseEvent e) {
-					boton8.setBackground(Color.GRAY);
-					setCursor(cur2);
+			}
+		});
+		boton8 = new JButton("Salir");
+		boton8.setSize(200, 50);
+		boton8.setLocation(550, 720);
+		boton8.setFont(new Font("Arial", Font.BOLD, 20));
+		boton8.setBackground(new Color(247, 185, 71));
+		boton8.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent e) {
+				boton8.setBackground(Color.GRAY);
+				setCursor(cur2);
 
-				}
+			}
 
-				public void mouseExited(MouseEvent e) {
-					boton8.setBackground(new Color(247, 185, 71));
-					setCursor(cur);
+			public void mouseExited(MouseEvent e) {
+				boton8.setBackground(new Color(247, 185, 71));
+				setCursor(cur);
 
-				}
-			});
+			}
+		});
 
-			boton1.setBorder(new LineBorder(Color.BLACK));
-			boton3.setBorder(new LineBorder(Color.BLACK));
-			boton4.setBorder(new LineBorder(Color.BLACK));
-			boton5.setBorder(new LineBorder(Color.BLACK));
-			boton6.setBorder(new LineBorder(Color.BLACK));
-			boton7.setBorder(new LineBorder(Color.BLACK));
-			boton8.setBorder(new LineBorder(Color.BLACK));
+		boton1.setBorder(new LineBorder(Color.BLACK));
+		boton3.setBorder(new LineBorder(Color.BLACK));
+		boton4.setBorder(new LineBorder(Color.BLACK));
+		boton5.setBorder(new LineBorder(Color.BLACK));
+		boton6.setBorder(new LineBorder(Color.BLACK));
+		boton7.setBorder(new LineBorder(Color.BLACK));
+		boton8.setBorder(new LineBorder(Color.BLACK));
+
+		boton1.setForeground(Color.black);
+		boton3.setForeground(Color.black);
+		boton4.setForeground(Color.black);
+		boton5.setForeground(Color.black);
+		boton6.setForeground(Color.black);
+		boton7.setForeground(Color.black);
+		boton8.setForeground(Color.black);
 
 		boton1.addActionListener(this);
 		boton3.addActionListener(this);
@@ -232,6 +240,11 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			marco.add(new Login());
 			marco.setVisible(true);
 		} else if (e.getSource() == boton3) {
+			JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
+			marco.remove(this);
+			marco.add(new Login());
+			marco.setVisible(true);
+			Login.cargado = 1;
 		} else if (e.getSource() == boton4) {
 			JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
 			marco.remove(this);

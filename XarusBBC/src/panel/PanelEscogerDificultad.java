@@ -63,7 +63,7 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 		texto = new JLabel("<html>Escoja una dificultad<br><br><br><html>");
 		texto.setFont(new Font("Arial", Font.BOLD, 16));
 		texto.setBounds(635, 310, 315, 340);
-		texto.setForeground(Color.white);
+		texto.setForeground(Color.black);
 		add(texto);
 
 		facil = new JButton("Fácil");
@@ -72,6 +72,8 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 		facil.setFont(new Font("Arial", Font.BOLD, 20));
 		facil.setBackground(new Color(247, 185, 71));
 		facil.setBorder(new LineBorder(Color.BLACK));
+		facil.setForeground(Color.black);
+
 		facil.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
 				facil.setBackground(Color.cyan);
@@ -99,6 +101,8 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 		normal.setFont(new Font("Arial", Font.BOLD, 20));
 		normal.setBackground(new Color(247, 185, 71));
 		normal.setBorder(new LineBorder(Color.BLACK));
+		normal.setForeground(Color.black);
+
 		normal.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
 				normal.setBackground(Color.yellow);
@@ -126,6 +130,8 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 		volver.setFont(new Font("Arial", Font.BOLD, 20));
 		volver.setBackground(new Color(247, 185, 71));
 		volver.setBorder(new LineBorder(Color.BLACK));
+		volver.setForeground(Color.black);
+
 		volver.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
 				volver.setBackground(Color.GRAY);
