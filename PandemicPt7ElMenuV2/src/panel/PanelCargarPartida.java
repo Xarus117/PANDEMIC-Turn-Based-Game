@@ -167,7 +167,7 @@ public class PanelCargarPartida extends JPanel implements ActionListener {
 
 		fecha1 = new JLabel(PrimeraFecha(makeConnection()));
 		fecha1.setSize(200, 30);
-		fecha1.setLocation(560, 330);
+		fecha1.setLocation(600, 330);
 		fecha1.setFont(new Font("Arial", Font.BOLD, 20));
 		fecha1.setForeground(Color.black);
 		fecha1.setVisible(true);
@@ -175,7 +175,7 @@ public class PanelCargarPartida extends JPanel implements ActionListener {
 
 		fecha2 = new JLabel(SegundaFecha(makeConnection()));
 		fecha2.setSize(200, 30);
-		fecha2.setLocation(560, 490);
+		fecha2.setLocation(600, 490);
 		fecha2.setFont(new Font("Arial", Font.BOLD, 20));
 		fecha2.setForeground(Color.black);
 		fecha2.setVisible(true);
@@ -183,31 +183,31 @@ public class PanelCargarPartida extends JPanel implements ActionListener {
 
 		fecha3 = new JLabel(TerceraFecha(makeConnection()));
 		fecha3.setSize(200, 30);
-		fecha3.setLocation(560, 650);
+		fecha3.setLocation(600, 650);
 		fecha3.setFont(new Font("Arial", Font.BOLD, 20));
 		fecha3.setForeground(Color.black);
 		fecha3.setVisible(true);
 		fecha3.setOpaque(false);
 
-		vacuna1 = new JLabel(PrimerSlot(makeConnection()));
-		vacuna1.setSize(200, 30);
-		vacuna1.setLocation(560, 650);
+		vacuna1 = new JLabel("VACUNAS: " + PrimerSlot(makeConnection()));
+		vacuna1.setSize(250, 30);
+		vacuna1.setLocation(670, 360);
 		vacuna1.setFont(new Font("Arial", Font.BOLD, 20));
 		vacuna1.setForeground(Color.black);
 		vacuna1.setVisible(true);
 		vacuna1.setOpaque(false);
 
-		vacuna2 = new JLabel(TerceraFecha(makeConnection()));
-		vacuna2.setSize(200, 30);
-		vacuna2.setLocation(560, 650);
+		vacuna2 = new JLabel("VACUNAS: " + SegundoSlot(makeConnection()));
+		vacuna2.setSize(250, 30);
+		vacuna2.setLocation(670, 520);
 		vacuna2.setFont(new Font("Arial", Font.BOLD, 20));
 		vacuna2.setForeground(Color.black);
 		vacuna2.setVisible(true);
 		vacuna2.setOpaque(false);
 
-		vacuna3 = new JLabel(TerceraFecha(makeConnection()));
-		vacuna3.setSize(200, 30);
-		vacuna3.setLocation(560, 650);
+		vacuna3 = new JLabel("VACUNAS: " + TercerSlot(makeConnection()));
+		vacuna3.setSize(250, 30);
+		vacuna3.setLocation(670, 680);
 		vacuna3.setFont(new Font("Arial", Font.BOLD, 20));
 		vacuna3.setForeground(Color.black);
 		vacuna3.setVisible(true);
@@ -270,7 +270,8 @@ public class PanelCargarPartida extends JPanel implements ActionListener {
 	}
 
 	public static String PrimeraFecha(Connection con) {
-		String sql = "SELECT FECHA_PARTIDA FROM PARTIDA WHERE NOMBRE_USUARIO = '" + Login.guardarUsuario + "' AND " + "ID_PARTIDA = 1";
+		String sql = "SELECT FECHA_PARTIDA FROM PARTIDA WHERE NOMBRE_USUARIO = '" + Login.guardarUsuario + "' AND "
+				+ "ID_PARTIDA = 1";
 		Statement st = null;
 		String fecha = "";
 
@@ -288,10 +289,11 @@ public class PanelCargarPartida extends JPanel implements ActionListener {
 	}
 
 	public static String SegundaFecha(Connection con) {
-		String sql = "SELECT FECHA_PARTIDA FROM PARTIDA WHERE NOMBRE_USUARIO = '" + Login.guardarUsuario + "' AND " + "ID_PARTIDA = 2";
+		String sql = "SELECT FECHA_PARTIDA FROM PARTIDA WHERE NOMBRE_USUARIO = '" + Login.guardarUsuario + "' AND "
+				+ "ID_PARTIDA = 2";
 		Statement st = null;
 		String fecha = "";
-		
+
 		try {
 			st = con.createStatement();
 			ResultSet rs = st.executeQuery(sql);
@@ -306,7 +308,8 @@ public class PanelCargarPartida extends JPanel implements ActionListener {
 	}
 
 	public static String TerceraFecha(Connection con) {
-		String sql = "SELECT FECHA_PARTIDA FROM PARTIDA WHERE NOMBRE_USUARIO = '" + Login.guardarUsuario + "' AND " + "ID_PARTIDA = 3";
+		String sql = "SELECT FECHA_PARTIDA FROM PARTIDA WHERE NOMBRE_USUARIO = '" + Login.guardarUsuario + "' AND "
+				+ "ID_PARTIDA = 3";
 		Statement st = null;
 		String fecha = "";
 
@@ -326,7 +329,8 @@ public class PanelCargarPartida extends JPanel implements ActionListener {
 	public static String PrimerSlot(Connection con) {
 
 		int valorReturn = 0;
-		String sql = "SELECT V_AZUL, V_AMARILLA, V_ROJA, V_VERDE FROM PARTIDA WHERE NOMBRE_USUARIO =" + Login.guardarUsuario + " AND " + "ID_PARTIDA = 1";
+		String sql = "SELECT V_AZUL, V_AMARILLA, V_ROJA, V_VERDE FROM PARTIDA WHERE NOMBRE_USUARIO = '"
+				+ Login.guardarUsuario + "' AND " + "ID_PARTIDA = 1";
 		Statement st = null;
 
 		try {
@@ -349,10 +353,11 @@ public class PanelCargarPartida extends JPanel implements ActionListener {
 		return StringRetornar;
 	}
 
-	public static int SegundoSlot(Connection con) {
+	public static String SegundoSlot(Connection con) {
 
 		int valorReturn = 0;
-		String sql = "SELECT V_AZUL, V_AMARILLA, V_ROJA, V_VERDE FROM PARTIDA WHERE NOMBRE_USUARIO =" + Login.guardarUsuario + " AND " + "ID_PARTIDA = 1";
+		String sql = "SELECT V_AZUL, V_AMARILLA, V_ROJA, V_VERDE FROM PARTIDA WHERE NOMBRE_USUARIO = '"
+				+ Login.guardarUsuario + "' AND " + "ID_PARTIDA = 2";
 		Statement st = null;
 
 		try {
@@ -371,13 +376,16 @@ public class PanelCargarPartida extends JPanel implements ActionListener {
 		} catch (SQLException e) {
 			System.out.println("Ha habído un error con el select: " + e);
 		}
-		return valorReturn;
+		String StringRetornar = String.valueOf(valorReturn);
+
+		return StringRetornar;
 	}
 
-	public static int TercerSlot(Connection con) {
+	public static String TercerSlot(Connection con) {
 
 		int valorReturn = 0;
-		String sql = "SELECT V_AZUL, V_AMARILLA, V_ROJA, V_VERDE FROM PARTIDA WHERE NOMBRE_USUARIO =" + Login.guardarUsuario + " AND " + "ID_PARTIDA = 1";
+		String sql = "SELECT V_AZUL, V_AMARILLA, V_ROJA, V_VERDE FROM PARTIDA WHERE NOMBRE_USUARIO = '"
+				+ Login.guardarUsuario + "' AND " + "ID_PARTIDA = 3";
 		Statement st = null;
 
 		try {
@@ -396,7 +404,9 @@ public class PanelCargarPartida extends JPanel implements ActionListener {
 		} catch (SQLException e) {
 			System.out.println("Ha habído un error con el select: " + e);
 		}
-		return valorReturn;
+		String StringRetornar = String.valueOf(valorReturn);
+
+		return StringRetornar;
 	}
 
 	@Override
