@@ -24,11 +24,9 @@ public class PanelRanking extends JPanel implements ActionListener {
 	JButton slot3;
 	JButton volver;
 
-	Image image;
+	Image Fondo;
 	Image Ranking;
 
-
-	
 	static String guardarUsuario;
 	static String guardarPass;
 	String mensajeError;
@@ -47,10 +45,6 @@ public class PanelRanking extends JPanel implements ActionListener {
 		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10, 10), "WILL");
 		Cursor cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10, 10), "WILL");
 		setCursor(cur);
-
-		
-		
-		
 
 		volver = new JButton("Volver");
 		volver.setSize(200, 50);
@@ -75,7 +69,7 @@ public class PanelRanking extends JPanel implements ActionListener {
 		add(volver);
 
 		try {
-			image = ImageIO.read(new File("Imagenes//Fondo.jpg"));
+			Fondo = ImageIO.read(new File("Imagenes//Fondo.jpg"));
 			Ranking = ImageIO.read(new File("Imagenes//Ranking.png"));
 
 		} catch (IOException e) {
@@ -204,7 +198,7 @@ public class PanelRanking extends JPanel implements ActionListener {
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(image, 0, -30, this);
+		g.drawImage(Fondo, 0, -30, this);
 		g.drawImage(Ranking, 400, 110, this);
 		
 		

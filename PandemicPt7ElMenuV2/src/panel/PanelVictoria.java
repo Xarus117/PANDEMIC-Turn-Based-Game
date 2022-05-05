@@ -30,7 +30,7 @@ public class PanelVictoria extends JPanel implements ActionListener {
 	// Botones Miscelanea
 	JButton guardar;
 	JButton salir;
-	JLabel dragonite;
+	JLabel Victoria;
 	// Recuadro
 	JTextArea recuadroInfo;
 	JTextArea recuadroInfo2;
@@ -40,7 +40,7 @@ public class PanelVictoria extends JPanel implements ActionListener {
 	JButton accion3;
 	JButton accion4;
 
-	Image image;
+	Image Mapa;
 
 	// BOOLEAN PARA ACTIVAR O DESACTIVAR LAS VACUNAS
 	boolean azulb = false;
@@ -95,7 +95,7 @@ public class PanelVictoria extends JPanel implements ActionListener {
 		add(boton4);
 
 		try {
-			image = ImageIO.read(new File("Imagenes//Mapa.jpg"));
+			Mapa = ImageIO.read(new File("Imagenes//Mapa.jpg"));
 		} catch (IOException e1) {
 			System.out.println("Ha ocurrido un error al mostrar el mapa");
 		}
@@ -129,12 +129,12 @@ public class PanelVictoria extends JPanel implements ActionListener {
 		add(salir);
 
 		// DRAGONITE
-		dragonite = new JLabel();
-		dragonite.setIcon(new ImageIcon("Imagenes//victoria.png"));
-		dragonite.setSize(1200, 720);
-		dragonite.setLocation(350, 0);
-		dragonite.setBorder(null);
-		add(dragonite);
+		Victoria = new JLabel();
+		Victoria.setIcon(new ImageIcon("Imagenes//victoria.png"));
+		Victoria.setSize(1200, 720);
+		Victoria.setLocation(350, 0);
+		Victoria.setBorder(null);
+		add(Victoria);
 
 		// RECUADROS
 		recuadroInfo = new JTextArea();
@@ -292,13 +292,11 @@ public class PanelVictoria extends JPanel implements ActionListener {
 		} catch (Exception e) {
 			System.out.println("Ha ocurrido un error al mostrar las acciones");
 		}
-
 	}
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-
-		g.drawImage(image, 0, 0, this);
+		g.drawImage(Mapa, 0, 0, this);
 	}
 
 	@Override

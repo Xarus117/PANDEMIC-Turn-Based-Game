@@ -3,11 +3,13 @@ package panel;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Struct;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -50,8 +52,8 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	JButton accion2;
 	JButton accion3;
 	JButton accion4;
-	static // Arrays para calculos
-	ArrayList<Ciudades> ciudades = new ArrayList<>();
+	// Arrays para calculos
+	static ArrayList<Ciudades> ciudades = new ArrayList<>();
 	ArrayList<String> nombres = new ArrayList<>();
 	ArrayList<JButtons> colocar = new ArrayList<>();
 	static ArrayList<String> coordenadas = new ArrayList<>();
@@ -64,7 +66,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	JButton slot1;
 	JButton slot2;
 	JButton slot3;
-
+	// Variables para calculos
 	static int indice = 0;
 	int vacunas = 4;
 	static String guardarCol;
@@ -75,12 +77,9 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	int infeccionVerde = 0;
 	int infeccionRoja = 0;
 	int sumaTotal;
-
 	String[] conservarRonda = new String[48];
 
-	static String jugador = Login.guardarUsuario;
-
-	Image image;
+	Image Mapa;
 
 	// BOOLEAN PARA ACTIVAR O DESACTIVAR LAS VACUNAS
 	static boolean azulb = false;
@@ -99,17 +98,16 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	static int infeccionDerrota;
 	static int InfeccionPerder;
 
+	// Conexion BD
 	private static final String USER = "PND_QALQO";
 	private static final String PWD = "TYX1234";
-	private static final String URL = "jdbc:oracle:thin:@192.168.3.26:1521:xe";
+	private static final String URL = "jdbc:oracle:thin:@oracle.ilerna.com:1521:xe";
+
+	public static int cargado;
 
 	// Fuentes
 	Font fuente1;
 	Font fuente2;
-
-	public void guardar(int slot) {
-		insertWithStatement(makeConnection(), slot);
-	}
 
 	PanelNuevaPartida() throws ParserConfigurationException, SAXException {
 		setLayout(null);
@@ -122,7 +120,6 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		try {
 			fuente1 = Font.createFont(Font.TRUETYPE_FONT, new File("fuentes//Averta.otf")).deriveFont(20f);
 			fuente2 = Font.createFont(Font.TRUETYPE_FONT, new File("fuentes//Averta.otf")).deriveFont(13f);
-
 		} catch (FontFormatException | IOException e3) {
 			e3.printStackTrace();
 		}
@@ -238,7 +235,6 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		slot1.addActionListener(this);
 		slot2.addActionListener(this);
 		slot3.addActionListener(this);
-
 		add(boton1);
 		add(boton2);
 		add(boton4);
@@ -250,7 +246,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		slot3.setVisible(false);
 
 		try {
-			image = ImageIO.read(new File("Imagenes//Mapa.jpg"));
+			Mapa = ImageIO.read(new File("Imagenes//Mapa.jpg"));
 		} catch (IOException e1) {
 			System.out.println("Ha ocurrido un error al mostrar el mapa");
 		}
@@ -266,11 +262,6 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		guardar.setContentAreaFilled(false);
 		guardar.setBorderPainted(false);
 		guardar.addActionListener(this);
-		try {
-			guardar.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//guardar.png"))));
-		} catch (IOException e2) {
-			System.out.println("Ha ocurrido un error al cargar el botón de guardar el estado de la partida");
-		}
 		guardar.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
 				setCursor(cur2);
@@ -280,6 +271,11 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				setCursor(cur);
 			}
 		});
+		try {
+			guardar.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//guardar.png"))));
+		} catch (IOException e2) {
+			System.out.println("Ha ocurrido un error al cargar el botón de guardar el estado de la partida");
+		}
 		add(guardar);
 
 		// SALIR
@@ -293,12 +289,6 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		salir.setContentAreaFilled(false);
 		salir.setBorderPainted(false);
 		salir.addActionListener(this);
-
-		try {
-			salir.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//salir.png"))));
-		} catch (IOException e2) {
-			System.out.println("Ha ocurrido un error al cargar el botón de salir de la partida");
-		}
 		salir.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
 				setCursor(cur2);
@@ -308,6 +298,11 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				setCursor(cur);
 			}
 		});
+		try {
+			salir.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//salir.png"))));
+		} catch (IOException e2) {
+			System.out.println("Ha ocurrido un error al cargar el botón de salir de la partida");
+		}
 		add(salir);
 
 		// RECUADROS
@@ -396,13 +391,19 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		acciones(contadorAccion);
 		vacunas();
 
-		jugador = Login.guardarUsuario;
-
 		// Mapeo del juego
 		Mapeo();
+		cargarPartida(makeConnection());
 
 	}
-
+	
+	public void identificarCiudad() {
+		recuadroInfo2.setText(ciudades.get(indice).getNombre() + " \r\nActualmente esta infectada por:" + "\r\nRoja: "
+				+ ciudades.get(indice).getRoja() + "\r\nVerde: " + ciudades.get(indice).getVerde() + "\r\nAmarilla: "
+				+ ciudades.get(indice).getAmarilla() + "\r\nAzul: " + ciudades.get(indice).getAzul());
+		recuadroInfo2.setVisible(true);
+	}
+	
 	public void Mapeo() {
 
 		String linea = "";
@@ -422,27 +423,23 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 
 				colocar.add(new JButtons(nombres.get(i), x, y));
 				colocar.get(i).addActionListener(this);
-
 				try {
 					colocar.get(i).setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//OjeteNo.png"))));
 
 				} catch (IOException e) {
 					e.printStackTrace();
-
 				}
 				add(colocar.get(i));
 
 				ciudades.add(new Ciudades(datos[0], colindantes, guardarCol));
 			}
 			myReader.close();
-
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 
 		for (int i = 0; i < colocar.size(); i++) { // PARA QUE SE ILUMINEN LOS ICONOS
 			int nombre = i;
-
 			colocar.get(i).addMouseListener(new MouseAdapter() {
 				public void mouseEntered(MouseEvent e) {
 					try {
@@ -460,48 +457,133 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 					}
 				}
 			});
-
 		}
 		contagio();
 	}
 
-	public void vacunas() {
+	public void contagio() {
+		ArrayList<String> mantener = new ArrayList<>();
 
-		try {
-			if (azulb) {
-				vacunaAzul.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaAzul.png"))));
-			} else {
-				vacunaAzul.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaGris.png"))));
+		for (int i = 0; i < infectadasInicio; i++) {
+			rd = rn.nextInt(4);
+			rd2 = rn.nextInt(48);
+			if (rd == 0 && !amarillab) {
+				ciudades.get(rd2).setAmarilla(ciudades.get(rd2).getAmarilla() + 1);
+				infeccionAmarilla++;
 			}
-
-			if (amarillab) {
-				vacunaAmarilla.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaAmarilla.png"))));
-			} else {
-				vacunaAmarilla.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaGris.png"))));
+			if (rd == 1 && !azulb) {
+				ciudades.get(rd2).setAzul(ciudades.get(rd2).getAzul() + 1);
+				infeccionAzul++;
 			}
-
-			if (rojab) {
-				vacunaRoja.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaRoja.png"))));
-			} else {
-				vacunaRoja.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaGris.png"))));
+			if (rd == 2 && !rojab) {
+				ciudades.get(rd2).setRoja(ciudades.get(rd2).getRoja() + 1);
+				infeccionRoja++;
 			}
-
-			if (verdeb) {
-				vacunaVerde.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaVerde.png"))));
-			} else {
-				vacunaVerde.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaGris.png"))));
+			if (rd == 3 && !verdeb) {
+				ciudades.get(rd2).setVerde(ciudades.get(rd2).getVerde() + 1);
+				infeccionVerde++;
 			}
-
-		} catch (Exception e) {
-			System.out.println("Ha ocurrido un error al mostrar las vacunas");
+			mantener.add(ciudades.get(rd2).getNombre());
 		}
+		sumaTotal = infeccionAmarilla + infeccionAzul + infeccionRoja + infeccionVerde;
+		recuadroInfo.setText("Las ciudades infectadas son:\n");
 
-		add(vacunaAzul);
-		add(vacunaAmarilla);
-		add(vacunaRoja);
-		add(vacunaVerde);
+		String guardarRecuadro = recuadroInfo.getText();
+
+		for (int j = 0; j < mantener.size(); j++) {
+			guardarRecuadro = recuadroInfo.getText();
+			recuadroInfo.setText(guardarRecuadro + mantener.get(j) + "\n");
+		}
+		recuadroInfo.setVisible(true);
 	}
 
+	public void brote() {
+
+		for (int i = 0; i < 48; i++) {
+			if (ciudades.get(i).getAmarilla() >= 3) {
+				buscarColindante(0, i);
+				recuadroInfo2.setText("Ha habido un brote amarillo en: " + ciudades.get(i).getNombre()
+						+ "\nSe han infectado las siguientes ciudades:\n");
+				String guardarRecuadro = recuadroInfo2.getText();
+				guardarRecuadro = recuadroInfo2.getText();
+				recuadroInfo2.setText(guardarRecuadro + mantener[i] + "\n");
+				brote++;
+			} else if (ciudades.get(i).getRoja() >= 3) {
+				buscarColindante(1, i);
+				recuadroInfo2.setText("Ha habido un brote azul en: " + ciudades.get(i).getNombre()
+						+ "\nSe han infectado las siguientes ciudades:\n");
+				String guardarRecuadro = recuadroInfo2.getText();
+				guardarRecuadro = recuadroInfo2.getText();
+				recuadroInfo2.setText(guardarRecuadro + mantener[i] + "\n");
+				brote++;
+			} else if (ciudades.get(i).getAzul() >= 3) {
+				buscarColindante(2, i);
+				recuadroInfo2.setText("Ha habido un brote rojo en: " + ciudades.get(i).getNombre()
+						+ "\nSe han infectado las siguientes ciudades:\n");
+				String guardarRecuadro = recuadroInfo2.getText();
+				guardarRecuadro = recuadroInfo2.getText();
+				recuadroInfo2.setText(guardarRecuadro + mantener[i] + "\n");
+				brote++;
+			} else if (ciudades.get(i).getVerde() >= 3) {
+				buscarColindante(3, i);
+				recuadroInfo2.setText("Ha habido un brote verde en: " + ciudades.get(i).getNombre()
+						+ "\nSe han infectado las siguientes ciudades:\n");
+				String guardarRecuadro = recuadroInfo2.getText();
+				guardarRecuadro = recuadroInfo2.getText();
+				recuadroInfo2.setText(guardarRecuadro + mantener[i] + "\n");
+				brote++;
+			}
+		}
+	}
+	
+	public void buscarColindante(int id, int i) {
+
+		String a[] = new String[0];
+
+		a = Arrays.copyOf(a, ciudades.get(i).getColindantes().length);
+		a = ciudades.get(i).getColindantes();
+
+		for (int j = 0; j < a.length; j++) {
+			for (int k = 0; k < ciudades.size(); k++) {
+				if (a[j].equals(ciudades.get(k).getNombre())) {
+					if (id == 0 && ciudades.get(k).getAmarilla() < 3) {
+						ciudades.get(k).setAmarilla(ciudades.get(k).getAmarilla() + 1);
+					}
+					if (id == 1 && ciudades.get(k).getRoja() < 3) {
+						ciudades.get(k).setRoja(ciudades.get(k).getRoja() + 1);
+					}
+					if (id == 2 && ciudades.get(k).getAzul() < 3) {
+						ciudades.get(k).setAzul(ciudades.get(k).getAzul() + 1);
+					}
+					if (id == 3 && ciudades.get(k).getVerde() < 3) {
+						ciudades.get(k).setVerde(ciudades.get(k).getVerde() + 1);
+					}
+				}
+			}
+		}
+	}
+	
+	public void curar() {
+		if (ciudades.get(indice).getAmarilla() >= 1) {
+			ciudades.get(indice).setAmarilla(ciudades.get(indice).getAmarilla() - 1);
+			infeccionAmarilla--;
+		}
+		if (ciudades.get(indice).getAzul() >= 1) {
+			ciudades.get(indice).setAzul(ciudades.get(indice).getAzul() - 1);
+			infeccionAzul--;
+		}
+		if (ciudades.get(indice).getRoja() >= 1) {
+			ciudades.get(indice).setRoja(ciudades.get(indice).getRoja() - 1);
+			infeccionRoja--;
+		}
+		if (ciudades.get(indice).getVerde() >= 1) {
+			ciudades.get(indice).setVerde(ciudades.get(indice).getVerde() - 1);
+			infeccionVerde--;
+		}
+		contadorAccion--;
+		acciones(contadorAccion);
+	}
+	
 	public void buscarVacuna() {
 		int rda = 0;
 		int rdam = 0;
@@ -593,6 +675,42 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		vacunas();
 		recuadroInfo.setVisible(true);
 	}
+	
+	public void vacunas() {
+
+		try {
+			if (azulb) {
+				vacunaAzul.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaAzul.png"))));
+			} else {
+				vacunaAzul.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaGris.png"))));
+			}
+
+			if (amarillab) {
+				vacunaAmarilla.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaAmarilla.png"))));
+			} else {
+				vacunaAmarilla.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaGris.png"))));
+			}
+
+			if (rojab) {
+				vacunaRoja.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaRoja.png"))));
+			} else {
+				vacunaRoja.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaGris.png"))));
+			}
+
+			if (verdeb) {
+				vacunaVerde.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaVerde.png"))));
+			} else {
+				vacunaVerde.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaGris.png"))));
+			}
+		} catch (Exception e) {
+			System.out.println("Ha ocurrido un error al mostrar las vacunas");
+		}
+
+		add(vacunaAzul);
+		add(vacunaAmarilla);
+		add(vacunaRoja);
+		add(vacunaVerde);
+	}
 
 	public void acciones(int contadorAccion) { // LAS PUTAS ACCIONES
 		try {
@@ -649,115 +767,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		}
 
 	}
-
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-
-		g.drawImage(image, 0, 0, this);
-	}
-
-	public void contagio() {
-		ArrayList<String> mantener = new ArrayList<>();
-
-		for (int i = 0; i < infectadasInicio; i++) {
-			rd = rn.nextInt(4);
-			rd2 = rn.nextInt(48);
-			if (rd == 0 && !amarillab) {
-				ciudades.get(rd2).setAmarilla(ciudades.get(rd2).getAmarilla() + 1);
-				infeccionAmarilla++;
-			}
-			if (rd == 1 && !azulb) {
-				ciudades.get(rd2).setAzul(ciudades.get(rd2).getAzul() + 1);
-				infeccionAzul++;
-			}
-			if (rd == 2 && !rojab) {
-				ciudades.get(rd2).setRoja(ciudades.get(rd2).getRoja() + 1);
-				infeccionRoja++;
-			}
-			if (rd == 3 && !verdeb) {
-				ciudades.get(rd2).setVerde(ciudades.get(rd2).getVerde() + 1);
-				infeccionVerde++;
-			}
-			mantener.add(ciudades.get(rd2).getNombre());
-		}
-		sumaTotal = infeccionAmarilla + infeccionAzul + infeccionRoja + infeccionVerde;
-		recuadroInfo.setText("Las ciudades infectadas son:\n");
-
-		String guardarRecuadro = recuadroInfo.getText();
-
-		for (int j = 0; j < mantener.size(); j++) {
-			guardarRecuadro = recuadroInfo.getText();
-			recuadroInfo.setText(guardarRecuadro + mantener.get(j) + "\n");
-		}
-		recuadroInfo.setVisible(true);
-	}
-
-	public void brote() {
-
-		for (int i = 0; i < 48; i++) {
-			if (ciudades.get(i).getAmarilla() >= 3) {
-				buscarColindante(0, i);
-				recuadroInfo2.setText("Ha habido un brote amarillo en: " + ciudades.get(i).getNombre()
-						+ "\nSe han infectado las siguientes ciudades:\n");
-				String guardarRecuadro = recuadroInfo2.getText();
-				guardarRecuadro = recuadroInfo2.getText();
-				recuadroInfo2.setText(guardarRecuadro + mantener[i] + "\n");
-				brote++;
-			} else if (ciudades.get(i).getRoja() >= 3) {
-				buscarColindante(1, i);
-				recuadroInfo2.setText("Ha habido un brote azul en: " + ciudades.get(i).getNombre()
-						+ "\nSe han infectado las siguientes ciudades:\n");
-				String guardarRecuadro = recuadroInfo2.getText();
-				guardarRecuadro = recuadroInfo2.getText();
-				recuadroInfo2.setText(guardarRecuadro + mantener[i] + "\n");
-				brote++;
-			} else if (ciudades.get(i).getAzul() >= 3) {
-				buscarColindante(2, i);
-				recuadroInfo2.setText("Ha habido un brote rojo en: " + ciudades.get(i).getNombre()
-						+ "\nSe han infectado las siguientes ciudades:\n");
-				String guardarRecuadro = recuadroInfo2.getText();
-				guardarRecuadro = recuadroInfo2.getText();
-				recuadroInfo2.setText(guardarRecuadro + mantener[i] + "\n");
-				brote++;
-			} else if (ciudades.get(i).getVerde() >= 3) {
-				buscarColindante(3, i);
-				recuadroInfo2.setText("Ha habido un brote verde en: " + ciudades.get(i).getNombre()
-						+ "\nSe han infectado las siguientes ciudades:\n");
-				String guardarRecuadro = recuadroInfo2.getText();
-				guardarRecuadro = recuadroInfo2.getText();
-				recuadroInfo2.setText(guardarRecuadro + mantener[i] + "\n");
-				brote++;
-			}
-		}
-	}
-
-	public void buscarColindante(int id, int i) {
-
-		String a[] = new String[0];
-
-		a = Arrays.copyOf(a, ciudades.get(i).getColindantes().length);
-		a = ciudades.get(i).getColindantes();
-
-		for (int j = 0; j < a.length; j++) {
-			for (int k = 0; k < ciudades.size(); k++) {
-				if (a[j].equals(ciudades.get(k).getNombre())) {
-					if (id == 0 && ciudades.get(k).getAmarilla() < 3) {
-						ciudades.get(k).setAmarilla(ciudades.get(k).getAmarilla() + 1);
-					}
-					if (id == 1 && ciudades.get(k).getRoja() < 3) {
-						ciudades.get(k).setRoja(ciudades.get(k).getRoja() + 1);
-					}
-					if (id == 2 && ciudades.get(k).getAzul() < 3) {
-						ciudades.get(k).setAzul(ciudades.get(k).getAzul() + 1);
-					}
-					if (id == 3 && ciudades.get(k).getVerde() < 3) {
-						ciudades.get(k).setVerde(ciudades.get(k).getVerde() + 1);
-					}
-				}
-			}
-		}
-	}
-
+	
 	public void victoria() {
 
 		if (azulb && amarillab && verdeb && rojab) {
@@ -771,37 +781,95 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				e1.printStackTrace();
 			}
 			marco.setVisible(true);
+			azulb = false;
+			amarillab = false;
+			verdeb = false;
+			rojab = false;
+			ronda = 0;
 		}
 	}
+	
+	public void guardar(int slot) {
+		insertWithStatement(makeConnection(), slot);
 
-	public void curar() {
-		if (ciudades.get(indice).getAmarilla() >= 1) {
-			ciudades.get(indice).setAmarilla(ciudades.get(indice).getAmarilla() - 1);
-			infeccionAmarilla--;
+	}
+	
+	public void cargarPartida(Connection con) {
+
+		try {
+			String sql = "SELECT NUM_RONDAS, FECHA_PARTIDA, V_AZUL, V_AMARILLA, V_ROJA, V_VERDE" + " FROM PARTIDA"
+					+ " WHERE ID_PARTIDA = " + cargado + " AND NOMBRE_USUARIO = '" + Login.guardarUsuario + "'";
+
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+
+			while (rs.next()) {
+				ronda = rs.getInt("num_rondas");
+				if (rs.getInt("v_azul") == 1) {
+					azulb = true;
+					System.out.println("VACUNA AZUL");
+				}
+				if (rs.getInt("v_amarilla") == 1) {
+					amarillab = true;
+					System.out.println("VACUNA AMARILLA");
+				}
+				if (rs.getInt("v_roja") == 1) {
+					rojab = true;
+					System.out.println("VACUNA ROJA");
+				}
+				if (rs.getInt("v_verde") == 1) {
+					verdeb = true;
+					System.out.println("VACUNA VERDE");
+				}
+			}
+
+			st.close();
+
+		} catch (SQLException e1) {
+			e1.printStackTrace();
 		}
-		if (ciudades.get(indice).getAzul() >= 1) {
-			ciudades.get(indice).setAzul(ciudades.get(indice).getAzul() - 1);
-			infeccionAzul--;
+
+		for (int i = 0; i < 48; i++) {
+
+			try {
+				String sql = "SELECT CIUDAD" + i + " FROM INFO_CIUDADES WHERE ID_PARTIDA = " + cargado
+						+ " AND USUARIO = '" + Login.guardarUsuario + "'";
+
+				Statement st = con.createStatement();
+				ResultSet rs = st.executeQuery(sql);
+
+				while (rs.next()) {
+					Struct c = (Struct) rs.getObject("CIUDAD" + i);
+					String a = (String) c.getAttributes()[0];
+					ciudades.get(i).setNombre(a);
+					BigDecimal f = (BigDecimal) c.getAttributes()[1];
+					ciudades.get(i).setRoja(f.intValue());
+					BigDecimal g = (BigDecimal) c.getAttributes()[2];
+					ciudades.get(i).setVerde(g.intValue());
+					BigDecimal h = (BigDecimal) c.getAttributes()[3];
+					ciudades.get(i).setAmarilla(h.intValue());
+					BigDecimal j = (BigDecimal) c.getAttributes()[4];
+					ciudades.get(i).setAzul(j.intValue());
+				}
+
+				st.close();
+
+			} catch (SQLException e) {
+				System.out.println("The SELECT had problems!! 2 " + e);
+			}
 		}
-		if (ciudades.get(indice).getRoja() >= 1) {
-			ciudades.get(indice).setRoja(ciudades.get(indice).getRoja() - 1);
-			infeccionRoja--;
-		}
-		if (ciudades.get(indice).getVerde() >= 1) {
-			ciudades.get(indice).setVerde(ciudades.get(indice).getVerde() - 1);
-			infeccionVerde--;
-		}
-		contadorAccion--;
-		acciones(contadorAccion);
+		Mapeo();
+		vacunas();
+		cargado = 0;
+
 	}
 
-	public void identificarCiudad() {
-		recuadroInfo2.setText(ciudades.get(indice).getNombre() + " \r\nActualmente esta infectada por:" + "\r\nRoja: "
-				+ ciudades.get(indice).getRoja() + "\r\nVerde: " + ciudades.get(indice).getVerde() + "\r\nAmarilla: "
-				+ ciudades.get(indice).getAmarilla() + "\r\nAzul: " + ciudades.get(indice).getAzul());
-		recuadroInfo2.setVisible(true);
-	}
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
 
+		g.drawImage(Mapa, 0, 0, this);
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
@@ -856,6 +924,15 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				marco.setVisible(true);
 			}
 		} else if (e.getSource() == salir) {
+			azulb = false;
+			rojab = false;
+			verdeb = false;
+			amarillab = false;
+
+			for (int i = 0; i < ciudades.size(); i++) {
+				ciudades.removeAll(ciudades);
+			}
+
 			JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
 			marco.remove(this);
 			marco.add(new PanelPrincipal());
@@ -1200,7 +1277,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		} catch (IOException a) {
 		}
 	}
-
+	
 	public static Connection makeConnection() {
 		System.out.println("Conectando a la base de datos...");
 
@@ -1239,15 +1316,18 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 
 		if (azulb == true) {
 			azul = 1;
-		} else if (rojab == true) {
+		}
+		if (rojab == true) {
 			roja = 1;
-		} else if (amarillab == true) {
+		}
+		if (amarillab == true) {
 			amarilla = 1;
-		} else if (verdeb == true) {
+		}
+		if (verdeb == true) {
 			verde = 1;
 		}
 
-		System.out.println(jugador);
+		System.out.println(Login.guardarUsuario);
 		System.out.println(ronda);
 		System.out.println(azul);
 		System.out.println(amarilla);
@@ -1260,8 +1340,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			String sql = "UPDATE INFO_CIUDADES SET CIUDAD" + i + " = CIUDAD('" + ciudades.get(i).getNombre() + "','"
 					+ ciudades.get(i).getRoja() + "','" + ciudades.get(i).getVerde() + "','"
 					+ ciudades.get(i).getAmarilla() + "','" + ciudades.get(i).getAzul() + "')" + "where id_partida = '"
-					+ slot + "'" + "and USUARIO = '" + jugador + "'";
-
+					+ slot + "'" + "and USUARIO = '" + Login.guardarUsuario + "'";
 			try {
 				Statement statement = (Statement) con.createStatement();
 				statement.execute(sql);
@@ -1275,7 +1354,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 
 		String sql = "UPDATE PARTIDA SET NUM_RONDAS = " + ronda + ", FECHA_PARTIDA = SYSDATE, V_AZUL = " + azul
 				+ ", V_AMARILLA =  " + amarilla + ", V_ROJA = " + roja + ", V_VERDE = " + verde
-				+ "WHERE NOMBRE_USUARIO = '" + jugador + "' AND ID_PARTIDA = " + slot + "" + "";
+				+ "WHERE NOMBRE_USUARIO = '" + Login.guardarUsuario + "' AND ID_PARTIDA = " + slot + "" + "";
 
 		try {
 			Statement statement = (Statement) con.createStatement();

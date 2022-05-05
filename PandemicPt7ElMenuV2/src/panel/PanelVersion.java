@@ -20,8 +20,8 @@ import javax.swing.border.LineBorder;
 
 public class PanelVersion extends JPanel implements ActionListener {
 	JButton volver;
-	Image image;
-	Image versiones;
+	Image Fondo;
+	Image Version;
 
 	PanelVersion() {
 		setLayout(null);
@@ -37,6 +37,7 @@ public class PanelVersion extends JPanel implements ActionListener {
 		volver.setFont(new Font("Arial", Font.BOLD, 20));
 		volver.setBackground(new Color(247, 185, 71));
 		volver.setBorder(new LineBorder(Color.BLACK));
+		volver.addActionListener(this);
 		volver.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
 				volver.setBackground(Color.GRAY);
@@ -48,25 +49,21 @@ public class PanelVersion extends JPanel implements ActionListener {
 				setCursor(cur);
 			}
 		});
-		volver.addActionListener(this);
 
 		add(volver);
 
 		try {
-			image = ImageIO.read(new File("Imagenes//Fondo.jpg"));
-			versiones = ImageIO.read(new File("Imagenes//Versiones.png"));
+			Fondo = ImageIO.read(new File("Imagenes//Fondo.jpg"));
+			Version = ImageIO.read(new File("Imagenes//Versiones.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-
-		g.drawImage(image, 0, 0, this);
-		g.drawImage(versiones, 320, 200, this);
-
+		g.drawImage(Fondo, 0, 0, this);
+		g.drawImage(Version, 350, 200, this);
 	}
 
 	@Override

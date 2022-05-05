@@ -30,7 +30,7 @@ public class PanelDerrota extends JPanel implements ActionListener {
 	// Botones Miscelanea
 	JButton guardar;
 	JButton salir;
-	JLabel dragonite;
+	JLabel Derrota;
 	// Recuadro
 	JTextArea recuadroInfo;
 	JTextArea recuadroInfo2;
@@ -65,7 +65,6 @@ public class PanelDerrota extends JPanel implements ActionListener {
 		try {
 			fuente1 = Font.createFont(Font.TRUETYPE_FONT, new File("fuentes//Averta.otf")).deriveFont(20f);
 			fuente2 = Font.createFont(Font.TRUETYPE_FONT, new File("fuentes//Averta.otf")).deriveFont(13f);
-
 		} catch (FontFormatException | IOException e3) {
 			e3.printStackTrace();
 		}
@@ -93,13 +92,12 @@ public class PanelDerrota extends JPanel implements ActionListener {
 		add(boton1);
 		add(boton2);
 		add(boton4);
-
 		try {
 			image = ImageIO.read(new File("Imagenes//Mapa.jpg"));
 		} catch (IOException e1) {
 			System.out.println("Ha ocurrido un error al mostrar el mapa");
 		}
-		
+
 		// SALIR
 		salir = new JButton();
 		salir.setIcon(null);
@@ -111,30 +109,29 @@ public class PanelDerrota extends JPanel implements ActionListener {
 		salir.setContentAreaFilled(false);
 		salir.setBorderPainted(false);
 		salir.addActionListener(this);
-
 		try {
 			salir.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//salir.png"))));
 		} catch (IOException e2) {
 			System.out.println("Ha ocurrido un error al cargar el botón de salir de la partida");
 		}
 		salir.addMouseListener(new MouseAdapter() {
-		public void mouseEntered(MouseEvent e) {
-			setCursor(cur2);
-		}
+			public void mouseEntered(MouseEvent e) {
+				setCursor(cur2);
+			}
 
-		public void mouseExited(MouseEvent e) {
-			setCursor(cur);
-		}
-	});
+			public void mouseExited(MouseEvent e) {
+				setCursor(cur);
+			}
+		});
 		add(salir);
 
 		// DRAGONITE
-		dragonite = new JLabel();
-		dragonite.setIcon(new ImageIcon("Imagenes//derrota.png"));
-		dragonite.setSize(1200, 720);
-		dragonite.setLocation(350, 0);
-		dragonite.setBorder(null);
-		add(dragonite);
+		Derrota = new JLabel();
+		Derrota.setIcon(new ImageIcon("Imagenes//derrota.png"));
+		Derrota.setSize(1200, 720);
+		Derrota.setLocation(350, 0);
+		Derrota.setBorder(null);
+		add(Derrota);
 
 		// RECUADROS
 		recuadroInfo = new JTextArea();
@@ -210,25 +207,21 @@ public class PanelDerrota extends JPanel implements ActionListener {
 			} else {
 				vacunaAzul.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaGris.png"))));
 			}
-
 			if (amarillab) {
 				vacunaAmarilla.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaAmarilla.png"))));
 			} else {
 				vacunaAmarilla.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaGris.png"))));
 			}
-
 			if (rojab) {
 				vacunaRoja.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaRoja.png"))));
 			} else {
 				vacunaRoja.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaGris.png"))));
 			}
-
 			if (verdeb) {
 				vacunaVerde.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaVerde.png"))));
 			} else {
 				vacunaVerde.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//vacunaGris.png"))));
 			}
-
 		} catch (Exception e) {
 			System.out.println("Ha ocurrido un error al mostrar las vacunas");
 		}
@@ -267,7 +260,6 @@ public class PanelDerrota extends JPanel implements ActionListener {
 				accion3.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//AccionNo.png"))));
 				accion4.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//AccionNo.png"))));
 			}
-
 			if (contadorAccion <= 3) {
 				accion4.setIcon(null);
 				accion4.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//AccionNo.png"))));
@@ -292,12 +284,10 @@ public class PanelDerrota extends JPanel implements ActionListener {
 		} catch (Exception e) {
 			System.out.println("Ha ocurrido un error al mostrar las acciones");
 		}
-
 	}
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-
 		g.drawImage(image, 0, 0, this);
 	}
 

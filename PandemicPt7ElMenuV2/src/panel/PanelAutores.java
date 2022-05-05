@@ -38,6 +38,7 @@ public class PanelAutores extends JPanel implements ActionListener {
 		volver.setFont(new Font("Arial", Font.BOLD, 20));
 		volver.setBackground(new Color(247, 185, 71));
 		volver.setBorder(new LineBorder(Color.BLACK));
+		volver.addActionListener(this);
 		volver.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
 				volver.setBackground(Color.GRAY);
@@ -49,7 +50,6 @@ public class PanelAutores extends JPanel implements ActionListener {
 				setCursor(cur);
 			}
 		});
-		volver.addActionListener(this);
 
 		add(volver);
 
@@ -59,7 +59,6 @@ public class PanelAutores extends JPanel implements ActionListener {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	public void paintComponent(Graphics g) {
