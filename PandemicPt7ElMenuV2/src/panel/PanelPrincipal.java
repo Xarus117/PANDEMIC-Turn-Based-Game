@@ -28,7 +28,7 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 	ImageIcon buttonIcon;
 	Image image;
 	Image Logo;
-	Image discordI;
+	Image github;
 
 	PanelPrincipal() {
 		setLayout(null);
@@ -200,7 +200,7 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 		// DISCORD
 
 		try {
-			discordI = ImageIO.read(new File("Imagenes//GitLogo.png"));
+			github = ImageIO.read(new File("Imagenes//GitLogo.png"));
 			image = ImageIO.read(new File("Imagenes//Fondo.jpg"));
 			Logo = ImageIO.read(new File("Imagenes//LOGO.png"));
 		} catch (IOException e) {
@@ -209,7 +209,7 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 
 		discord = new JButton();
 
-		discord.setIcon(new ImageIcon(discordI));
+		discord.setIcon(new ImageIcon(github));
 		discord.setSize(100, 100);
 		discord.setLocation(1150, 770);
 		discord.setFont(new Font("Arial", Font.BOLD, 20));
@@ -250,6 +250,10 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			marco.add(new PanelReglas());
 			marco.setVisible(true);
 		} else if (e.getSource() == boton5) {
+			JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
+			marco.remove(this);
+			marco.add(new PanelRanking());
+			marco.setVisible(true);
 		} else if (e.getSource() == boton6) {
 			JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
 			marco.remove(this);
