@@ -60,7 +60,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	int rd = 0;
 	int rd2 = 0;
 	static int ronda = 0;
-	//Slots guardado
+	// Slots guardado
 	JButton slot1;
 	JButton slot2;
 	JButton slot3;
@@ -107,8 +107,8 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	Font fuente1;
 	Font fuente2;
 
-	public void guardar() {
-		insertWithStatement(makeConnection());
+	public void guardar(int slot) {
+		insertWithStatement(makeConnection(), slot);
 	}
 
 	PanelNuevaPartida() throws ParserConfigurationException, SAXException {
@@ -248,7 +248,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		slot1.setVisible(false);
 		slot2.setVisible(false);
 		slot3.setVisible(false);
-		
+
 		try {
 			image = ImageIO.read(new File("Imagenes//Mapa.jpg"));
 		} catch (IOException e1) {
@@ -935,22 +935,31 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			slot1.setVisible(true);
 			slot2.setVisible(true);
 			slot3.setVisible(true);
-			if (e.getSource() == slot1) {
-				guardar();
-				slot1.setVisible(false);
-				slot2.setVisible(false);
-				slot3.setVisible(false);
-			}else if (e.getSource() == slot2) {
-				guardar();
-				slot1.setVisible(false);
-				slot2.setVisible(false);
-				slot3.setVisible(false);
-			}else if (e.getSource() == slot3) {
-				guardar();
-				slot1.setVisible(false);
-				slot2.setVisible(false);
-				slot3.setVisible(false);
-			}
+		}
+		if (e.getSource() == slot1) {
+			guardar(1);
+			slot1.setVisible(false);
+			slot2.setVisible(false);
+			slot3.setVisible(false);
+			add(slot1);
+			add(slot2);
+			add(slot3);
+		} else if (e.getSource() == slot2) {
+			guardar(2);
+			slot1.setVisible(false);
+			slot2.setVisible(false);
+			slot3.setVisible(false);
+			add(slot1);
+			add(slot2);
+			add(slot3);
+		} else if (e.getSource() == slot3) {
+			guardar(3);
+			slot1.setVisible(false);
+			slot2.setVisible(false);
+			slot3.setVisible(false);
+			add(slot1);
+			add(slot2);
+			add(slot3);
 		}
 		if (e.getSource() == colocar.get(0)) {
 			indice = 0;
@@ -1221,7 +1230,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		}
 	}
 
-	public static void insertWithStatement(Connection con) {
+	public static void insertWithStatement(Connection con, int slot) {
 
 		int azul = 0;
 		int roja = 0;
@@ -1245,7 +1254,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		System.out.println(roja);
 		System.out.println(verde);
 
-		int slot = 1; // A FUTURO MODIFICABLE CON UN MENÚ
+		// A FUTURO MODIFICABLE CON UN MENÚ
 
 		for (int i = 0; i < 48; i++) {
 			String sql = "UPDATE INFO_CIUDADES SET CIUDAD" + i + " = CIUDAD('" + ciudades.get(i).getNombre() + "','"
@@ -1264,10 +1273,9 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			}
 		}
 
-		String sql = "UPDATE PARTIDA SET NUM_RONDAS = " + ronda + ", FECHA_PARTIDA = SYSDATE, V_AZUL = " + azul + ", V_AMARILLA =  " + amarilla
-				+ ", V_ROJA = " + roja + ", V_VERDE = " + verde
-				+  "WHERE NOMBRE_USUARIO = '" + jugador +"' AND ID_PARTIDA = " + slot + ""
-				+ "";
+		String sql = "UPDATE PARTIDA SET NUM_RONDAS = " + ronda + ", FECHA_PARTIDA = SYSDATE, V_AZUL = " + azul
+				+ ", V_AMARILLA =  " + amarilla + ", V_ROJA = " + roja + ", V_VERDE = " + verde
+				+ "WHERE NOMBRE_USUARIO = '" + jugador + "' AND ID_PARTIDA = " + slot + "" + "";
 
 		try {
 			Statement statement = (Statement) con.createStatement();

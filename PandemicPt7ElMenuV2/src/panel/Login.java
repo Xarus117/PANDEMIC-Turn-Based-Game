@@ -296,6 +296,7 @@ public class Login extends JPanel implements ActionListener {
 				mensajeError = insertWithStatement(connection, guardarUsuario, guardarPass);
 				if (mensajeError == "Correcto") {
 					mensaje.setText("¡REGISTRO REALIZADO! Ahora debe iniciar sesión");
+					insertarPartidasUsuario(connection, guardarUsuario);
 				} else {
 					String[] partes = mensajeError.split("-");
 					txtNombre.setText("");
