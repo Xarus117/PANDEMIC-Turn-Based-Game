@@ -60,10 +60,6 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	int rd = 0;
 	int rd2 = 0;
 	static int ronda = 0;
-	// Slots guardado
-	JButton slot1;
-	JButton slot2;
-	JButton slot3;
 
 	static int indice = 0;
 	int vacunas = 4;
@@ -132,7 +128,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		boton1 = new JButton("Buscar vacuna");
 		boton1.setSize(200, 50);
 		boton1.setLocation(400, 740);
-		boton1.setFont(fuente1);
+		boton1.setFont(new Font("Arial", Font.BOLD, 20));
 		boton1.setForeground(Color.BLACK);
 		boton1.setBackground(verdeBoton);
 		boton1.addMouseListener(new MouseAdapter() {
@@ -149,7 +145,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		boton2 = new JButton("Curar ciudad");
 		boton2.setSize(200, 50);
 		boton2.setLocation(650, 740);
-		boton2.setFont(fuente1);
+		boton2.setFont(new Font("Arial", Font.BOLD, 20));
 		boton2.setForeground(Color.BLACK);
 		boton2.setBackground(verdeBoton);
 		boton2.addMouseListener(new MouseAdapter() {
@@ -166,7 +162,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		boton4 = new JButton("Pasar turno");
 		boton4.setSize(200, 50);
 		boton4.setLocation(530, 800);
-		boton4.setFont(fuente1);
+		boton4.setFont(new Font("Arial", Font.BOLD, 20));
 		boton4.setForeground(Color.BLACK);
 		boton4.setBackground(verdeBoton);
 		boton4.addMouseListener(new MouseAdapter() {
@@ -180,64 +176,10 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				setCursor(cur);
 			}
 		});
-		slot1 = new JButton("Slot 1");
-		slot1.setSize(100, 20);
-		slot1.setLocation(1130, 550);
-		slot1.setFont(fuente1);
-		slot1.setForeground(Color.BLACK);
-		slot1.setBackground(verdeBoton);
-		slot1.addMouseListener(new MouseAdapter() {
-			public void mouseEntered(MouseEvent e) {
-				slot1.setBackground(Color.GRAY);
-				setCursor(cur2);
-			}
-
-			public void mouseExited(MouseEvent e) {
-				slot1.setBackground(verdeBoton);
-				setCursor(cur);
-			}
-		});
-		slot2 = new JButton("Slot 2");
-		slot2.setSize(100, 20);
-		slot2.setLocation(1130, 590);
-		slot2.setFont(fuente1);
-		slot2.setForeground(Color.BLACK);
-		slot2.setBackground(verdeBoton);
-		slot2.addMouseListener(new MouseAdapter() {
-			public void mouseEntered(MouseEvent e) {
-				slot2.setBackground(Color.GRAY);
-				setCursor(cur2);
-			}
-
-			public void mouseExited(MouseEvent e) {
-				slot2.setBackground(verdeBoton);
-				setCursor(cur);
-			}
-		});
-		slot3 = new JButton("Slot 3");
-		slot3.setSize(100, 20);
-		slot3.setLocation(1130, 630);
-		slot3.setFont(fuente1);
-		slot3.setForeground(Color.BLACK);
-		slot3.setBackground(verdeBoton);
-		slot3.addMouseListener(new MouseAdapter() {
-			public void mouseEntered(MouseEvent e) {
-				slot3.setBackground(Color.GRAY);
-				setCursor(cur2);
-			}
-
-			public void mouseExited(MouseEvent e) {
-				slot3.setBackground(verdeBoton);
-				setCursor(cur);
-			}
-		});
 
 		boton1.addActionListener(this);
 		boton2.addActionListener(this);
 		boton4.addActionListener(this);
-		slot1.addActionListener(this);
-		slot2.addActionListener(this);
-		slot3.addActionListener(this);
 
 		add(boton1);
 		add(boton2);
@@ -329,7 +271,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		mostrarInfeccion = new JTextArea();
 		mostrarInfeccion.setSize(130, 15);
 		mostrarInfeccion.setLocation(860, 740);
-		mostrarInfeccion.setFont(fuente2);
+		mostrarInfeccion.setFont(new Font("Arial", Font.BOLD, 20));
 		mostrarInfeccion.setForeground(Color.WHITE);
 		mostrarInfeccion.setBackground(Color.BLACK);
 		mostrarInfeccion.setOpaque(true);
@@ -339,7 +281,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		mostrarBrotes = new JTextArea();
 		mostrarBrotes.setSize(115, 15);
 		mostrarBrotes.setLocation(860, 770);
-		mostrarBrotes.setFont(fuente2);
+		mostrarBrotes.setFont(new Font("Arial", Font.BOLD, 20));
 		mostrarBrotes.setForeground(Color.WHITE);
 		mostrarBrotes.setBackground(Color.BLACK);
 		mostrarBrotes.setOpaque(true);
@@ -926,29 +868,9 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			add(vacunaVerde);
 
 		} else if (e.getSource() == guardar) {
-			add(slot1);
-			add(slot2);
-			add(slot3);
-			slot1.setVisible(true);
-			slot2.setVisible(true);
-			slot3.setVisible(true);
-			if (e.getSource() == slot1) {
-				guardar();
-				slot1.setVisible(false);
-				slot2.setVisible(true);
-				slot3.setVisible(true);
-			} else if (e.getSource() == slot2) {
-				guardar();
-				slot1.setVisible(false);
-				slot2.setVisible(true);
-				slot3.setVisible(true);
-			} else if (e.getSource() == slot3) {
-				guardar();
-				slot1.setVisible(false);
-				slot2.setVisible(true);
-				slot3.setVisible(true);
-			}
+			guardar();
 		}
+
 		if (e.getSource() == colocar.get(0)) {
 			indice = 0;
 			identificarCiudad();
@@ -1261,9 +1183,10 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			}
 		}
 
-		String sql = "UPDATE PARTIDA SET NUM_RONDAS = " + ronda + ", FECHA_PARTIDA = SYSDATE, V_AZUL = " + azul
-				+ ", V_AMARILLA =  " + amarilla + ", V_ROJA = " + roja + ", V_VERDE = " + verde
-				+ "WHERE NOMBRE_USUARIO = '" + jugador + "' AND ID_PARTIDA = " + slot + "" + "";
+		String sql = "UPDATE PARTIDA SET NUM_RONDAS = " + ronda + ", FECHA_PARTIDA = SYSDATE, V_AZUL = " + azul + ", V_AMARILLA =  " + amarilla
+				+ ", V_ROJA = " + roja + ", V_VERDE = " + verde
+				+  "WHERE NOMBRE_USUARIO = '" + jugador +"' AND ID_PARTIDA = " + slot + ""
+				+ "";
 
 		try {
 			Statement statement = (Statement) con.createStatement();
