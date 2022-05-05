@@ -160,7 +160,6 @@ public class Login extends JPanel implements ActionListener {
 
 	public static Connection makeConnection() {
 		System.out.println("Conectando a la base de datos...");
-
 		Connection con = null;
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -203,6 +202,9 @@ public class Login extends JPanel implements ActionListener {
 				String usuario = rs.getString("usuario");
 				String pass = rs.getString("contraseña");
 
+				System.out.println("\nLISTA USUARIOS:");
+				System.out.println(rs.getString("usuario"));
+
 				if (usuario.equals(guardarUsuario) && pass.equals(guardarPass)) {
 					valorReturn = 1;
 				}
@@ -214,7 +216,6 @@ public class Login extends JPanel implements ActionListener {
 			System.out.println("Ha habído un error con el select: " + e);
 
 		}
-		System.out.println(valorReturn);
 		return valorReturn;
 	}
 
@@ -237,6 +238,43 @@ public class Login extends JPanel implements ActionListener {
 
 		}
 		return mensajeError;
+	}
+
+	public static void insertarPartidasUsuario(Connection con, String guardarUsuario) {
+
+		for (int i = 1; i < 4; i++) {
+
+			String sql = "INSERT INTO PARTIDA (ID_PARTIDA, NOMBRE_USUARIO)" + "VALUES(" + i + "," + "'" + guardarUsuario
+					+ "'" + ")";
+
+			try { // SE EJECUTA LA SENTENCIA PARA CREAR LOS SLOTS DE CADA USUARIO
+
+				Statement statement = (Statement) con.createStatement();
+				statement.execute(sql);
+				statement.close();
+
+			} catch (SQLException e) {
+				System.out.println("Error: " + e.getMessage());
+			}
+		}
+
+		for (int i = 1; i < 4; i++) {
+
+			String sql = "INSERT INTO INFO_CIUDADES (ID_PARTIDA, USUARIO)" + "VALUES(" + i + "," + "'" + guardarUsuario
+					+ "'" + ")";
+
+			try { // SE EJECUTA LA SENTENCIA PARA CREAR LOS SLOTS DE CADA USUARIO
+
+				Statement statement = (Statement) con.createStatement();
+				statement.execute(sql);
+				statement.close();
+
+			} catch (SQLException e) {
+				System.out.println("Error: " + e.getMessage());
+			}
+		}
+
+		System.out.println("Se han creado los slots de guardado del usuario: " + guardarUsuario);
 	}
 
 	public void paintComponent(Graphics g) {
