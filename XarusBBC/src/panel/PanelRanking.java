@@ -19,22 +19,15 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 
 public class PanelRanking extends JPanel implements ActionListener {
-	JButton slot1;
-	JButton slot2;
-	JButton slot3;
 	JButton volver;
 
-	Image image;
+	static JLabel primero, segundo, tercero, cuarto, quinto, sexto, septimo, octavo, noveno;
+
+	Image Fondo;
 	Image Ranking;
 
-
-	
 	static String guardarUsuario;
 	static String guardarPass;
-	String mensajeError;
-	int numeroError;
-
-	boolean continuar = false;
 
 	private static final String USER = "PND_QALQO";
 	private static final String PWD = "TYX1234";
@@ -47,10 +40,6 @@ public class PanelRanking extends JPanel implements ActionListener {
 		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10, 10), "WILL");
 		Cursor cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10, 10), "WILL");
 		setCursor(cur);
-
-		
-		
-		
 
 		volver = new JButton("Volver");
 		volver.setSize(200, 50);
@@ -72,15 +61,124 @@ public class PanelRanking extends JPanel implements ActionListener {
 		});
 
 		volver.addActionListener(this);
-		add(volver);
 
 		try {
-			image = ImageIO.read(new File("Imagenes//Fondo.jpg"));
+			Fondo = ImageIO.read(new File("Imagenes//Fondo.jpg"));
 			Ranking = ImageIO.read(new File("Imagenes//Ranking.png"));
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+		String[] rankingNombre = new String[9];
+		int[] rankingPuntos = new int[9];
+		int[] rankingRondas = new int[9];
+
+		Connection con = makeConnection();
+		String sql = "SELECT USUARIO, PUNTOS*100/PARTIDAS, RONDAS_SOBREVIVIDAS" + " FROM USUARIO" + " ORDER BY PUNTOS*PARTIDAS/100 ASC";
+		
+
+		Statement st = null;
+
+		try {
+			st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+
+			for (int i = 0; i < 9; i++) {
+				rs.next();
+				rankingNombre[i] = rs.getString("usuario");
+				rankingPuntos[i] = rs.getInt("PUNTOS*100/PARTIDAS");
+				rankingRondas[i] = rs.getInt("RONDAS_SOBREVIVIDAS");
+			}
+			st.close();
+
+		} catch (SQLException e) {
+			System.out.println("Ha habído un error con el select: " + e);
+
+		}
+
+		if (rankingNombre[0] != null && rankingPuntos[0] > 0) {
+			primero = new JLabel(rankingNombre[0] + ": " + rankingPuntos[0] + "%" + " Rondas jugadas: " + rankingRondas[0]);
+			primero.setSize(550, 50);
+			primero.setLocation(450, 240);
+			primero.setFont(new Font("Arial", Font.BOLD, 28));
+			primero.setBackground(new Color(247, 185, 71));
+			primero.setForeground(Color.black);
+			add(primero);
+		}
+		if (rankingNombre[1] != null && rankingPuntos[1] > 0) {
+			segundo = new JLabel(rankingNombre[1] + ": " + rankingPuntos[1] + "%" + " Rondas jugadas: " + rankingRondas[1]);
+			segundo.setSize(550, 50);
+			segundo.setLocation(450, 310);
+			segundo.setFont(new Font("Arial", Font.BOLD, 28));
+			segundo.setBackground(new Color(247, 185, 71));
+			segundo.setForeground(Color.black);
+			add(segundo);
+		}
+		if (rankingNombre[2] != null && rankingPuntos[2] > 0) {
+			tercero = new JLabel(rankingNombre[2] + ": " + rankingPuntos[2] + "%" + " Rondas jugadas: " + rankingRondas[2]);
+			tercero.setSize(550, 50);
+			tercero.setLocation(450, 380);
+			tercero.setFont(new Font("Arial", Font.BOLD, 28));
+			tercero.setBackground(new Color(247, 185, 71));
+			tercero.setForeground(Color.black);
+			add(tercero);
+		}
+		if (rankingNombre[3] != null && rankingPuntos[3] > 0) {
+			cuarto = new JLabel(rankingNombre[3] + ": " + rankingPuntos[3] + "%" + " Rondas jugadas: " + rankingRondas[3]);
+			cuarto.setSize(550, 50);
+			cuarto.setLocation(400, 460);
+			cuarto.setFont(new Font("Arial", Font.BOLD, 15));
+			cuarto.setBackground(new Color(247, 185, 71));
+			cuarto.setForeground(Color.black);
+			add(cuarto);
+		}
+		if (rankingNombre[4] != null && rankingPuntos[4] > 0) {
+			quinto = new JLabel(rankingNombre[4] + ": " + rankingPuntos[4] + "%" + " Rondas jugadas: " + rankingRondas[4]);
+			quinto.setSize(550, 50);
+			quinto.setLocation(400, 500);
+			quinto.setFont(new Font("Arial", Font.BOLD, 15));
+			quinto.setBackground(new Color(247, 185, 71));
+			quinto.setForeground(Color.black);
+			add(quinto);
+		}
+		if (rankingNombre[5] != null && rankingPuntos[5] > 0) {
+			sexto = new JLabel(rankingNombre[5] + ": " + rankingPuntos[5] + "%" + " Rondas jugadas: " + rankingRondas[5]);
+			sexto.setSize(550, 50);
+			sexto.setLocation(400, 540);
+			sexto.setFont(new Font("Arial", Font.BOLD, 15));
+			sexto.setBackground(new Color(247, 185, 71));
+			sexto.setForeground(Color.black);
+			add(sexto);
+		}
+		if (rankingNombre[6] != null && rankingPuntos[6] > 0) {
+			septimo = new JLabel(rankingNombre[6] + ": " + rankingPuntos[6] + "%" + " Rondas jugadas: " + rankingRondas[6]);
+			septimo.setSize(550, 50);
+			septimo.setLocation(400, 580);
+			septimo.setFont(new Font("Arial", Font.BOLD, 15));
+			septimo.setBackground(new Color(247, 185, 71));
+			septimo.setForeground(Color.black);
+			add(septimo);
+		}
+		if (rankingNombre[7] != null && rankingPuntos[7] > 0) {
+			octavo = new JLabel(rankingNombre[7] + ": " + rankingPuntos[7] + "%" + " Rondas jugadas: " + rankingRondas[7]);
+			octavo.setSize(550, 50);
+			octavo.setLocation(400, 620);
+			octavo.setFont(new Font("Arial", Font.BOLD, 15));
+			octavo.setBackground(new Color(247, 185, 71));
+			octavo.setForeground(Color.black);
+			add(octavo);
+		}
+		if (rankingNombre[8] != null && rankingPuntos[8] > 0) {
+			noveno = new JLabel(rankingNombre[8] + ": " + rankingPuntos[8] + "%" + " Rondas jugadas: " + rankingRondas[8]);
+			noveno.setSize(550, 50);
+			noveno.setLocation(400, 640);
+			noveno.setFont(new Font("Arial", Font.BOLD, 15));
+			noveno.setBackground(new Color(247, 185, 71));
+			noveno.setForeground(Color.black);
+			add(noveno);
+		}
+		add(volver);
 	}
 
 	public static Connection makeConnection() {
@@ -111,103 +209,11 @@ public class PanelRanking extends JPanel implements ActionListener {
 		}
 	}
 
-	public static int selectWithStatement(Connection con, String guardarUsuario, String guardarPass) {
-
-		int valorReturn = 0;
-		String sql = "SELECT * FROM USUARIO";
-
-		Statement st = null;
-
-		try {
-			st = con.createStatement();
-
-			ResultSet rs = st.executeQuery(sql);
-
-			while (rs.next()) {
-				String usuario = rs.getString("usuario");
-				String pass = rs.getString("contraseña");
-
-				System.out.println("\nLISTA USUARIOS:");
-				System.out.println(rs.getString("usuario"));
-
-				if (usuario.equals(guardarUsuario) && pass.equals(guardarPass)) {
-					valorReturn = 1;
-				}
-			}
-
-			st.close();
-
-		} catch (SQLException e) {
-			System.out.println("Ha habído un error con el select: " + e);
-
-		}
-		return valorReturn;
-	}
-
-	public static String insertWithStatement(Connection con, String guardarUsuario, String guardarPass) {
-
-		String sql = "INSERT INTO USUARIO (usuario, contraseña) VALUES ('" + guardarUsuario + "','" + guardarPass
-				+ "')";
-
-		String mensajeError = "Correcto";
-
-		try {
-			Statement statement = (Statement) con.createStatement();
-			statement.execute(sql);
-			statement.close();
-
-		} catch (SQLException e) {
-			System.out.println(e);
-
-			mensajeError = e.getMessage();
-
-		}
-		return mensajeError;
-	}
-
-	public static void insertarPartidasUsuario(Connection con, String guardarUsuario) {
-
-		for (int i = 1; i < 4; i++) {
-
-			String sql = "INSERT INTO PARTIDA (ID_PARTIDA, NOMBRE_USUARIO)" + "VALUES(" + i + "," + "'" + guardarUsuario
-					+ "'" + ")";
-
-			try { // SE EJECUTA LA SENTENCIA PARA CREAR LOS SLOTS DE CADA USUARIO
-
-				Statement statement = (Statement) con.createStatement();
-				statement.execute(sql);
-				statement.close();
-
-			} catch (SQLException e) {
-				System.out.println("Error: " + e.getMessage());
-			}
-		}
-
-		for (int i = 1; i < 4; i++) {
-
-			String sql = "INSERT INTO INFO_CIUDADES (ID_PARTIDA, USUARIO)" + "VALUES(" + i + "," + "'" + guardarUsuario
-					+ "'" + ")";
-
-			try { // SE EJECUTA LA SENTENCIA PARA CREAR LOS SLOTS DE CADA USUARIO
-
-				Statement statement = (Statement) con.createStatement();
-				statement.execute(sql);
-				statement.close();
-
-			} catch (SQLException e) {
-				System.out.println("Error: " + e.getMessage());
-			}
-		}
-
-		System.out.println("Se han creado los slots de guardado del usuario: " + guardarUsuario);
-	}
-
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(image, 0, -30, this);
-		g.drawImage(Ranking, 400, 110, this);
-		
-		
+		g.drawImage(Fondo, 0, -30, this);
+		g.drawImage(Ranking, 300, 110, this);
+
 	}
 
 	@Override

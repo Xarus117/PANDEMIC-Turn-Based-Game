@@ -13,12 +13,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -26,14 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class PanelEscogerDificultad extends JPanel implements ActionListener {
@@ -43,10 +30,10 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 
 	JButton volver;
 
-	JLabel texto;
+	JLabel Textos;
 
 	Image dificultadtitulo;
-	Image image;
+	Image Fondo;
 	Image recuadro;
 	Image logo;
 
@@ -60,11 +47,11 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 		Cursor cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10, 10), "WILL");
 		setCursor(cur);
 
-		texto = new JLabel("<html>Escoja una dificultad<br><br><br><html>");
-		texto.setFont(new Font("Arial", Font.BOLD, 16));
-		texto.setBounds(635, 310, 315, 340);
-		texto.setForeground(Color.black);
-		add(texto);
+		Textos = new JLabel("<html>Escoja una dificultad<br><br><br><html>");
+		Textos.setFont(new Font("Arial", Font.BOLD, 16));
+		Textos.setBounds(635, 310, 315, 340);
+		Textos.setForeground(Color.black);
+		add(Textos);
 
 		facil = new JButton("Fácil");
 		facil.setSize(200, 50);
@@ -73,28 +60,23 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 		facil.setBackground(new Color(247, 185, 71));
 		facil.setBorder(new LineBorder(Color.BLACK));
 		facil.setForeground(Color.black);
-
+		facil.addActionListener(this);
 		facil.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
 				facil.setBackground(Color.cyan);
 				setCursor(cur2);
-				texto.setText(
+				Textos.setText(
 						"<html><br><br><br><br><br>La dificultad fácil:<br><br>-4 puntos de acción<br><br>-5 infecciones por ronda<br><br>-80 infecciones y 7 brotes <br>para derrota<br><br>-Destinado a nuevos jugadores<br><html>");
-				add(texto);
+				add(Textos);
 			}
 
 			public void mouseExited(MouseEvent e) {
 				facil.setBackground(new Color(247, 185, 71));
 				setCursor(cur);
-				texto.setText("<html>Escoja una dificultad<br><br><br><html>");
-				add(texto);
+				Textos.setText("<html>Escoja una dificultad<br><br><br><html>");
+				add(Textos);
 			}
 		});
-
-		facil.addActionListener(this);
-
-		add(facil);
-
 		normal = new JButton("Normal");
 		normal.setSize(200, 50);
 		normal.setLocation(420, 510);
@@ -102,28 +84,23 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 		normal.setBackground(new Color(247, 185, 71));
 		normal.setBorder(new LineBorder(Color.BLACK));
 		normal.setForeground(Color.black);
-
+		normal.addActionListener(this);
 		normal.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
 				normal.setBackground(Color.yellow);
 				setCursor(cur2);
-				texto.setText(
+				Textos.setText(
 						"<html><br><br><br><br><br>La dificultad normal:<br><br>-4 puntos de acción<br><br>-7 infecciones por ronda<br><br>-80 infecciones y 5 brotes <br>para derrota<br><br>-El modo en el cual<br>el juego no será tan fácil<html>");
-				add(texto);
+				add(Textos);
 			}
 
 			public void mouseExited(MouseEvent e) {
 				normal.setBackground(new Color(247, 185, 71));
 				setCursor(cur);
-				texto.setText("<html>Escoja una dificultad<br><br><br><html>");
-				add(texto);
+				Textos.setText("<html>Escoja una dificultad<br><br><br><html>");
+				add(Textos);
 			}
 		});
-
-		normal.addActionListener(this);
-
-		add(normal);
-
 		volver = new JButton("Volver");
 		volver.setSize(200, 50);
 		volver.setLocation(420, 580);
@@ -131,45 +108,43 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 		volver.setBackground(new Color(247, 185, 71));
 		volver.setBorder(new LineBorder(Color.BLACK));
 		volver.setForeground(Color.black);
-
+		volver.addActionListener(this);
 		volver.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
 				volver.setBackground(Color.GRAY);
 				setCursor(cur2);
-				texto.setText("<html>Volver al menú<html>");
-				add(texto);
+				Textos.setText("<html>Volver al menú<html>");
+				add(Textos);
 			}
 
 			public void mouseExited(MouseEvent e) {
 				volver.setBackground(new Color(247, 185, 71));
 				setCursor(cur);
-				texto.setText("<html>Escoja una dificultad<br><br><br><html>");
-				add(texto);
+				Textos.setText("<html>Escoja una dificultad<br><br><br><html>");
+				add(Textos);
 			}
 		});
-		volver.addActionListener(this);
-
+		
+		add(facil);
+		add(normal);
 		add(volver);
 
 		try {
-			image = ImageIO.read(new File("Imagenes//Fondo.jpg"));
-			recuadro = ImageIO.read(new File("Imagenes//Recuadro.jpg"));
+			Fondo = ImageIO.read(new File("Imagenes//Fondo.jpg"));
+			recuadro = ImageIO.read(new File("Imagenes//Recuadro3.png"));
 			logo = ImageIO.read(new File("Imagenes//LOGO.png"));
-			dificultadtitulo = ImageIO.read(new File("Imagenes//dificultadtitulo.png"));
+			dificultadtitulo = ImageIO.read(new File("Imagenes//Dificultad.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-
-		g.drawImage(image, 0, 0, this);
+		g.drawImage(Fondo, 0, 0, this);
 		g.drawImage(logo, 90, -80, this);
-		g.drawImage(recuadro, 400, 400, this);
-		g.drawImage(dificultadtitulo, 400, 220, this);
-
+		g.drawImage(recuadro, 400, 360, this);
+		g.drawImage(dificultadtitulo, 400, 270, this);
 	}
 
 	@Override
@@ -181,10 +156,8 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 			try {
 				marco.add(new PanelNuevaPartida());
 			} catch (ParserConfigurationException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (SAXException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			marco.setVisible(true);
@@ -195,10 +168,8 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 			try {
 				marco.add(new PanelNuevaPartida());
 			} catch (ParserConfigurationException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (SAXException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			marco.setVisible(true);

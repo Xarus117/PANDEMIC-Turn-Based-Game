@@ -16,7 +16,6 @@ import javax.swing.border.LineBorder;
 
 public class PanelPrincipal extends JPanel implements ActionListener {
 
-	int contadorVolumen = 0;
 	JButton boton1;
 	JButton boton3;
 	JButton boton4;
@@ -24,11 +23,10 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 	JButton boton6;
 	JButton boton7;
 	JButton boton8;
-	JButton discord;
-	ImageIcon buttonIcon;
-	Image image;
+	JButton Github;
+	Image Fondo;
 	Image Logo;
-	Image discordI;
+	Image GithubI;
 
 	PanelPrincipal() {
 		setLayout(null);
@@ -101,13 +99,10 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			public void mouseEntered(MouseEvent e) {
 				boton5.setBackground(Color.GRAY);
 				setCursor(cur2);
-
 			}
-
 			public void mouseExited(MouseEvent e) {
 				boton5.setBackground(new Color(247, 185, 71));
 				setCursor(cur);
-
 			}
 		});
 		boton6 = new JButton("Autores");
@@ -119,13 +114,10 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			public void mouseEntered(MouseEvent e) {
 				boton6.setBackground(Color.GRAY);
 				setCursor(cur2);
-
 			}
-
 			public void mouseExited(MouseEvent e) {
 				boton6.setBackground(new Color(247, 185, 71));
 				setCursor(cur);
-
 			}
 		});
 		boton7 = new JButton("Versión");
@@ -137,13 +129,10 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			public void mouseEntered(MouseEvent e) {
 				boton7.setBackground(Color.GRAY);
 				setCursor(cur2);
-
 			}
-
 			public void mouseExited(MouseEvent e) {
 				boton7.setBackground(new Color(247, 185, 71));
 				setCursor(cur);
-
 			}
 		});
 		boton8 = new JButton("Salir");
@@ -155,16 +144,13 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			public void mouseEntered(MouseEvent e) {
 				boton8.setBackground(Color.GRAY);
 				setCursor(cur2);
-
 			}
-
 			public void mouseExited(MouseEvent e) {
 				boton8.setBackground(new Color(247, 185, 71));
 				setCursor(cur);
-
 			}
 		});
-
+		
 		boton1.setBorder(new LineBorder(Color.BLACK));
 		boton3.setBorder(new LineBorder(Color.BLACK));
 		boton4.setBorder(new LineBorder(Color.BLACK));
@@ -197,38 +183,30 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 		add(boton7);
 		add(boton8);
 
-		// DISCORD
-
+		// Github
 		try {
-			discordI = ImageIO.read(new File("Imagenes//DiscordLogo.png"));
-			image = ImageIO.read(new File("Imagenes//Fondo.jpg"));
+			GithubI = ImageIO.read(new File("Imagenes//GitLogo.png"));
+			Fondo = ImageIO.read(new File("Imagenes//Fondo.jpg"));
 			Logo = ImageIO.read(new File("Imagenes//LOGO.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		Github = new JButton();
+		Github.setIcon(new ImageIcon(GithubI));
+		Github.setSize(100, 100);
+		Github.setLocation(1150, 770);
+		Github.setFont(new Font("Arial", Font.BOLD, 20));
+		Github.setContentAreaFilled(false);
+		Github.setBorder(null);
+		Github.addActionListener(this);
 
-		discord = new JButton();
-
-		discord.setIcon(new ImageIcon(discordI));
-		discord.setSize(100, 100);
-		discord.setLocation(1150, 770);
-		discord.setFont(new Font("Arial", Font.BOLD, 20));
-		discord.setContentAreaFilled(false);
-		discord.setBorder(null);
-
-		discord.addActionListener(this);
-
-		add(discord);
-
-		// ----
+		add(Github);
 	}
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-
-		g.drawImage(image, 0, -30, this);
+		g.drawImage(Fondo, 0, -30, this);
 		g.drawImage(Logo, 90, -80, this);
-
 	}
 
 	@Override
@@ -251,6 +229,10 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			marco.add(new PanelReglas());
 			marco.setVisible(true);
 		} else if (e.getSource() == boton5) {
+			JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
+			marco.remove(this);
+			marco.add(new PanelRanking());
+			marco.setVisible(true);
 		} else if (e.getSource() == boton6) {
 			JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
 			marco.remove(this);
@@ -261,9 +243,9 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			marco.remove(this);
 			marco.add(new PanelVersion());
 			marco.setVisible(true);
-		} else if (e.getSource() == discord) {
+		} else if (e.getSource() == Github) {
 			try {
-				Desktop.getDesktop().browse(new URL("https://discord.gg/72D5jjT6Sg").toURI());
+				Desktop.getDesktop().browse(new URL("https://github.com/Xarus117/pandemic").toURI());
 			} catch (MalformedURLException e1) {
 				e1.printStackTrace();
 			} catch (IOException e1) {
