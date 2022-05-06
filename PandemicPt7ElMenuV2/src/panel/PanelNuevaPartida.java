@@ -396,14 +396,14 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		cargarPartida(makeConnection());
 
 	}
-	
+
 	public void identificarCiudad() {
 		recuadroInfo2.setText(ciudades.get(indice).getNombre() + " \r\nActualmente esta infectada por:" + "\r\nRoja: "
 				+ ciudades.get(indice).getRoja() + "\r\nVerde: " + ciudades.get(indice).getVerde() + "\r\nAmarilla: "
 				+ ciudades.get(indice).getAmarilla() + "\r\nAzul: " + ciudades.get(indice).getAzul());
 		recuadroInfo2.setVisible(true);
 	}
-	
+
 	public void Mapeo() {
 
 		String linea = "";
@@ -535,7 +535,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			}
 		}
 	}
-	
+
 	public void buscarColindante(int id, int i) {
 
 		String a[] = new String[0];
@@ -562,7 +562,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			}
 		}
 	}
-	
+
 	public void curar() {
 		if (ciudades.get(indice).getAmarilla() >= 1) {
 			ciudades.get(indice).setAmarilla(ciudades.get(indice).getAmarilla() - 1);
@@ -583,7 +583,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		contadorAccion--;
 		acciones(contadorAccion);
 	}
-	
+
 	public void buscarVacuna() {
 		int rda = 0;
 		int rdam = 0;
@@ -675,7 +675,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		vacunas();
 		recuadroInfo.setVisible(true);
 	}
-	
+
 	public void vacunas() {
 
 		try {
@@ -767,10 +767,11 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		}
 
 	}
-	
+
 	public void victoria() {
 
 		if (azulb && amarillab && verdeb && rojab) {
+			puntosVictoria(makeConnection());
 			JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
 			marco.remove(this);
 			try {
@@ -780,20 +781,38 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			} catch (SAXException e1) {
 				e1.printStackTrace();
 			}
+		
+
 			marco.setVisible(true);
 			azulb = false;
 			amarillab = false;
 			verdeb = false;
 			rojab = false;
 			ronda = 0;
+
 		}
 	}
-	
+
 	public void guardar(int slot) {
 		insertWithStatement(makeConnection(), slot);
 
 	}
-	
+
+	public void puntosVictoria(Connection con) {
+		try {
+			String sql = "UPDATE USUARIO" + " SET puntos = puntos + 1" + " WHERE USUARIO = '" + Login.guardarUsuario
+					+ "'";
+
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+
+			st.close();
+
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+	}
+
 	public void cargarPartida(Connection con) {
 
 		try {
@@ -869,7 +888,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 
 		g.drawImage(Mapa, 0, 0, this);
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
@@ -1277,7 +1296,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		} catch (IOException a) {
 		}
 	}
-	
+
 	public static Connection makeConnection() {
 		System.out.println("Conectando a la base de datos...");
 

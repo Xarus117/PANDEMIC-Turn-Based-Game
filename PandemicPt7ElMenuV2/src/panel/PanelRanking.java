@@ -19,24 +19,19 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 
 public class PanelRanking extends JPanel implements ActionListener {
-	JButton slot1;
-	JButton slot2;
-	JButton slot3;
 	JButton volver;
+
+	static JLabel primero, segundo, tercero, cuarto, quinto, sexto, septimo, octavo, noveno;
 
 	Image Fondo;
 	Image Ranking;
 
 	static String guardarUsuario;
 	static String guardarPass;
-	String mensajeError;
-	int numeroError;
-
-	boolean continuar = false;
 
 	private static final String USER = "PND_QALQO";
 	private static final String PWD = "TYX1234";
-	private static final String URL = "jdbc:oracle:thin:@192.168.3.26:1521:xe";
+	private static final String URL = "jdbc:oracle:thin:@oracle.ilerna.com:1521:xe";
 
 	PanelRanking() {
 		setLayout(null);
@@ -66,7 +61,6 @@ public class PanelRanking extends JPanel implements ActionListener {
 		});
 
 		volver.addActionListener(this);
-		add(volver);
 
 		try {
 			Fondo = ImageIO.read(new File("Imagenes//Fondo.jpg"));
@@ -75,6 +69,113 @@ public class PanelRanking extends JPanel implements ActionListener {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+		String[] rankingNombre = new String[9];
+		int[] rankingPuntos = new int[9];
+
+		Connection con = makeConnection();
+
+		String sql = "SELECT USUARIO, PUNTOS" + " FROM USUARIO" + " ORDER BY PUNTOS ASC";
+
+		Statement st = null;
+
+		try {
+			st = con.createStatement();
+
+			ResultSet rs = st.executeQuery(sql);
+
+			for (int i = 0; i < 9; i++) {
+				rs.next();
+				rankingNombre[i] = rs.getString("usuario");
+				rankingPuntos[i] = rs.getInt("puntos");
+			}
+			st.close();
+
+		} catch (SQLException e) {
+			System.out.println("Ha habído un error con el select: " + e);
+
+		}
+
+		for (int i = 0; i < 9; i++) {
+			if (rankingNombre[i] == null) {
+				rankingNombre[i] = "";
+			}
+
+			primero = new JLabel(rankingNombre[0] + ": " + rankingPuntos[0]);
+			primero.setSize(250, 50);
+			primero.setLocation(550, 240);
+			primero.setFont(new Font("Arial", Font.BOLD, 40));
+			primero.setBackground(new Color(247, 185, 71));
+			primero.setForeground(Color.black);
+
+			segundo = new JLabel(rankingNombre[1] + ": " + rankingPuntos[1]);
+			segundo.setSize(250, 50);
+			segundo.setLocation(550, 330);
+			segundo.setFont(new Font("Arial", Font.BOLD, 40));
+			segundo.setBackground(new Color(247, 185, 71));
+			segundo.setForeground(Color.black);
+
+			tercero = new JLabel(rankingNombre[2] + ": " + rankingPuntos[2]);
+			tercero.setSize(250, 50);
+			tercero.setLocation(550, 420);
+			tercero.setFont(new Font("Arial", Font.BOLD, 40));
+			tercero.setBackground(new Color(247, 185, 71));
+			tercero.setForeground(Color.black);
+
+			cuarto = new JLabel(rankingNombre[3] + ": " + rankingPuntos[3]);
+			cuarto.setSize(200, 50);
+			cuarto.setLocation(520, 510);
+			cuarto.setFont(new Font("Arial", Font.BOLD, 20));
+			cuarto.setBackground(new Color(247, 185, 71));
+			cuarto.setForeground(Color.black);
+
+			quinto = new JLabel(rankingNombre[4] + ": " + rankingPuntos[4]);
+			quinto.setSize(200, 50);
+			quinto.setLocation(520, 555);
+			quinto.setFont(new Font("Arial", Font.BOLD, 20));
+			quinto.setBackground(new Color(247, 185, 71));
+			quinto.setForeground(Color.black);
+
+			sexto = new JLabel(rankingNombre[5] + ": " + rankingPuntos[5]);
+			sexto.setSize(200, 50);
+			sexto.setLocation(520, 600);
+			sexto.setFont(new Font("Arial", Font.BOLD, 20));
+			sexto.setBackground(new Color(247, 185, 71));
+			sexto.setForeground(Color.black);
+
+			septimo = new JLabel(rankingNombre[6] + ": " + rankingPuntos[6]);
+			septimo.setSize(200, 50);
+			septimo.setLocation(520, 640);
+			septimo.setFont(new Font("Arial", Font.BOLD, 20));
+			septimo.setBackground(new Color(247, 185, 71));
+			septimo.setForeground(Color.black);
+
+			octavo = new JLabel(rankingNombre[7] + ": " + rankingPuntos[7]);
+			octavo.setSize(200, 50);
+			octavo.setLocation(520, 680);
+			octavo.setFont(new Font("Arial", Font.BOLD, 20));
+			octavo.setBackground(new Color(247, 185, 71));
+			octavo.setForeground(Color.black);
+
+			noveno = new JLabel(rankingNombre[8] + ": " + rankingPuntos[8]);
+			noveno.setSize(200, 50);
+			noveno.setLocation(520, 725);
+			noveno.setFont(new Font("Arial", Font.BOLD, 20));
+			noveno.setBackground(new Color(247, 185, 71));
+			noveno.setForeground(Color.black);
+
+			add(primero);
+			add(segundo);
+			add(tercero);
+			add(cuarto);
+			add(quinto);
+			add(sexto);
+			add(septimo);
+			add(octavo);
+			add(noveno);
+			add(volver);
+		}
+
 	}
 
 	public static Connection makeConnection() {
@@ -105,103 +206,11 @@ public class PanelRanking extends JPanel implements ActionListener {
 		}
 	}
 
-	public static int selectWithStatement(Connection con, String guardarUsuario, String guardarPass) {
-
-		int valorReturn = 0;
-		String sql = "SELECT * FROM USUARIO";
-
-		Statement st = null;
-
-		try {
-			st = con.createStatement();
-
-			ResultSet rs = st.executeQuery(sql);
-
-			while (rs.next()) {
-				String usuario = rs.getString("usuario");
-				String pass = rs.getString("contraseña");
-
-				System.out.println("\nLISTA USUARIOS:");
-				System.out.println(rs.getString("usuario"));
-
-				if (usuario.equals(guardarUsuario) && pass.equals(guardarPass)) {
-					valorReturn = 1;
-				}
-			}
-
-			st.close();
-
-		} catch (SQLException e) {
-			System.out.println("Ha habído un error con el select: " + e);
-
-		}
-		return valorReturn;
-	}
-
-	public static String insertWithStatement(Connection con, String guardarUsuario, String guardarPass) {
-
-		String sql = "INSERT INTO USUARIO (usuario, contraseña) VALUES ('" + guardarUsuario + "','" + guardarPass
-				+ "')";
-
-		String mensajeError = "Correcto";
-
-		try {
-			Statement statement = (Statement) con.createStatement();
-			statement.execute(sql);
-			statement.close();
-
-		} catch (SQLException e) {
-			System.out.println(e);
-
-			mensajeError = e.getMessage();
-
-		}
-		return mensajeError;
-	}
-
-	public static void insertarPartidasUsuario(Connection con, String guardarUsuario) {
-
-		for (int i = 1; i < 4; i++) {
-
-			String sql = "INSERT INTO PARTIDA (ID_PARTIDA, NOMBRE_USUARIO)" + "VALUES(" + i + "," + "'" + guardarUsuario
-					+ "'" + ")";
-
-			try { // SE EJECUTA LA SENTENCIA PARA CREAR LOS SLOTS DE CADA USUARIO
-
-				Statement statement = (Statement) con.createStatement();
-				statement.execute(sql);
-				statement.close();
-
-			} catch (SQLException e) {
-				System.out.println("Error: " + e.getMessage());
-			}
-		}
-
-		for (int i = 1; i < 4; i++) {
-
-			String sql = "INSERT INTO INFO_CIUDADES (ID_PARTIDA, USUARIO)" + "VALUES(" + i + "," + "'" + guardarUsuario
-					+ "'" + ")";
-
-			try { // SE EJECUTA LA SENTENCIA PARA CREAR LOS SLOTS DE CADA USUARIO
-
-				Statement statement = (Statement) con.createStatement();
-				statement.execute(sql);
-				statement.close();
-
-			} catch (SQLException e) {
-				System.out.println("Error: " + e.getMessage());
-			}
-		}
-
-		System.out.println("Se han creado los slots de guardado del usuario: " + guardarUsuario);
-	}
-
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(Fondo, 0, -30, this);
 		g.drawImage(Ranking, 400, 110, this);
-		
-		
+
 	}
 
 	@Override
