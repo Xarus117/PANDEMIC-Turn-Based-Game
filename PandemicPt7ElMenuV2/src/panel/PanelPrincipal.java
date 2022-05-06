@@ -245,7 +245,7 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			marco.setVisible(true);
 		} else if (e.getSource() == Github) {
 			try {
-				Desktop.getDesktop().browse(new URL("https://discord.gg/72D5jjT6Sg").toURI());
+				Desktop.getDesktop().browse(new URL("https://github.com/Xarus117/pandemic").toURI());
 			} catch (MalformedURLException e1) {
 				e1.printStackTrace();
 			} catch (IOException e1) {

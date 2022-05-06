@@ -49,7 +49,7 @@ public class Ciudades {
 	}
 
 	public void setRoja(int roja) {
-		if (Roja >= 3) {
+		if (Roja > 3) {
 			Roja = 3;
 		} else {
 			Roja = roja;
@@ -61,7 +61,7 @@ public class Ciudades {
 	}
 
 	public void setVerde(int verde) {
-		if (Verde >= 3) {
+		if (Verde > 3) {
 			Verde = 3;
 		} else {
 			Verde = verde;
@@ -73,7 +73,7 @@ public class Ciudades {
 	}
 
 	public void setAmarilla(int amarilla) {
-		if (Amarilla >= 3) {
+		if (Amarilla > 3) {
 			Amarilla = 3;
 		} else {
 			Amarilla = amarilla;
@@ -85,7 +85,7 @@ public class Ciudades {
 	}
 
 	public void setAzul(int azul) {
-		if (Azul >= 3) {
+		if (Azul > 3) {
 			Azul = 3;
 		} else {
 			Azul = azul;

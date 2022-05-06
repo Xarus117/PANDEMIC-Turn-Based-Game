@@ -32,7 +32,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	// Botones principales
 	JButton boton1;
 	JButton boton2;
-	JButton boton4;
+	JButton boton3;
 	// Las vacunas
 	JButton vacunaAzul;
 	JButton vacunaAmarilla;
@@ -47,11 +47,12 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	JTextArea recuadroInfo2;
 	JTextArea mostrarInfeccion;
 	JTextArea mostrarBrotes;
-	// Acciones del usuario
+	//Acciones
 	JButton accion1;
 	JButton accion2;
 	JButton accion3;
 	JButton accion4;
+	int contadorAccion = 4;
 	// Arrays para calculos
 	static ArrayList<Ciudades> ciudades = new ArrayList<>();
 	ArrayList<String> nombres = new ArrayList<>();
@@ -61,7 +62,9 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	static Random rn = new Random();
 	int rd = 0;
 	int rd2 = 0;
+	static int partidas = 0;
 	static int ronda = 0;
+	static int victorias = 0;
 	// Slots guardado
 	JButton slot1;
 	JButton slot2;
@@ -78,7 +81,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	int infeccionRoja = 0;
 	int sumaTotal;
 	String[] conservarRonda = new String[48];
-
+	
 	Image Mapa;
 
 	// BOOLEAN PARA ACTIVAR O DESACTIVAR LAS VACUNAS
@@ -88,21 +91,15 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	static boolean verdeb = false;
 	static boolean grisb = false;
 	int vacunaEncontrada = 0;
-
-	// ACCIONES
-	int contadorAccion = 4;
-
 	// Guardado Valores XML
 	static int infectadasInicio;
 	static int infectadasRonda;
 	static int infeccionDerrota;
 	static int InfeccionPerder;
-
 	// Conexion BD
 	private static final String USER = "PND_QALQO";
 	private static final String PWD = "TYX1234";
-	private static final String URL = "jdbc:oracle:thin:@oracle.ilerna.com:1521:xe";
-
+	private static final String URL = "jdbc:oracle:thin:@192.168.3.26:1521:xe";
 	public static int cargado;
 
 	// Fuentes
@@ -116,6 +113,8 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10, 10), "WILL");
 		Cursor cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10, 10), "WILL");
 		setCursor(cur);
+		partidas++;
+		partidaJugada(makeConnection());
 		leerFichero();
 		try {
 			fuente1 = Font.createFont(Font.TRUETYPE_FONT, new File("fuentes//Averta.otf")).deriveFont(20f);
@@ -160,20 +159,20 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				setCursor(cur);
 			}
 		});
-		boton4 = new JButton("Pasar turno");
-		boton4.setSize(200, 50);
-		boton4.setLocation(530, 800);
-		boton4.setFont(fuente1);
-		boton4.setForeground(Color.BLACK);
-		boton4.setBackground(verdeBoton);
-		boton4.addMouseListener(new MouseAdapter() {
+		boton3 = new JButton("Pasar turno");
+		boton3.setSize(200, 50);
+		boton3.setLocation(530, 800);
+		boton3.setFont(fuente1);
+		boton3.setForeground(Color.BLACK);
+		boton3.setBackground(verdeBoton);
+		boton3.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
-				boton4.setBackground(Color.GRAY);
+				boton3.setBackground(Color.GRAY);
 				setCursor(cur2);
 			}
 
 			public void mouseExited(MouseEvent e) {
-				boton4.setBackground(verdeBoton);
+				boton3.setBackground(verdeBoton);
 				setCursor(cur);
 			}
 		});
@@ -231,13 +230,13 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 
 		boton1.addActionListener(this);
 		boton2.addActionListener(this);
-		boton4.addActionListener(this);
+		boton3.addActionListener(this);
 		slot1.addActionListener(this);
 		slot2.addActionListener(this);
 		slot3.addActionListener(this);
 		add(boton1);
 		add(boton2);
-		add(boton4);
+		add(boton3);
 		add(slot1);
 		add(slot2);
 		add(slot3);
@@ -388,10 +387,9 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		accion2.setIcon(null);
 		accion3.setIcon(null);
 		accion4.setIcon(null);
+		
 		acciones(contadorAccion);
 		vacunas();
-
-		// Mapeo del juego
 		Mapeo();
 		cargarPartida(makeConnection());
 
@@ -712,7 +710,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		add(vacunaVerde);
 	}
 
-	public void acciones(int contadorAccion) { // LAS PUTAS ACCIONES
+	public void acciones(int contadorAccion) {
 		try {
 			accion1.setSize(20, 100);
 			accion1.setLocation(40, 750);
@@ -769,8 +767,8 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	}
 
 	public void victoria() {
-
 		if (azulb && amarillab && verdeb && rojab) {
+			victorias++;
 			puntosVictoria(makeConnection());
 			JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
 			marco.remove(this);
@@ -781,8 +779,6 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			} catch (SAXException e1) {
 				e1.printStackTrace();
 			}
-		
-
 			marco.setVisible(true);
 			azulb = false;
 			amarillab = false;
@@ -792,17 +788,90 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 
 		}
 	}
+	
+	public void derrota(){
+		
+		if (brote >= InfeccionPerder) {
+			JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
+			marco.remove(this);
+			try {
+				marco.add(new PanelDerrota());
+			} catch (ParserConfigurationException e1) {
+				e1.printStackTrace();
+			} catch (SAXException e1) {
+				e1.printStackTrace();
+			}
+			marco.setVisible(true);
+			for (int i = 0; i < ciudades.size(); i++) {
+				ciudades.removeAll(ciudades);
+			}
+			
+			azulb = false;
+			amarillab = false;
+			verdeb = false;
+			rojab = false;
+			ronda = 0;
+		} else if (sumaTotal >= infeccionDerrota) {
+			JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
+			marco.remove(this);
+			try {
+				marco.add(new PanelDerrota());
+			} catch (ParserConfigurationException e1) {
+				e1.printStackTrace();
+			} catch (SAXException e1) {
+				e1.printStackTrace();
+			}
+			marco.setVisible(true);
+			for (int i = 0; i < ciudades.size(); i++) {
+				ciudades.removeAll(ciudades);
+			}
+			
+			azulb = false;
+			amarillab = false;
+			verdeb = false;
+			rojab = false;
+			ronda = 0;
+		}
+	}
 
 	public void guardar(int slot) {
 		insertWithStatement(makeConnection(), slot);
-
 	}
 
 	public void puntosVictoria(Connection con) {
 		try {
-			String sql = "UPDATE USUARIO" + " SET puntos = puntos + 1" + " WHERE USUARIO = '" + Login.guardarUsuario
-					+ "'";
+			String sql = "UPDATE USUARIO" + " SET rondas_sobrevividas = '" + victorias + "'WHERE USUARIO = '" + Login.guardarUsuario + "'";
+			
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
 
+			st.close();
+
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+	}
+	
+	public void rondasSobrevividas(Connection con) {
+		
+		try {
+			String sql = "UPDATE USUARIO" + " SET rondas_sobrevividas = '" + ronda + "'WHERE USUARIO = '" + Login.guardarUsuario + "'";
+			
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+
+			st.close();
+
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+	}
+	
+	public void partidaJugada(Connection con) {
+		
+		try {
+			String sql = "UPDATE USUARIO SET partidas = '" + partidas + "'WHERE USUARIO = '" + Login.guardarUsuario + "'";
+			
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(sql);
 
@@ -910,48 +979,25 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 						"Has curado la infección en 1 todas\nlas enfermedades de: " + ciudades.get(indice).getNombre());
 				curar();
 			}
-		} else if (e.getSource() == boton4) {
+		} else if (e.getSource() == boton3) {
 			ronda++;
+			rondasSobrevividas(makeConnection());
 			victoria();
 			contadorAccion = 4;
 			acciones(contadorAccion);
 			contagio();
 			brote();
+			derrota();
 			mostrarInfeccion.setText("Cantidad infección: " + sumaTotal);
 			mostrarBrotes.setText("Cantidad brotes: " + brote);
-			if (brote >= InfeccionPerder) {
-				JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
-				marco.remove(this);
-				try {
-					marco.add(new PanelDerrota());
-				} catch (ParserConfigurationException e1) {
-					e1.printStackTrace();
-				} catch (SAXException e1) {
-					e1.printStackTrace();
-				}
-				marco.setVisible(true);
-			} else if (sumaTotal >= infeccionDerrota) {
-				JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
-				marco.remove(this);
-				try {
-					marco.add(new PanelDerrota());
-				} catch (ParserConfigurationException e1) {
-					e1.printStackTrace();
-				} catch (SAXException e1) {
-					e1.printStackTrace();
-				}
-				marco.setVisible(true);
-			}
 		} else if (e.getSource() == salir) {
+			for (int i = 0; i < ciudades.size(); i++) {
+				ciudades.removeAll(ciudades);
+			}
 			azulb = false;
 			rojab = false;
 			verdeb = false;
 			amarillab = false;
-
-			for (int i = 0; i < ciudades.size(); i++) {
-				ciudades.removeAll(ciudades);
-			}
-
 			JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
 			marco.remove(this);
 			marco.add(new PanelPrincipal());
@@ -1353,7 +1399,6 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		System.out.println(roja);
 		System.out.println(verde);
 
-		// A FUTURO MODIFICABLE CON UN MENÚ
 
 		for (int i = 0; i < 48; i++) {
 			String sql = "UPDATE INFO_CIUDADES SET CIUDAD" + i + " = CIUDAD('" + ciudades.get(i).getNombre() + "','"
@@ -1367,10 +1412,9 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 
 			} catch (SQLException e) {
 				System.out.println("Ha habído un error:" + e);
-
 			}
 		}
-
+		
 		String sql = "UPDATE PARTIDA SET NUM_RONDAS = " + ronda + ", FECHA_PARTIDA = SYSDATE, V_AZUL = " + azul
 				+ ", V_AMARILLA =  " + amarilla + ", V_ROJA = " + roja + ", V_VERDE = " + verde
 				+ "WHERE NOMBRE_USUARIO = '" + Login.guardarUsuario + "' AND ID_PARTIDA = " + slot + "" + "";
