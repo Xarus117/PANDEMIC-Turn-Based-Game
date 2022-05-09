@@ -199,6 +199,16 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 		Github.setContentAreaFilled(false);
 		Github.setBorder(null);
 		Github.addActionListener(this);
+		Github.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent e) {
+				setCursor(cur2);
+
+			}
+			public void mouseExited(MouseEvent e) {
+				setCursor(cur);
+
+			}
+		});
 
 		add(Github);
 	}
