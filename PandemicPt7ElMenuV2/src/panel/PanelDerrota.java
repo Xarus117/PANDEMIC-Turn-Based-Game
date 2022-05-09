@@ -5,6 +5,11 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.*;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -61,6 +66,8 @@ public class PanelDerrota extends JPanel implements ActionListener {
 		Image im2 = Toolkit.getDefaultToolkit().createImage("imagenes//cursorHover.png");
 		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10, 10), "WILL");
 		Cursor cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10, 10), "WILL");
+		PararSonido();
+		ReproducirSonido();
 		setCursor(cur);
 		try {
 			fuente1 = Font.createFont(Font.TRUETYPE_FONT, new File("fuentes//Averta.otf")).deriveFont(20f);
@@ -295,10 +302,53 @@ public class PanelDerrota extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getSource() == salir) {
+			musicaMenu();
 			JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
 			marco.remove(this);
 			marco.add(new PanelPrincipal());
 			marco.setVisible(true);
 		}
+	}
+	private void ReproducirSonido() {
+
+		try {
+			AudioInputStream audioInputStream = AudioSystem
+					.getAudioInputStream(new File("Audios\\muerteDS.wav").getAbsoluteFile());
+			Clip clip = AudioSystem.getClip();
+			clip.open(audioInputStream);
+			clip.start();
+		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+			System.out.println("Error al reproducir el sonido.");
+		}
+		
+	}
+	
+	private void musicaMenu() {
+
+		try {
+			AudioInputStream audioInputStream = AudioSystem
+					.getAudioInputStream(new File("Audios\\Gwyn.wav").getAbsoluteFile());
+			Clip clip = AudioSystem.getClip();
+			clip.open(audioInputStream);
+			clip.start();
+		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+			System.out.println("Error al reproducir el sonido.");
+		}
+		
+	}
+	
+	private void PararSonido() {
+
+		try {
+			AudioInputStream audioInputStream = AudioSystem
+					.getAudioInputStream(new File("Audios\\Gwyn.wav").getAbsoluteFile());
+			Clip clip = AudioSystem.getClip();
+			clip.open(audioInputStream);
+			Marco.clip.stop();
+			clip.close();
+		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+			System.out.println("Error al reproducir el sonido.");
+		}
+		
 	}
 }

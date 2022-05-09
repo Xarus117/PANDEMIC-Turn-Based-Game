@@ -17,6 +17,7 @@ public class Marco extends JFrame {
 
 	PanelPrincipal MenuPrincipal;
 	Dimension tamañoPantalla;
+	static Clip clip;
 
 	Marco() {
 
@@ -29,21 +30,21 @@ public class Marco extends JFrame {
 		setSize(1280,920);
 		MenuPrincipal = new PanelPrincipal();
 		add(MenuPrincipal);
-		//ReproducirSonido();
+		ReproducirSonido();
 		setVisible(true);// Modificar la visibilidad del marco
 	}
 	
-	/*private void ReproducirSonido() {
+	private void ReproducirSonido() {
 
 		try {
 			AudioInputStream audioInputStream = AudioSystem
-					.getAudioInputStream(new File("Audios\\musica.wav").getAbsoluteFile());
-			Clip clip = AudioSystem.getClip();
+					.getAudioInputStream(new File("Audios\\Gwyn.wav").getAbsoluteFile());
+			clip = AudioSystem.getClip();
 			clip.open(audioInputStream);
 			clip.start();
 		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
 			System.out.println("Error al reproducir el sonido.");
 		}
 		
-	}*/
+	}
 }
