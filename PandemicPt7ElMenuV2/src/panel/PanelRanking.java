@@ -75,7 +75,7 @@ public class PanelRanking extends JPanel implements ActionListener {
 		int[] rankingRondas = new int[9];
 
 		Connection con = makeConnection();
-		String sql = "SELECT USUARIO, PUNTOS*100/PARTIDAS, RONDAS_SOBREVIVIDAS" + " FROM USUARIO" + " ORDER BY PUNTOS*PARTIDAS/100 ASC";
+		String sql = "SELECT USUARIO, PUNTOS*100/PARTIDAS, RONDAS_SOBREVIVIDAS" + " FROM USUARIO" + " ORDER BY PUNTOS*PARTIDAS/100, RONDAS_SOBREVIVIDAS DESC";
 		
 
 		Statement st = null;

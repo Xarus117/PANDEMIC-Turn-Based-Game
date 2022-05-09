@@ -839,8 +839,9 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	}
 
 	public void puntosVictoria(Connection con) {
+		System.out.println(victorias);
 		try {
-			String sql = "UPDATE USUARIO" + " SET rondas_sobrevividas = '" + victorias + "'WHERE USUARIO = '" + Login.guardarUsuario + "'";
+			String sql = "UPDATE USUARIO" + " SET puntos = '" + victorias + "' WHERE USUARIO = '" + Login.guardarUsuario + "'";
 			
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(sql);
