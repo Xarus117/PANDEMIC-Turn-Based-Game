@@ -19,32 +19,33 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 
 public class Login extends JPanel implements ActionListener {
-	
-	JTextField txtNombre,txtPass;
-	JLabel etiNombre,etiPass, mensaje;
-	JButton login, registrar,volver;
-	Image image,Logo,recuadro, loginImg;
 
-	static String guardarUsuario;
-	static String guardarPass;
+	// <-- VARIABLE -->
+
+	JTextField txtNombre, txtPass;
+	JLabel etiNombre, etiPass, mensaje;
+	JButton login, registrar, volver;
+	Image image, Logo, recuadro, loginImg;
+
+	static String guardarUsuario, guardarPass;
 	public static int cargado;
 	String mensajeError;
 	int numeroError;
 
 	boolean continuar = false;
 
-	private static final String USER = "PND_QALQO";
-	private static final String PWD = "TYX1234";
-	private static final String URL = "jdbc:oracle:thin:@192.168.3.26:1521:xe";
+	private static final String USER = "PND_QALQO", PWD = "TYX1234", URL = "jdbc:oracle:thin:@192.168.3.26:1521:xe";
+
+	// <-- INTERFAZ -->
 
 	Login() {
 		setLayout(null);
-		Image im = Toolkit.getDefaultToolkit().createImage("imagenes//cursorDefecto.png");
-		Image im2 = Toolkit.getDefaultToolkit().createImage("imagenes//cursorHover.png");
-		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10, 10), "WILL");
-		Cursor cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10, 10), "WILL");
+		Image im = Toolkit.getDefaultToolkit().createImage("imagenes//cursorDefecto.png"),
+				im2 = Toolkit.getDefaultToolkit().createImage("imagenes//cursorHover.png");
+		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10, 10), "WILL"),
+				cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10, 10), "WILL");
 		setCursor(cur);
-		
+
 		etiNombre = new JLabel("Introduzca su nombre");
 		etiNombre.setBounds(30, 30, 200, 30);
 		etiNombre.setLocation(500, 450);
@@ -81,6 +82,7 @@ public class Login extends JPanel implements ActionListener {
 				login.setBackground(Color.GRAY);
 				setCursor(cur2);
 			}
+
 			public void mouseExited(MouseEvent e) {
 				login.setBackground(new Color(247, 185, 71));
 				setCursor(cur);
@@ -99,6 +101,7 @@ public class Login extends JPanel implements ActionListener {
 				registrar.setBackground(Color.GRAY);
 				setCursor(cur2);
 			}
+
 			public void mouseExited(MouseEvent e) {
 				registrar.setBackground(new Color(247, 185, 71));
 				setCursor(cur);
@@ -123,7 +126,7 @@ public class Login extends JPanel implements ActionListener {
 				setCursor(cur);
 			}
 		});
-		
+
 		add(etiNombre);
 		add(etiPass);
 		add(txtNombre);
@@ -143,6 +146,7 @@ public class Login extends JPanel implements ActionListener {
 		}
 	}
 
+	// <-- CONECTION SQL -->
 	public static Connection makeConnection() {
 		System.out.println("Conectando a la base de datos...");
 		Connection con = null;
@@ -158,6 +162,7 @@ public class Login extends JPanel implements ActionListener {
 		return con;
 	}
 
+	// <-- CLOSE CONECTION SQL-->
 	public static void closeConnection(Connection con) {
 		try {
 			con.close();
@@ -166,7 +171,7 @@ public class Login extends JPanel implements ActionListener {
 			System.out.println("Ha ocurrido un error cerrando la conexión: " + e);
 		}
 	}
-
+	//<-- SQL -->
 	public static int selectWithStatement(Connection con, String guardarUsuario, String guardarPass) {
 
 		int valorReturn = 0;
@@ -177,8 +182,7 @@ public class Login extends JPanel implements ActionListener {
 			st = con.createStatement();
 			ResultSet rs = st.executeQuery(sql);
 			while (rs.next()) {
-				String usuario = rs.getString("usuario");
-				String pass = rs.getString("contraseña");
+				String usuario = rs.getString("usuario"), pass = rs.getString("contraseña");
 				if (usuario.equals(guardarUsuario) && pass.equals(guardarPass)) {
 					valorReturn = 1;
 				}
@@ -189,10 +193,11 @@ public class Login extends JPanel implements ActionListener {
 		}
 		return valorReturn;
 	}
-
+	//<-- SQL -->
 	public static String insertWithStatement(Connection con, String guardarUsuario, String guardarPass) {
 
-		String sql = "INSERT INTO USUARIO (usuario, contraseña) VALUES ('" + guardarUsuario + "','" + guardarPass + "')";
+		String sql = "INSERT INTO USUARIO (usuario, contraseña) VALUES ('" + guardarUsuario + "','" + guardarPass
+				+ "')";
 		String mensajeError = "Correcto";
 
 		try {
@@ -204,11 +209,12 @@ public class Login extends JPanel implements ActionListener {
 		}
 		return mensajeError;
 	}
-
+	//<-- SQL -->
 	public static void insertarPartidasUsuario(Connection con, String guardarUsuario) {
 
 		for (int i = 1; i < 4; i++) {
-			String sql = "INSERT INTO PARTIDA (ID_PARTIDA, NOMBRE_USUARIO)" + "VALUES(" + i + "," + "'" + guardarUsuario + "'" + ")";
+			String sql = "INSERT INTO PARTIDA (ID_PARTIDA, NOMBRE_USUARIO)" + "VALUES(" + i + "," + "'" + guardarUsuario
+					+ "'" + ")";
 			try { // SE EJECUTA LA SENTENCIA PARA CREAR LOS SLOTS DE CADA USUARIO
 				Statement statement = (Statement) con.createStatement();
 				statement.execute(sql);
@@ -218,7 +224,8 @@ public class Login extends JPanel implements ActionListener {
 			}
 		}
 		for (int i = 1; i < 4; i++) {
-			String sql = "INSERT INTO INFO_CIUDADES (ID_PARTIDA, USUARIO)" + "VALUES(" + i + "," + "'" + guardarUsuario + "'" + ")";
+			String sql = "INSERT INTO INFO_CIUDADES (ID_PARTIDA, USUARIO)" + "VALUES(" + i + "," + "'" + guardarUsuario
+					+ "'" + ")";
 			try { // SE EJECUTA LA SENTENCIA PARA CREAR LOS SLOTS DE CADA USUARIO
 				Statement statement = (Statement) con.createStatement();
 				statement.execute(sql);
@@ -228,7 +235,7 @@ public class Login extends JPanel implements ActionListener {
 			}
 		}
 	}
-
+	//<-- IMG -->
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(image, 0, -30, this);
@@ -236,7 +243,7 @@ public class Login extends JPanel implements ActionListener {
 		g.drawImage(recuadro, 406, 380, this);
 		g.drawImage(loginImg, 450, 245, this);
 	}
-
+	//<-- ACCION DE BOTONES -->
 	@Override
 	public void actionPerformed(ActionEvent e) {
 

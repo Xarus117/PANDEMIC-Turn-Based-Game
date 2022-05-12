@@ -19,16 +19,16 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 
 public class PanelReglas extends JPanel implements ActionListener {
+	// <-- VARIABLES -->
 	JButton volver;
-	Image Fondo;
-	Image Reglas;
+	Image Fondo, Reglas;
 
 	PanelReglas() {
 		setLayout(null);
-		Image im = Toolkit.getDefaultToolkit().createImage("imagenes//cursorDefecto.png");
-		Image im2 = Toolkit.getDefaultToolkit().createImage("imagenes//cursorHover.png");
-		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10,10),"WILL");
-		Cursor cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10,10),"WILL");
+		Image im = Toolkit.getDefaultToolkit().createImage("imagenes//cursorDefecto.png"),
+				im2 = Toolkit.getDefaultToolkit().createImage("imagenes//cursorHover.png");
+		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10, 10), "WILL"),
+				cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10, 10), "WILL");
 		setCursor(cur);
 
 		volver = new JButton("Volver");
@@ -41,17 +41,17 @@ public class PanelReglas extends JPanel implements ActionListener {
 		volver.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
 				volver.setBackground(Color.GRAY);
-		        setCursor(cur2);
+				setCursor(cur2);
 			}
 
 			public void mouseExited(MouseEvent e) {
 				volver.setBackground(new Color(247, 185, 71));
-		        setCursor(cur);
+				setCursor(cur);
 			}
 		});
-		
+
 		add(volver);
-		
+
 		try {
 			Fondo = ImageIO.read(new File("Imagenes//Fondo.jpg"));
 			Reglas = ImageIO.read(new File("Imagenes//Reglas.png"));

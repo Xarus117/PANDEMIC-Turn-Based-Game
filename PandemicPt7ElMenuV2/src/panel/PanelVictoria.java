@@ -23,51 +23,34 @@ import org.xml.sax.SAXException;
 
 public class PanelVictoria extends JPanel implements ActionListener {
 	// Botones principales
-	JButton boton1;
-	JButton boton2;
-	JButton boton4;
+	JButton boton1, boton2, boton4;
 	// Las vacunas
-	JButton vacunaAzul;
-	JButton vacunaAmarilla;
-	JButton vacunaRoja;
-	JButton vacunaVerde;
-	JButton vacunaGris;
+	JButton vacunaAzul, vacunaAmarilla, vacunaRoja, vacunaVerde, vacunaGris;
 	// Botones Miscelanea
-	JButton guardar;
-	JButton salir;
+	JButton guardar, salir;
 	JLabel Victoria;
 	// Recuadro
-	JTextArea recuadroInfo;
-	JTextArea recuadroInfo2;
+	JTextArea recuadroInfo, recuadroInfo2;
 	// Acciones del usuario
-	JButton accion1;
-	JButton accion2;
-	JButton accion3;
-	JButton accion4;
+	JButton accion1, accion2, accion3, accion4;
 
 	Image Mapa;
 
 	// BOOLEAN PARA ACTIVAR O DESACTIVAR LAS VACUNAS
-	boolean azulb = false;
-	boolean amarillab = false;
-	boolean rojab = false;
-	boolean verdeb = false;
-	boolean grisb = false;
-	int vacunaEncontrada = 0;
-	int contadorAccion = 4;
+	boolean azulb = false, amarillab = false, rojab = false, verdeb = false, grisb = false;
+	int vacunaEncontrada = 0, contadorAccion = 4;
 
 	// Fuentes
-	Font fuente1;
-	Font fuente2;
+	Font fuente1, fuente2;
 
 	PanelVictoria() throws ParserConfigurationException, SAXException {
 		PararSonido();
 		ReproducirSonido();
 		setLayout(null);
-		Image im = Toolkit.getDefaultToolkit().createImage("imagenes//cursorDefecto.png");
-		Image im2 = Toolkit.getDefaultToolkit().createImage("imagenes//cursorHover.png");
-		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10, 10), "WILL");
-		Cursor cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10, 10), "WILL");
+		Image im = Toolkit.getDefaultToolkit().createImage("imagenes//cursorDefecto.png"),
+				im2 = Toolkit.getDefaultToolkit().createImage("imagenes//cursorHover.png");
+		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10, 10), "WILL"),
+				cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10, 10), "WILL");
 		setCursor(cur);
 		try {
 			fuente1 = Font.createFont(Font.TRUETYPE_FONT, new File("fuentes//Averta.otf")).deriveFont(20f);
@@ -106,7 +89,7 @@ public class PanelVictoria extends JPanel implements ActionListener {
 		} catch (IOException e1) {
 			System.out.println("Ha ocurrido un error al mostrar el mapa");
 		}
-		
+
 		// SALIR
 		salir = new JButton();
 		salir.setIcon(null);
@@ -125,14 +108,14 @@ public class PanelVictoria extends JPanel implements ActionListener {
 			System.out.println("Ha ocurrido un error al cargar el botón de salir de la partida");
 		}
 		salir.addMouseListener(new MouseAdapter() {
-		public void mouseEntered(MouseEvent e) {
-			setCursor(cur2);
-		}
+			public void mouseEntered(MouseEvent e) {
+				setCursor(cur2);
+			}
 
-		public void mouseExited(MouseEvent e) {
-			setCursor(cur);
-		}
-	});
+			public void mouseExited(MouseEvent e) {
+				setCursor(cur);
+			}
+		});
 		add(salir);
 
 		// DRAGONITE
@@ -317,7 +300,7 @@ public class PanelVictoria extends JPanel implements ActionListener {
 			marco.setVisible(true);
 		}
 	}
-	
+
 	private void ReproducirSonido() {
 
 		try {
@@ -329,9 +312,9 @@ public class PanelVictoria extends JPanel implements ActionListener {
 		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
 			System.out.println("Error al reproducir el sonido.");
 		}
-		
+
 	}
-	
+
 	private void musicaMenu() {
 
 		try {
@@ -343,9 +326,9 @@ public class PanelVictoria extends JPanel implements ActionListener {
 		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
 			System.out.println("Error al reproducir el sonido.");
 		}
-		
+
 	}
-	
+
 	private void PararSonido() {
 
 		try {
@@ -358,6 +341,6 @@ public class PanelVictoria extends JPanel implements ActionListener {
 		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
 			System.out.println("Error al reproducir el sonido.");
 		}
-		
+
 	}
 }

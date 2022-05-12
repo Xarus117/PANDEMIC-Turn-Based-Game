@@ -19,6 +19,8 @@ public class Marco extends JFrame {
 	Dimension tamañoPantalla;
 	static Clip clip;
 
+	//<-- CONSTRUCTOR -->
+	//<-- CREACION Y DEFINICION DE LA VENTANA -->
 	Marco() {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Fin del programa al pulsar la X
@@ -33,7 +35,7 @@ public class Marco extends JFrame {
 		ReproducirSonido();
 		setVisible(true);// Modificar la visibilidad del marco
 	}
-	
+	//<-- AUDIO -->
 	private void ReproducirSonido() {
 
 		try {

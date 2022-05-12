@@ -23,11 +23,9 @@ public class PanelRanking extends JPanel implements ActionListener {
 
 	static JLabel primero, segundo, tercero, cuarto, quinto, sexto, septimo, octavo, noveno;
 
-	Image Fondo;
-	Image Ranking;
+	Image Fondo, Ranking;
 
-	static String guardarUsuario;
-	static String guardarPass;
+	static String guardarUsuario, º1guardarPass;
 
 	private static final String USER = "PND_QALQO";
 	private static final String PWD = "TYX1234";
@@ -35,10 +33,10 @@ public class PanelRanking extends JPanel implements ActionListener {
 
 	PanelRanking() {
 		setLayout(null);
-		Image im = Toolkit.getDefaultToolkit().createImage("imagenes//cursorDefecto.png");
-		Image im2 = Toolkit.getDefaultToolkit().createImage("imagenes//cursorHover.png");
-		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10, 10), "WILL");
-		Cursor cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10, 10), "WILL");
+		Image im = Toolkit.getDefaultToolkit().createImage("imagenes//cursorDefecto.png"),
+				im2 = Toolkit.getDefaultToolkit().createImage("imagenes//cursorHover.png");
+		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10, 10), "WILL"),
+				cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10, 10), "WILL");
 		setCursor(cur);
 
 		volver = new JButton("Volver");
@@ -71,12 +69,11 @@ public class PanelRanking extends JPanel implements ActionListener {
 		}
 
 		String[] rankingNombre = new String[9];
-		int[] rankingPuntos = new int[9];
-		int[] rankingRondas = new int[9];
+		int[] rankingPuntos = new int[9], rankingRondas = new int[9];
 
 		Connection con = makeConnection();
-		String sql = "SELECT USUARIO, PUNTOS*100/PARTIDAS, RONDAS_SOBREVIVIDAS" + " FROM USUARIO" + " ORDER BY PUNTOS*PARTIDAS/100, RONDAS_SOBREVIVIDAS DESC";
-		
+		String sql = "SELECT USUARIO, PUNTOS*100/PARTIDAS, RONDAS_SOBREVIVIDAS" + " FROM USUARIO"
+				+ " ORDER BY PUNTOS*PARTIDAS/100, RONDAS_SOBREVIVIDAS DESC";
 
 		Statement st = null;
 
@@ -98,7 +95,8 @@ public class PanelRanking extends JPanel implements ActionListener {
 		}
 
 		if (rankingNombre[0] != null && rankingPuntos[0] > 0) {
-			primero = new JLabel(rankingNombre[0] + ": " + rankingPuntos[0] + "%" + " Rondas jugadas: " + rankingRondas[0]);
+			primero = new JLabel(
+					rankingNombre[0] + ": " + rankingPuntos[0] + "%" + " Rondas jugadas: " + rankingRondas[0]);
 			primero.setSize(550, 50);
 			primero.setLocation(450, 240);
 			primero.setFont(new Font("Arial", Font.BOLD, 28));
@@ -107,7 +105,8 @@ public class PanelRanking extends JPanel implements ActionListener {
 			add(primero);
 		}
 		if (rankingNombre[1] != null && rankingPuntos[1] > 0) {
-			segundo = new JLabel(rankingNombre[1] + ": " + rankingPuntos[1] + "%" + " Rondas jugadas: " + rankingRondas[1]);
+			segundo = new JLabel(
+					rankingNombre[1] + ": " + rankingPuntos[1] + "%" + " Rondas jugadas: " + rankingRondas[1]);
 			segundo.setSize(550, 50);
 			segundo.setLocation(450, 310);
 			segundo.setFont(new Font("Arial", Font.BOLD, 28));
@@ -116,7 +115,8 @@ public class PanelRanking extends JPanel implements ActionListener {
 			add(segundo);
 		}
 		if (rankingNombre[2] != null && rankingPuntos[2] > 0) {
-			tercero = new JLabel(rankingNombre[2] + ": " + rankingPuntos[2] + "%" + " Rondas jugadas: " + rankingRondas[2]);
+			tercero = new JLabel(
+					rankingNombre[2] + ": " + rankingPuntos[2] + "%" + " Rondas jugadas: " + rankingRondas[2]);
 			tercero.setSize(550, 50);
 			tercero.setLocation(450, 380);
 			tercero.setFont(new Font("Arial", Font.BOLD, 28));
@@ -125,7 +125,8 @@ public class PanelRanking extends JPanel implements ActionListener {
 			add(tercero);
 		}
 		if (rankingNombre[3] != null && rankingPuntos[3] > 0) {
-			cuarto = new JLabel(rankingNombre[3] + ": " + rankingPuntos[3] + "%" + " Rondas jugadas: " + rankingRondas[3]);
+			cuarto = new JLabel(
+					rankingNombre[3] + ": " + rankingPuntos[3] + "%" + " Rondas jugadas: " + rankingRondas[3]);
 			cuarto.setSize(550, 50);
 			cuarto.setLocation(400, 460);
 			cuarto.setFont(new Font("Arial", Font.BOLD, 15));
@@ -134,7 +135,8 @@ public class PanelRanking extends JPanel implements ActionListener {
 			add(cuarto);
 		}
 		if (rankingNombre[4] != null && rankingPuntos[4] > 0) {
-			quinto = new JLabel(rankingNombre[4] + ": " + rankingPuntos[4] + "%" + " Rondas jugadas: " + rankingRondas[4]);
+			quinto = new JLabel(
+					rankingNombre[4] + ": " + rankingPuntos[4] + "%" + " Rondas jugadas: " + rankingRondas[4]);
 			quinto.setSize(550, 50);
 			quinto.setLocation(400, 500);
 			quinto.setFont(new Font("Arial", Font.BOLD, 15));
@@ -143,7 +145,8 @@ public class PanelRanking extends JPanel implements ActionListener {
 			add(quinto);
 		}
 		if (rankingNombre[5] != null && rankingPuntos[5] > 0) {
-			sexto = new JLabel(rankingNombre[5] + ": " + rankingPuntos[5] + "%" + " Rondas jugadas: " + rankingRondas[5]);
+			sexto = new JLabel(
+					rankingNombre[5] + ": " + rankingPuntos[5] + "%" + " Rondas jugadas: " + rankingRondas[5]);
 			sexto.setSize(550, 50);
 			sexto.setLocation(400, 540);
 			sexto.setFont(new Font("Arial", Font.BOLD, 15));
@@ -152,7 +155,8 @@ public class PanelRanking extends JPanel implements ActionListener {
 			add(sexto);
 		}
 		if (rankingNombre[6] != null && rankingPuntos[6] > 0) {
-			septimo = new JLabel(rankingNombre[6] + ": " + rankingPuntos[6] + "%" + " Rondas jugadas: " + rankingRondas[6]);
+			septimo = new JLabel(
+					rankingNombre[6] + ": " + rankingPuntos[6] + "%" + " Rondas jugadas: " + rankingRondas[6]);
 			septimo.setSize(550, 50);
 			septimo.setLocation(400, 580);
 			septimo.setFont(new Font("Arial", Font.BOLD, 15));
@@ -161,7 +165,8 @@ public class PanelRanking extends JPanel implements ActionListener {
 			add(septimo);
 		}
 		if (rankingNombre[7] != null && rankingPuntos[7] > 0) {
-			octavo = new JLabel(rankingNombre[7] + ": " + rankingPuntos[7] + "%" + " Rondas jugadas: " + rankingRondas[7]);
+			octavo = new JLabel(
+					rankingNombre[7] + ": " + rankingPuntos[7] + "%" + " Rondas jugadas: " + rankingRondas[7]);
 			octavo.setSize(550, 50);
 			octavo.setLocation(400, 620);
 			octavo.setFont(new Font("Arial", Font.BOLD, 15));
@@ -170,7 +175,8 @@ public class PanelRanking extends JPanel implements ActionListener {
 			add(octavo);
 		}
 		if (rankingNombre[8] != null && rankingPuntos[8] > 0) {
-			noveno = new JLabel(rankingNombre[8] + ": " + rankingPuntos[8] + "%" + " Rondas jugadas: " + rankingRondas[8]);
+			noveno = new JLabel(
+					rankingNombre[8] + ": " + rankingPuntos[8] + "%" + " Rondas jugadas: " + rankingRondas[8]);
 			noveno.setSize(550, 50);
 			noveno.setLocation(400, 640);
 			noveno.setFont(new Font("Arial", Font.BOLD, 15));
@@ -187,12 +193,9 @@ public class PanelRanking extends JPanel implements ActionListener {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			con = DriverManager.getConnection(URL, USER, PWD);
-
 			System.out.println("Conexión establecida con la base de datos");
-
 		} catch (SQLException e) {
 			throw new IllegalStateException("No se ha podido conectar a la base de datos ", e);
-
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -218,7 +221,6 @@ public class PanelRanking extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
 		if (e.getSource() == volver) {
 			JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
 			marco.remove(this);

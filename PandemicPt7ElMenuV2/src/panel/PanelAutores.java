@@ -21,17 +21,18 @@ import javax.swing.border.LineBorder;
 public class PanelAutores extends JPanel implements ActionListener {
 	JButton volver;
 
-	Image image;
-	Image autores;
+	Image image, autores;
 
+	// <-- CONSTRUCTOR -->
 	PanelAutores() {
 		setLayout(null);
-		Image im = Toolkit.getDefaultToolkit().createImage("imagenes//cursorDefecto.png");
-		Image im2 = Toolkit.getDefaultToolkit().createImage("imagenes//cursorHover.png");
-		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10,10),"WILL");
-		Cursor cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10,10),"WILL");
+		Image im = Toolkit.getDefaultToolkit().createImage("imagenes//cursorDefecto.png"),
+				im2 = Toolkit.getDefaultToolkit().createImage("imagenes//cursorHover.png");
+		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10, 10), "WILL"),
+				cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10, 10), "WILL");
 		setCursor(cur);
 
+		//<-- BUTT VOLVER-->
 		volver = new JButton("Volver");
 		volver.setSize(200, 50);
 		volver.setLocation(550, 800);
@@ -60,13 +61,14 @@ public class PanelAutores extends JPanel implements ActionListener {
 			e.printStackTrace();
 		}
 	}
-
+	//<-- IMG -->
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
 		g.drawImage(image, 0, 0, this);
 		g.drawImage(autores, 320, 200, this);
 	}
+	//<-- ACCION DE BOTONES -->
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

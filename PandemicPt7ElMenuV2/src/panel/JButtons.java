@@ -12,12 +12,16 @@ import javax.swing.JButton;
 
 
 public class JButtons extends JButton {
+		//<-- VARIABLE -->
 
 	private String nombre;
 
 	
+	//<-- CONSTRCTOR -->
 
 	public JButtons(String nombre, int x, int y) {
+		
+		//<-- VARIABLE -->
 		
 		Image im = Toolkit.getDefaultToolkit().createImage("imagenes//cursorDefecto.png");
 		Image im2 = Toolkit.getDefaultToolkit().createImage("imagenes//cursorHover.png");
@@ -42,10 +46,11 @@ public class JButtons extends JButton {
 		});
 	}
 	
+	//<-- GET AND SET-->
+
 	public String getNombre() {
 		return nombre;
 	}
-
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}

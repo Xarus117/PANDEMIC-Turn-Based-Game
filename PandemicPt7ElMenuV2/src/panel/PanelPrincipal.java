@@ -15,25 +15,14 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 
 public class PanelPrincipal extends JPanel implements ActionListener {
-
-	JButton boton1;
-	JButton boton3;
-	JButton boton4;
-	JButton boton5;
-	JButton boton6;
-	JButton boton7;
-	JButton boton8;
-	JButton Github;
-	Image Fondo;
-	Image Logo;
-	Image GithubI;
+	//<-- VARIABLES -->
+	JButton boton1,boton3,boton4,boton5,boton6,boton7,boton8,Github;
+	Image Fondo,Logo,GithubI;
 
 	PanelPrincipal() {
 		setLayout(null);
-		Image im = Toolkit.getDefaultToolkit().createImage("imagenes//cursorDefecto.png");
-		Image im2 = Toolkit.getDefaultToolkit().createImage("imagenes//cursorHover.png");
-		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10, 10), "WILL");
-		Cursor cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10, 10), "WILL");
+		Image im = Toolkit.getDefaultToolkit().createImage("imagenes//cursorDefecto.png"),im2 = Toolkit.getDefaultToolkit().createImage("imagenes//cursorHover.png");
+		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10, 10), "WILL"),cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10, 10), "WILL");
 		setCursor(cur);
 
 		boton1 = new JButton("Nueva Partida");

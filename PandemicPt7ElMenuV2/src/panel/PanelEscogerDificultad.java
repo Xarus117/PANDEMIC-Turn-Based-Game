@@ -25,8 +25,8 @@ import org.xml.sax.SAXException;
 
 public class PanelEscogerDificultad extends JPanel implements ActionListener {
 
-	JButton facil;
-	JButton normal;
+	// DIFICULTADES
+	JButton facil, normal;
 
 	JButton volver;
 
@@ -41,10 +41,10 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 
 	PanelEscogerDificultad() {
 		setLayout(null);
-		Image im = Toolkit.getDefaultToolkit().createImage("imagenes//cursorDefecto.png");
-		Image im2 = Toolkit.getDefaultToolkit().createImage("imagenes//cursorHover.png");
-		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10, 10), "WILL");
-		Cursor cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10, 10), "WILL");
+		Image im = Toolkit.getDefaultToolkit().createImage("imagenes//cursorDefecto.png"),
+				im2 = Toolkit.getDefaultToolkit().createImage("imagenes//cursorHover.png");
+		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10, 10), "WILL"),
+				cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10, 10), "WILL");
 		setCursor(cur);
 
 		Textos = new JLabel("<html>Escoja una dificultad<br><br><br><html>");
@@ -53,6 +53,7 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 		Textos.setForeground(Color.black);
 		add(Textos);
 
+		//<--BUTTON MADO FACIL-->
 		facil = new JButton("Fácil");
 		facil.setSize(200, 50);
 		facil.setLocation(420, 440);
@@ -77,6 +78,8 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 				add(Textos);
 			}
 		});
+		
+		//<--BUTTON MODO NORMAL-->
 		normal = new JButton("Normal");
 		normal.setSize(200, 50);
 		normal.setLocation(420, 510);
@@ -101,6 +104,8 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 				add(Textos);
 			}
 		});
+		
+		//<--BUTTON VOLVER-->
 		volver = new JButton("Volver");
 		volver.setSize(200, 50);
 		volver.setLocation(420, 580);
@@ -124,7 +129,7 @@ public class PanelEscogerDificultad extends JPanel implements ActionListener {
 				add(Textos);
 			}
 		});
-		
+
 		add(facil);
 		add(normal);
 		add(volver);

@@ -23,49 +23,32 @@ import org.xml.sax.SAXException;
 
 public class PanelDerrota extends JPanel implements ActionListener {
 	// Botones principales
-	JButton boton1;
-	JButton boton2;
-	JButton boton4;
+	JButton boton1, boton2, boton4;
 	// Las vacunas
-	JButton vacunaAzul;
-	JButton vacunaAmarilla;
-	JButton vacunaRoja;
-	JButton vacunaVerde;
-	JButton vacunaGris;
+	JButton vacunaAzul, vacunaAmarilla, vacunaRoja, vacunaVerde, vacunaGris;
 	// Botones Miscelanea
-	JButton guardar;
-	JButton salir;
+	JButton guardar, salir;
 	JLabel Derrota;
 	// Recuadro
-	JTextArea recuadroInfo;
-	JTextArea recuadroInfo2;
+	JTextArea recuadroInfo, recuadroInfo2;
 	// Acciones del usuario
-	JButton accion1;
-	JButton accion2;
-	JButton accion3;
-	JButton accion4;
+	JButton accion1, accion2, accion3, accion4;
 
 	Image image;
 
 	// BOOLEAN PARA ACTIVAR O DESACTIVAR LAS VACUNAS
-	boolean azulb = false;
-	boolean amarillab = false;
-	boolean rojab = false;
-	boolean verdeb = false;
-	boolean grisb = false;
-	int vacunaEncontrada = 0;
-	int contadorAccion = 4;
+	boolean azulb = false, amarillab = false, rojab = false, verdeb = false, grisb = false;
+	int vacunaEncontrada = 0, contadorAccion = 4;
 
 	// Fuentes
-	Font fuente1;
-	Font fuente2;
+	Font fuente1, fuente2;
 
 	PanelDerrota() throws ParserConfigurationException, SAXException {
 		setLayout(null);
-		Image im = Toolkit.getDefaultToolkit().createImage("imagenes//cursorDefecto.png");
-		Image im2 = Toolkit.getDefaultToolkit().createImage("imagenes//cursorHover.png");
-		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10, 10), "WILL");
-		Cursor cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10, 10), "WILL");
+		Image im = Toolkit.getDefaultToolkit().createImage("imagenes//cursorDefecto.png"),
+				im2 = Toolkit.getDefaultToolkit().createImage("imagenes//cursorHover.png");
+		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10, 10), "WILL"),
+				cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10, 10), "WILL");
 		PararSonido();
 		ReproducirSonido();
 		setCursor(cur);
@@ -206,7 +189,7 @@ public class PanelDerrota extends JPanel implements ActionListener {
 		vacunas();
 	}
 
-	public void vacunas() {
+	public void vacunas() {//VACUNAS IMG
 
 		try {
 			if (azulb) {
@@ -239,7 +222,7 @@ public class PanelDerrota extends JPanel implements ActionListener {
 		add(vacunaVerde);
 	}
 
-	public void acciones(int contadorAccion) { // LAS PUTAS ACCIONES
+	public void acciones(int contadorAccion) { // LAS P*** ACCIONES
 		try {
 			accion1.setSize(20, 100);
 			accion1.setLocation(40, 750);
@@ -261,6 +244,7 @@ public class PanelDerrota extends JPanel implements ActionListener {
 			accion4.setContentAreaFilled(false);
 			accion4.setBorder(null);
 
+			//<--IMG BARRAS ACCIONES-->
 			if (contadorAccion >= 4) {
 				accion1.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//AccionNo.png"))));
 				accion2.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//AccionNo.png"))));
@@ -309,6 +293,7 @@ public class PanelDerrota extends JPanel implements ActionListener {
 			marco.setVisible(true);
 		}
 	}
+
 	private void ReproducirSonido() {
 
 		try {
@@ -320,9 +305,9 @@ public class PanelDerrota extends JPanel implements ActionListener {
 		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
 			System.out.println("Error al reproducir el sonido.");
 		}
-		
+
 	}
-	
+
 	private void musicaMenu() {
 
 		try {
@@ -334,9 +319,9 @@ public class PanelDerrota extends JPanel implements ActionListener {
 		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
 			System.out.println("Error al reproducir el sonido.");
 		}
-		
+
 	}
-	
+
 	private void PararSonido() {
 
 		try {
@@ -349,6 +334,6 @@ public class PanelDerrota extends JPanel implements ActionListener {
 		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
 			System.out.println("Error al reproducir el sonido.");
 		}
-		
+
 	}
 }

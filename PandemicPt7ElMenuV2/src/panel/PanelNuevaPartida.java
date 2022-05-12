@@ -30,28 +30,15 @@ import org.xml.sax.SAXException;
 
 public class PanelNuevaPartida extends JPanel implements ActionListener {
 	// Botones principales
-	JButton boton1;
-	JButton boton2;
-	JButton boton3;
+	JButton boton1, boton2, boton3;
 	// Las vacunas
-	JButton vacunaAzul;
-	JButton vacunaAmarilla;
-	JButton vacunaRoja;
-	JButton vacunaVerde;
-	JButton vacunaGris;
+	JButton vacunaAzul, vacunaAmarilla, vacunaRoja, vacunaVerde, vacunaGris;
 	// Botones Miscelanea
-	JButton guardar;
-	JButton salir;
+	JButton guardar, salir;
 	// Recuadros
-	JTextArea recuadroInfo;
-	JTextArea recuadroInfo2;
-	JTextArea mostrarInfeccion;
-	JTextArea mostrarBrotes;
-	//Acciones
-	JButton accion1;
-	JButton accion2;
-	JButton accion3;
-	JButton accion4;
+	JTextArea recuadroInfo, recuadroInfo2, mostrarInfeccion, mostrarBrotes;
+	// Acciones
+	JButton accion1, accion2, accion3, accion4;
 	int contadorAccion = 4;
 	// Arrays para calculos
 	static ArrayList<Ciudades> ciudades = new ArrayList<>();
@@ -60,58 +47,36 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	static ArrayList<String> coordenadas = new ArrayList<>();
 	// Random
 	static Random rn = new Random();
-	int rd = 0;
-	int rd2 = 0;
-	static int partidas = 0;
-	static int ronda = 0;
-	static int victorias = 0;
+	int rd = 0, rd2 = 0;
+	static int partidas = 0, ronda = 0, victorias = 0;
 	// Slots guardado
-	JButton slot1;
-	JButton slot2;
-	JButton slot3;
+	JButton slot1, slot2, slot3;
 	// Variables para calculos
 	static int indice = 0;
-	int vacunas = 4;
-	static String guardarCol;
-	static String mantener[] = new String[48];
-	int brote;
-	int infeccionAmarilla = 0;
-	int infeccionAzul = 0;
-	int infeccionVerde = 0;
-	int infeccionRoja = 0;
-	int sumaTotal;
+	static String guardarCol, mantener[] = new String[48];
+	int vacunas = 4, brote, infeccionAmarilla = 0, infeccionAzul = 0, infeccionVerde = 0, infeccionRoja = 0, sumaTotal;
 	String[] conservarRonda = new String[48];
-	
+
 	Image Mapa;
 
 	// BOOLEAN PARA ACTIVAR O DESACTIVAR LAS VACUNAS
-	static boolean azulb = false;
-	static boolean amarillab = false;
-	static boolean rojab = false;
-	static boolean verdeb = false;
-	static boolean grisb = false;
+	static boolean azulb = false, amarillab = false, rojab = false, verdeb = false, grisb = false;
 	int vacunaEncontrada = 0;
 	// Guardado Valores XML
-	static int infectadasInicio;
-	static int infectadasRonda;
-	static int infeccionDerrota;
-	static int InfeccionPerder;
+	static int infectadasInicio, infectadasRonda, infeccionDerrota, InfeccionPerder;
 	// Conexion BD
-	private static final String USER = "PND_QALQO";
-	private static final String PWD = "TYX1234";
-	private static final String URL = "jdbc:oracle:thin:@192.168.3.26:1521:xe";
+	private static final String USER = "PND_QALQO", PWD = "TYX1234", URL = "jdbc:oracle:thin:@192.168.3.26:1521:xe";
 	public static int cargado;
 
 	// Fuentes
-	Font fuente1;
-	Font fuente2;
+	Font fuente1, fuente2;
 
 	PanelNuevaPartida() throws ParserConfigurationException, SAXException {
 		setLayout(null);
-		Image im = Toolkit.getDefaultToolkit().createImage("imagenes//cursorDefecto.png");
-		Image im2 = Toolkit.getDefaultToolkit().createImage("imagenes//cursorHover.png");
-		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10, 10), "WILL");
-		Cursor cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10, 10), "WILL");
+		Image im = Toolkit.getDefaultToolkit().createImage("imagenes//cursorDefecto.png"),
+				im2 = Toolkit.getDefaultToolkit().createImage("imagenes//cursorHover.png");
+		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10, 10), "WILL"),
+				cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10, 10), "WILL");
 		setCursor(cur);
 		partidas++;
 		partidaJugada(makeConnection());
@@ -387,7 +352,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		accion2.setIcon(null);
 		accion3.setIcon(null);
 		accion4.setIcon(null);
-		
+
 		acciones(contadorAccion);
 		vacunas();
 		Mapeo();
@@ -495,6 +460,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		recuadroInfo.setVisible(true);
 	}
 
+	// <-- BROTES -->
 	public void brote() {
 
 		for (int i = 0; i < 48; i++) {
@@ -583,10 +549,9 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	}
 
 	public void buscarVacuna() {
-		int rda = 0;
-		int rdam = 0;
-		int rdv = 0;
-		int rdr = 0;
+
+		// <-- VARIABLES -->
+		int rda = 0, rdam = 0, rdv = 0, rdr = 0;
 		rda = rn.nextInt(100) + 1;
 		rdam = rn.nextInt(100) + 1;
 		rdv = rn.nextInt(100) + 1;
@@ -788,9 +753,9 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 
 		}
 	}
-	
-	public void derrota(){
-		
+
+	public void derrota() {
+
 		if (brote >= InfeccionPerder) {
 			JFrame marco = (JFrame) SwingUtilities.getWindowAncestor(this);
 			marco.remove(this);
@@ -805,7 +770,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			for (int i = 0; i < ciudades.size(); i++) {
 				ciudades.removeAll(ciudades);
 			}
-			
+
 			azulb = false;
 			amarillab = false;
 			verdeb = false;
@@ -825,7 +790,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			for (int i = 0; i < ciudades.size(); i++) {
 				ciudades.removeAll(ciudades);
 			}
-			
+
 			azulb = false;
 			amarillab = false;
 			verdeb = false;
@@ -841,8 +806,9 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	public void puntosVictoria(Connection con) {
 		System.out.println(victorias);
 		try {
-			String sql = "UPDATE USUARIO" + " SET puntos = '" + victorias + "' WHERE USUARIO = '" + Login.guardarUsuario + "'";
-			
+			String sql = "UPDATE USUARIO" + " SET puntos = '" + victorias + "' WHERE USUARIO = '" + Login.guardarUsuario
+					+ "'";
+
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(sql);
 
@@ -852,12 +818,13 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			e1.printStackTrace();
 		}
 	}
-	
+
 	public void rondasSobrevividas(Connection con) {
-		
+
 		try {
-			String sql = "UPDATE USUARIO" + " SET rondas_sobrevividas = '" + ronda + "'WHERE USUARIO = '" + Login.guardarUsuario + "'";
-			
+			String sql = "UPDATE USUARIO" + " SET rondas_sobrevividas = '" + ronda + "'WHERE USUARIO = '"
+					+ Login.guardarUsuario + "'";
+
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(sql);
 
@@ -867,12 +834,13 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 			e1.printStackTrace();
 		}
 	}
-	
+
 	public void partidaJugada(Connection con) {
-		
+
 		try {
-			String sql = "UPDATE USUARIO SET partidas = '" + partidas + "'WHERE USUARIO = '" + Login.guardarUsuario + "'";
-			
+			String sql = "UPDATE USUARIO SET partidas = '" + partidas + "'WHERE USUARIO = '" + Login.guardarUsuario
+					+ "'";
+
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(sql);
 
@@ -1180,11 +1148,8 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 	}
 
 	public static void insertWithStatement(Connection con, int slot) {
-
-		int azul = 0;
-		int roja = 0;
-		int amarilla = 0;
-		int verde = 0;
+		// <-- VARIABLES -->
+		int azul = 0, roja = 0, amarilla = 0, verde = 0;
 
 		if (azulb == true) {
 			azul = 1;
@@ -1198,14 +1163,6 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 		if (verdeb == true) {
 			verde = 1;
 		}
-
-		System.out.println(Login.guardarUsuario);
-		System.out.println(ronda);
-		System.out.println(azul);
-		System.out.println(amarilla);
-		System.out.println(roja);
-		System.out.println(verde);
-
 
 		for (int i = 0; i < 48; i++) {
 			String sql = "UPDATE INFO_CIUDADES SET CIUDAD" + i + " = CIUDAD('" + ciudades.get(i).getNombre() + "','"
@@ -1221,7 +1178,7 @@ public class PanelNuevaPartida extends JPanel implements ActionListener {
 				System.out.println("Ha habído un error:" + e);
 			}
 		}
-		
+
 		String sql = "UPDATE PARTIDA SET NUM_RONDAS = " + ronda + ", FECHA_PARTIDA = SYSDATE, V_AZUL = " + azul
 				+ ", V_AMARILLA =  " + amarilla + ", V_ROJA = " + roja + ", V_VERDE = " + verde
 				+ "WHERE NOMBRE_USUARIO = '" + Login.guardarUsuario + "' AND ID_PARTIDA = " + slot + "" + "";

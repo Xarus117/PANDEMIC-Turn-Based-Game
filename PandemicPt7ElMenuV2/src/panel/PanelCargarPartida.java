@@ -24,34 +24,28 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
 public class PanelCargarPartida extends JPanel implements ActionListener {
-	JButton slot1;
-	JButton slot2;
-	JButton slot3;
-	JButton volver;
-
+	// <-- VARIABLE -->
+	JButton slot1, slot2, slot3, volver;
 	JLabel nombre1, nombre2, nombre3, vacuna1, vacuna2, vacuna3, fecha1, fecha2, fecha3;
-
 	Image image, Logo;
 
-	static String guardarUsuario;
-	static String guardarPass;
+	static String guardarUsuario, guardarPass;
 	String mensajeError;
 	int numeroError;
 
-	private static final String USER = "PND_QALQO";
-	private static final String PWD = "TYX1234";
-	private static final String URL = "jdbc:oracle:thin:@192.168.3.26:1521:xe";
+	private static final String USER = "PND_QALQO", PWD = "TYX1234", URL = "jdbc:oracle:thin:@192.168.3.26:1521:xe";
 
 	boolean continuar = false;
 
 	PanelCargarPartida() {
 		setLayout(null);
-		Image im = Toolkit.getDefaultToolkit().createImage("imagenes//cursorDefecto.png");
-		Image im2 = Toolkit.getDefaultToolkit().createImage("imagenes//cursorHover.png");
-		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10, 10), "WILL");
-		Cursor cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10, 10), "WILL");
+		Image im = Toolkit.getDefaultToolkit().createImage("imagenes//cursorDefecto.png"),
+				im2 = Toolkit.getDefaultToolkit().createImage("imagenes//cursorHover.png");
+		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10, 10), "WILL"),
+				cur2 = Toolkit.getDefaultToolkit().createCustomCursor(im2, new Point(10, 10), "WILL");
 		setCursor(cur);
 
+		//<--BUTTON CARGAR PARTIDA 1-->
 		slot1 = new JButton();
 		slot1.setIcon(null);
 		slot1.setSize(525, 150);
@@ -75,6 +69,7 @@ public class PanelCargarPartida extends JPanel implements ActionListener {
 			slot1.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//Slots1.png"))));
 		} catch (IOException e2) {
 		}
+		//<--BUTTON CARGAR PARTIDA 2-->
 		slot2 = new JButton();
 		slot2.setIcon(null);
 		slot2.setSize(525, 150);
@@ -98,6 +93,7 @@ public class PanelCargarPartida extends JPanel implements ActionListener {
 			slot2.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//Slots2.png"))));
 		} catch (IOException e2) {
 		}
+		//<--BUTTON CARGAR PARTIDA 3-->
 		slot3 = new JButton();
 		slot3.setIcon(null);
 		slot3.setSize(525, 150);
@@ -121,6 +117,7 @@ public class PanelCargarPartida extends JPanel implements ActionListener {
 			slot3.setIcon(new ImageIcon(ImageIO.read(new File("Imagenes//Slots3.png"))));
 		} catch (IOException e2) {
 		}
+		//<--BUTTON VOLVER-->
 		volver = new JButton("Volver");
 		volver.setSize(200, 50);
 		volver.setLocation(550, 820);
@@ -140,7 +137,7 @@ public class PanelCargarPartida extends JPanel implements ActionListener {
 				setCursor(cur);
 			}
 		});
-
+		//<--QUIEN Y CUANDO SE GUARDO-->
 		nombre1 = new JLabel(Login.guardarUsuario);
 		nombre1.setSize(100, 30);
 		nombre1.setLocation(430, 360);
