@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<parametros>
+    <numCiudadesInfectadasInicioFacil>5</numCiudadesInfectadasInicioFacil>
+    <numCuidadesInfectadasRondaFacil>5</numCuidadesInfectadasRondaFacil>
+    <numEnfermedadesActivasDerrotaFacil>80</numEnfermedadesActivasDerrotaFacil>
+    <numBrotesDerrotaFacil>7</numBrotesDerrotaFacil>
+    
+     <numCiudadesInfectadasInicioNormal>7</numCiudadesInfectadasInicioNormal>
+    <numCuidadesInfectadasRondaNormal>7</numCuidadesInfectadasRondaNormal>
+    <numEnfermedadesActivasDerrotaNormal>80</numEnfermedadesActivasDerrotaNormal>
+    <numBrotesDerrotaNormal>5</numBrotesDerrotaNormal>
+</parametros>
